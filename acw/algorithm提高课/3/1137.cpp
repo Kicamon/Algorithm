@@ -24,112 +24,74 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 0;
-const int N = 25010, M = 15e4 + 10;
+const int N = 1010, M = 41010;
 #define ai2 array<int, 2>
 
-int T, R, P, S;
+int n, m, s;
 int e[M], ne[M], w[M], h[N], idx;
-int id[N], bcnt;
-vint b[N];
-int it[N];
-int dist[N];
-queue<int> q;
-bool vis[N];
 
 void add(int a, int b, int c)
 {
     e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
 }
 
-void dfs(int u, int bid)
-{
-    id[u] = bid, b[bid].pb(u);
+int dist[N];
+bool vis[N];
 
-    for (int i = h[u]; ~i; i = ne[i])
-    {
-        int j = e[i];
-        if (!id[j])
-            dfs(j, bid);
-    }
-}
-
-void dijkstra(int u)
-{
-    priority_queue<ai2, vector<ai2>, greater<ai2>> p;
-    for (int x : b[u])
-        p.push({dist[x], x});
-
-    while (!p.empty())
-    {
-        auto t = p.top();
-        p.pop();
-        if (vis[t[1]])
-            continue;
-        vis[t[1]] = true;
-
-        for (int i = h[t[1]]; ~i; i = ne[i])
-        {
-            int j = e[i];
-            if (id[j] != id[t[1]] && --it[id[j]] == 0)
-                q.push(id[j]);
-            if (dist[j] > dist[t[1]] + w[i])
-            {
-                dist[j] = dist[t[1]] + w[i];
-                if (id[j] == id[t[1]])
-                    p.push({dist[j], j});
-            }
-        }
-    }
-}
-
-void topsort()
+int spfa()
 {
     memset(dist, 0x3f, sizeof dist);
-    dist[S] = 0;
-    for (int i = 1; i <= bcnt; ++i)
-        if (it[i] == 0)
-            q.push(i);
+    memset(vis, 0, sizeof vis);
+    queue<int> q;
+    q.push(0);
+    dist[0] = 0;
+    vis[0] = true;
+
     while (!q.empty())
     {
         int t = q.front();
         q.pop();
-        dijkstra(t);
+        vis[t] = false;
+
+        for (int i = h[t]; ~i; i = ne[i])
+        {
+            int j = e[i];
+            if (dist[j] > dist[t] + w[i])
+            {
+                dist[j] = dist[t] + w[i];
+                if (!vis[j])
+                {
+                    q.push(j);
+                    vis[j] = true;
+                }
+            }
+        }
     }
+    if (dist[s] == 0x3f3f3f3f)
+        dist[s] = -1;
+    return dist[s];
 }
 
 void solve()
 {
     memset(h, -1, sizeof h);
-    cin >> T >> R >> P >> S;
-    int a, b, c;
-    while (R--)
+    idx = 0;
+    while (m--)
     {
-        cin >> a >> b >> c;
-        add(a, b, c), add(b, a, c);
-    }
-
-    for (int i = 1; i <= T; ++i)
-        if (!id[i])
-        {
-            bcnt++;
-            dfs(i, bcnt);
-        }
-
-    while (P--)
-    {
+        int a, b, c;
         cin >> a >> b >> c;
         add(a, b, c);
-        it[id[b]]++;
+    }
+    int k;
+    cin >> k;
+    while (k--)
+    {
+        int a;
+        cin >> a;
+        add(0, a, 0);
     }
 
-    topsort();
-
-    for (int i = 1; i <= T; ++i)
-        if (dist[i] >= 0x3f3f3f3f >> 1)
-            cout << "NO PATH\n";
-        else
-            cout << dist[i] << endl;
+    cout << spfa() << endl;
 }
 
 signed main()
@@ -140,10 +102,7 @@ signed main()
     // clock_t start, finish;
     // start = clock();
 
-    int t = 1;
-    if (input)
-        cin >> t;
-    while (t--)
+    while (cin >> n >> m >> s)
         solve();
 
     // finish = clock();

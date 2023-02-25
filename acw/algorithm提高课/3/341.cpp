@@ -25,111 +25,88 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
-const int N = 25010, M = 15e4 + 10;
-#define ai2 array<int, 2>
+const int N = 1e5 + 10, M = 2e6 + 10;
 
-int T, R, P, S;
-int e[M], ne[M], w[M], h[N], idx;
-int id[N], bcnt;
-vint b[N];
-int it[N];
-int dist[N];
-queue<int> q;
+int n, m;
+int w[N];
+int e[M], ne[M], h[N], rh[N], idx;
+int dmin[N], dmax[N];
 bool vis[N];
+int q[N];
 
-void add(int a, int b, int c)
+void add(int *h, int a, int b)
 {
-    e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
 }
 
-void dfs(int u, int bid)
+void spfa(int *h, int *dist, int type)
 {
-    id[u] = bid, b[bid].pb(u);
-
-    for (int i = h[u]; ~i; i = ne[i])
+    int hh = 0, tt = 1;
+    if (type == 0)
     {
-        int j = e[i];
-        if (!id[j])
-            dfs(j, bid);
+        memset(dist, 0x3f, sizeof dmin);
+        dist[1] = w[1];
+        q[0] = 1;
     }
-}
-
-void dijkstra(int u)
-{
-    priority_queue<ai2, vector<ai2>, greater<ai2>> p;
-    for (int x : b[u])
-        p.push({dist[x], x});
-
-    while (!p.empty())
+    else
     {
-        auto t = p.top();
-        p.pop();
-        if (vis[t[1]])
-            continue;
-        vis[t[1]] = true;
+        memset(dist, -0x3f, sizeof dmax);
+        dist[n] = w[n];
+        q[0] = n;
+    }
 
-        for (int i = h[t[1]]; ~i; i = ne[i])
+    while (hh != tt)
+    {
+        int t = q[hh++];
+        if (hh == N)
+            hh = 0;
+
+        vis[t] = false;
+        for (int i = h[t]; ~i; i = ne[i])
         {
             int j = e[i];
-            if (id[j] != id[t[1]] && --it[id[j]] == 0)
-                q.push(id[j]);
-            if (dist[j] > dist[t[1]] + w[i])
+            if ((type == 0 && dist[j] > min(dist[t], w[j])) || (type == 1 && dist[j] < max(dist[t], w[j])))
             {
-                dist[j] = dist[t[1]] + w[i];
-                if (id[j] == id[t[1]])
-                    p.push({dist[j], j});
+                if (type == 0)
+                    dist[j] = min(dist[t], w[j]);
+                else
+                    dist[j] = max(dist[t], w[j]);
+
+                if (!vis[j])
+                {
+                    q[tt++] = j;
+                    if (tt == N)
+                        tt = 0;
+                    vis[j] = true;
+                }
             }
         }
-    }
-}
-
-void topsort()
-{
-    memset(dist, 0x3f, sizeof dist);
-    dist[S] = 0;
-    for (int i = 1; i <= bcnt; ++i)
-        if (it[i] == 0)
-            q.push(i);
-    while (!q.empty())
-    {
-        int t = q.front();
-        q.pop();
-        dijkstra(t);
     }
 }
 
 void solve()
 {
     memset(h, -1, sizeof h);
-    cin >> T >> R >> P >> S;
-    int a, b, c;
-    while (R--)
+    memset(rh, -1, sizeof rh);
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; ++i)
+        scanf("%d", &w[i]);
+    while (m--)
     {
-        cin >> a >> b >> c;
-        add(a, b, c), add(b, a, c);
+        int a, b, c;
+        scanf("%d%d%d", &a, &b, &c);
+        add(h, a, b), add(rh, b, a);
+        if (c == 2)
+            add(h, b, a), add(rh, a, b);
     }
 
-    for (int i = 1; i <= T; ++i)
-        if (!id[i])
-        {
-            bcnt++;
-            dfs(i, bcnt);
-        }
+    spfa(h, dmin, 0);
+    spfa(rh, dmax, 1);
 
-    while (P--)
-    {
-        cin >> a >> b >> c;
-        add(a, b, c);
-        it[id[b]]++;
-    }
-
-    topsort();
-
-    for (int i = 1; i <= T; ++i)
-        if (dist[i] >= 0x3f3f3f3f >> 1)
-            cout << "NO PATH\n";
-        else
-            cout << dist[i] << endl;
+    int res = 0;
+    for (int i = 1; i <= n; ++i)
+        res = max(res, dmax[i] - dmin[i]);
+    printf("%d\n", res);
 }
 
 signed main()
