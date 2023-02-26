@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,23 +24,40 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+    int num[4]{};
+    string s;
+    cin >> s;
+    for (int i = 0; i < (int)s.size(); ++i)
+    {
+        if (s[i] == 'G' || s[i] == 'g')
+            num[0]++;
+        else if (s[i] == 'P' || s[i] == 'p')
+            num[1]++;
+        else if (s[i] == 'L' || s[i] == 'l')
+            num[2]++;
+        else if (s[i] == 'T' || s[i] == 't')
+            num[3]++;
+    }
+    char C[4]{'G', 'P', 'L', 'T'};
+    int t = num[0] + num[1] + num[2] + num[3];
+    while (t)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            if (num[i])
+            {
+                cout << C[i];
+                num[i]--;
+                t--;
+            }
+        }
+        if (num[0] + num[1] + num[2] + num[3] == 0)
+            break;
+    }
 }
 
 signed main()

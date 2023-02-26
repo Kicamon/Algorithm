@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,23 +24,36 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+    int n, m, k;
+    cin >> n >> m >> k;
+    int A = 0, B = 0;
+    vint a(k), b(k), c(k), d(k);
+    for (int i = 0; i < k; ++i)
+        cin >> a[i] >> b[i] >> c[i] >> d[i];
+    for (int i = 0; i < k; ++i)
+    {
+        if (b[i] == d[i])
+            continue;
+        int p = a[i] + c[i];
+        A += (p == b[i]);
+        B += (p == d[i]);
+        if (A > n)
+        {
+            cout << 'A' << endl;
+            cout << B << endl;
+            return;
+        }
+        if (B > m)
+        {
+            cout << 'B' << endl;
+            cout << A << endl;
+            return;
+        }
+    }
 }
 
 signed main()

@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,30 +24,29 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
+    string s;
+    cin >> s;
+    int a = (s[0] - '0') * 10 + (s[1] - '0');
+    int b = (s[3] - '0') * 10 + (s[4] - '0');
+    if (a < 12 || (a == 12 && b == 0))
+        printf("Only %c%c:%c%c.  Too early to Dang.", s[0], s[1], s[3], s[4]);
     else
-        cout << "YES" << endl;
+    {
+        a -= 12;
+        for (int i = 0; i < a; ++i)
+            cout << "Dang";
+        if (b)
+            cout << "Dang";
+        cout << endl;
+    }
 }
 
 signed main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
     // clock_t start, finish;
     // start = clock();
 

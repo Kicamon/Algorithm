@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,30 +24,27 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
 
 void solve()
 {
-    int n;
+    string n;
     cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+    int len = n.size();
+    int num = 0;
+    for (int i = 0; i < len; ++i)
+        if (n[i] == '2')
+            num++;
+    double t = 1;
+    if (((n[len - 1] - '0') & 1) == 0)
+        t *= 2;
+    if (n[0] == '-')
+        t *= 1.5, len--;
+    printf("%.2lf%\n", 1.0 * num / len * t * 100);
 }
 
 signed main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
     // clock_t start, finish;
     // start = clock();
 

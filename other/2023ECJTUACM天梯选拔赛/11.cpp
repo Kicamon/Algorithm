@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,23 +24,51 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
+const int N = 35;
+
+int a[N], b[N], p[N];
+int l[N], r[N];
+int n;
+
+int build(int al, int ar, int bl, int br, int u)
+{
+    if (bl > br)
+        return 0;
+    int val = b[br];
+    int k = p[val];
+    l[val] = build(al, k - 1, bl + k - al, bl - 1, u + 1);
+    r[val] = build(k + 1, ar, bl, bl + k - 1 - al, u + 1);
+    return val;
+}
+
+void bfs()
+{
+    queue<int> q;
+    q.push(b[n - 1]);
+    while (q.size())
+    {
+        int t = q.front();
+        q.pop();
+        cout << t << ' ';
+        if (l[t])
+            q.push(l[t]);
+        if (r[t])
+            q.push(r[t]);
+    }
+}
 
 void solve()
 {
-    int n;
     cin >> n;
-    vint a(n);
     for (int i = 0; i < n; ++i)
         cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+    for (int i = 0; i < n; ++i)
+        cin >> b[i];
+    for (int i = 0; i < n; ++i)
+        p[a[i]] = i;
+    build(0, n - 1, 0, n - 1, 0);
+    bfs();
 }
 
 signed main()

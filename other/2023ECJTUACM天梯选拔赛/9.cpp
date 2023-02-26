@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
@@ -24,30 +24,37 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+int input = 0;
+#define ai3 array<int, 3>
 
 void solve()
 {
     int n;
     cin >> n;
-    vint a(n);
+    vector<ai3> p(n);
+    for (int i = 0, k; i < n; ++i)
+    {
+        p[i][2] = i + 1;
+        cin >> k;
+        int a, b;
+        while (k--)
+        {
+            cin >> a >> b;
+            p[a - 1][1]++, p[a - 1][0] += b;
+            p[i][0] -= b;
+        }
+    }
+    sort(all(p), [&](ai3 x, ai3 y) {
+        if (x[0] != y[0])
+            return x[0] > y[0];
+        return x[1] > y[1];
+    });
     for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+        printf("%d %.2lf\n", p[i][2], 1.0 * p[i][0] / 100);
 }
 
 signed main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
     // clock_t start, finish;
     // start = clock();
 

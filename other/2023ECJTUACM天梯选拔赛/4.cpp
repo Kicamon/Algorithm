@@ -14,51 +14,60 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
-#include <bits/stdc++.h>
-using namespace std;
-#define endl '\n'
-#define all(a) a.begin(), a.end()
-#define rall(a) a.rbegin(), a.rend()
-#define ll long long
-#define vint vector<int>
-#define pb push_back
-#define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
+// #pragma GCC optimize(2)
+#include <algorithm>
+#include <cstring>
+#include <iostream>
+#include <queue>
+#include <vector>
 
-void solve()
+using namespace std;
+
+const int N = 35;
+
+int n;
+int a[N], b[N], p[N];
+int l[N], r[N];
+
+int build(int al, int ar, int bl, int br, int d)
 {
-    int n;
-    cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int t = 0x3f3f3f3f;
-	for(int i = 0;i < n;++i)
-		for(int j = i + 1;j < n;++j)
-			t = min(t,__gcd(a[i],a[j]));
-    if (t > 2)
-        cout << "NO" << endl;
-    else
-        cout << "YES" << endl;
+    if (al > ar)
+        return 0;
+    int val = a[ar];
+    int k = p[val];
+    l[val] = build(al, al + k - 1 - bl, bl, k - 1, d + 1);
+    r[val] = build(al + k - bl, ar - 1, k + 1, br, d + 1);
+    return val;
 }
 
-signed main()
+void bfs()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+    queue<int> q;
+    q.push(a[n - 1]);
+    while (q.size())
+    {
+        int t = q.front();
+        q.pop();
+        cout << t << ' ';
+        if (l[t])
+            q.push(l[t]);
+        if (r[t])
+            q.push(r[t]);
+    }
+}
 
-    // clock_t start, finish;
-    // start = clock();
+int main()
+{
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+    for (int i = 0; i < n; i++)
+        p[b[i]] = i;
 
-    int t = 1;
-    if (input)
-        cin >> t;
-    while (t--)
-        solve();
-
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+    build(0, n - 1, 0, n - 1, 0);
+    bfs();
 
     return 0;
 }
