@@ -18,74 +18,76 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
-#define all(a) a.begin(),a.end()
-#define rall(a) a.rbegin(),a.rend()
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
 #define ll long long
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
+#define ai2 array<int, 2>
+const int inf = 0x3f3f3f3f;
 
-const int N = 10010,M = 1e8 + 10;
-
-int e[M], ne[M], h[N], idx;
-
-void add(int a, int b, int c)
-{
-    e[idx] = b, ne[idx] = h[a], w[idx] = c, h[a] = idx++;
-}
-
+const int N = 10010;
+vint w[N];
 bool vis[N];
-int dist[N];
-int spfa(int start, int end)
-{
-    memset(dist, 0x3f, sizeof dist);
-    dist[start] = 0;
 
-    queue<int> q;
-    q.push(start);
-    vis[start] = true;
+int bfs(int u)
+{
+    memset(vis, 0, sizeof vis);
+    queue<ai2> q;
+    q.push({0, u});
+    ai2 res = {0, inf};
     while (!q.empty())
     {
-        int t = q.front();
+        auto t = q.front();
         q.pop();
-        vis[t] = false;
-        for (int i = h[t]; ~i; i = ne[i])
-        {
-            int j = e[i];
-            if (dist[j] > dist[t] + w[i])
-            {
-                dist[j] = dist[t] + w[i];
-                if (!vis[j])
-                {
-                    q.push(j);
-                    vis[j] = true;
-                }
-            }
-        }
+        if (vis[t[1]])
+            continue;
+        vis[t[1]] = true;
+        if (t[0] > res[0] || t[1] < res[1])
+            res = t;
+
+        for (int x : w[t[1]])
+            q.push({t[0] + 1, x});
     }
 
-    return dist[end];
+    if (res[1] == u)
+        res[1] = 0;
+    return res[1];
 }
 
 void solve()
 {
-	
+    int n, m, k;
+    cin >> n >> m >> k;
+    while (m--)
+    {
+        int a, b;
+        cin >> a >> b;
+        w[a].pb(b), w[b].pb(a);
+    }
+    while (k--)
+    {
+        int a;
+        cin >> a;
+        cout << bfs(a) << endl;
+    }
 }
 
 signed main()
 {
-    //clock_t start, finish;
-    //start = clock();
-    
-	int t = 1;
-	if(input)
-		cin >> t;
-	while(t--)
-		solve();
-    
-    //finish = clock();
-    //cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
-    
+    // clock_t start, finish;
+    // start = clock();
+
+    int t = 1;
+    if (input)
+        cin >> t;
+    while (t--)
+        solve();
+
+    // finish = clock();
+    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+
     return 0;
 }
