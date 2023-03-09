@@ -19,12 +19,12 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-//#pragma GCC optimize(2)
+// #pragma GCC optimize(2)
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
-#define all(a) a.begin(),a.end()
-#define rall(a) a.rbegin(),a.rend()
+#define all(a) a.begin(), a.end()
+#define rall(a) a.rbegin(), a.rend()
 #define ll long long
 #define vint vector<int>
 #define pb push_back
@@ -40,19 +40,19 @@ signed main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0);
-	
-    //clock_t start, finish;
-    //start = clock();
-    
-	int t = 1;
-	if(input)
-		cin >> t;
-	while(t--)
-		solve();
-    
-    //finish = clock();
-    //cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
-    
+
+    // clock_t start, finish;
+    // start = clock();
+
+    int t = 1;
+    if (input)
+        cin >> t;
+    while (t--)
+        solve();
+
+    // finish = clock();
+    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+
     return 0;
 }
 ```
@@ -73,19 +73,22 @@ cin.tie(0);
 `非负整数快读`
 
 ```c++
-int read(){
-	int f=1,k=0;//f是正负号,k用来将字符转换成数字
-	char c=getchar();//读入一个字符 
-	//非数字 
-	while(c<'0'||c>'9'){//读到空格后
-		c=getchar();//读入空格等。 
-	}
-	//数字 
-	while(c>='0'&&c<='9'){
-		k=k*10+c-'0';
-		c=getchar();//一位一位读入数字 
-	}
-	return f*k;
+int read()
+{
+    int f = 1, k = 0;
+    char c = getchar();
+    // 非数字
+    while (c < '0' || c > '9')
+    {
+        c = getchar();
+    }
+    // 数字
+    while (c >= '0' && c <= '9')
+    {
+        k = k * 10 + c - '0';
+        c = getchar();
+    }
+    return f * k;
 }
 ```
 
@@ -586,11 +589,11 @@ template <class T> struct DDS
 template <class T> struct BIT
 {
     int size;
-	vector<T> c;
-	BIT(int n): c(n + 1)
-	{
-		size = n;
-	};
+    vector<T> c;
+    BIT(int n) : c(n + 1)
+    {
+        size = n;
+    };
     void resize(int x)
     {
         size = x;
@@ -672,107 +675,107 @@ template <class T> struct BIT
 
 ```c++
 // 线段树的信息
-const int N = 2e5 + 10,mod = 1e9 + 7;
+const int N = 2e5 + 10, mod = 1e9 + 7;
 int a[N];
 struct info // 存储线段树的值
 {
-	int size;
-	int num;
+    int size;
+    int num;
 };
 
 struct tag // 存储线段树的懒标记
 {
-	int add;
-	int mul;
+    int add;
+    int mul;
 };
 
 struct Node // 线段树
 {
-	info val;
-	tag lazy;
-}tr[N << 2];
+    info val;
+    tag lazy;
+} tr[N << 2];
 int st_size; // 线段树的总区间大小
 
 // 线段树的具体操作
-info operator + (const info &l,const info &r) // pushup的操作
+info operator+(const info &l, const info &r) // pushup的操作
 {
-	info c;
-	c.size = l.size + r.size;
-	c.num = (1ll * l.num + r.num) % mod;
-	return c;
+    info c;
+    c.size = l.size + r.size;
+    c.num = (1ll * l.num + r.num) % mod;
+    return c;
 }
 
-info operator + (const info &v,const tag &t) // pushdown时，对子节点info的操作
+info operator+(const info &v, const tag &t) // pushdown时，对子节点info的操作
 {
-	info c;
-	c.size = v.size;
-	c.num = (1ll * v.num * t.mul + 1ll * v.size * t.add) % mod;
-	return c;
+    info c;
+    c.size = v.size;
+    c.num = (1ll * v.num * t.mul + 1ll * v.size * t.add) % mod;
+    return c;
 }
 
-tag operator + (const tag &ts,const tag &tp) // pushdown时，对子节点tag的操作
+tag operator+(const tag &ts, const tag &tp) // pushdown时，对子节点tag的操作
 {
-	tag c;
-	c.add = (1ll * ts.add * tp.mul + tp.add) % mod;
-	c.mul = 1ll * ts.mul * tp.mul % mod;
-	return c;
+    tag c;
+    c.add = (1ll * ts.add * tp.mul + tp.add) % mod;
+    c.mul = 1ll * ts.mul * tp.mul % mod;
+    return c;
 }
 
 void pushup(int u)
 {
-	tr[u].val = tr[u << 1].val + tr[u << 1 | 1].val;
+    tr[u].val = tr[u << 1].val + tr[u << 1 | 1].val;
 }
 
 void pushdown(int u)
 {
-	Node &t = tr[u],&l = tr[u << 1],&r = tr[u << 1 | 1];
-	l.val = l.val + t.lazy,l.lazy = l.lazy + t.lazy;
-	r.val = r.val + t.lazy,r.lazy = r.lazy + t.lazy;
-	t.lazy = {0,1};
+    Node &t = tr[u], &l = tr[u << 1], &r = tr[u << 1 | 1];
+    l.val = l.val + t.lazy, l.lazy = l.lazy + t.lazy;
+    r.val = r.val + t.lazy, r.lazy = r.lazy + t.lazy;
+    t.lazy = {0, 1};
 }
 
 void build(int u = 1, int l = 1, int r = st_size)
 {
-	if (l == r)
-	{
-		tr[u] = {r - l + 1, a[l], 0, 1};
-		return;
-	}
-	tr[u] = {r - l + 1, 0, 0, 1};
-	int mid = l + r >> 1;
-	build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
-	pushup(u);
+    if (l == r)
+    {
+        tr[u] = {r - l + 1, a[l], 0, 1};
+        return;
+    }
+    tr[u] = {r - l + 1, 0, 0, 1};
+    int mid = l + r >> 1;
+    build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+    pushup(u);
 }
 
-void modify(int u, int l, int r,tag c, int pl = 1, int pr = st_size)
+void modify(int u, int l, int r, tag c, int pl = 1, int pr = st_size)
 {
-	if (l <= pl && pr <= r)
-	{
-		tr[u].val = tr[u].val + c;
-		tr[u].lazy = tr[u].lazy + c;
-		return;
-	}
-	pushdown(u);
-	int mid = pl + pr >> 1;
-	if (l <= mid)
-		modify(u << 1, l, r, c, pl, mid);
-	if (r > mid)
-		modify(u << 1 | 1, l, r, c, mid + 1, pr);
-	pushup(u);
+    if (l <= pl && pr <= r)
+    {
+        tr[u].val = tr[u].val + c;
+        tr[u].lazy = tr[u].lazy + c;
+        return;
+    }
+    pushdown(u);
+    int mid = pl + pr >> 1;
+    if (l <= mid)
+        modify(u << 1, l, r, c, pl, mid);
+    if (r > mid)
+        modify(u << 1 | 1, l, r, c, mid + 1, pr);
+    pushup(u);
 }
 
 int query(int u, int l, int r, int pl = 1, int pr = st_size)
 {
-	if (l <= pl && pr <= r)
-		return tr[u].val.num;
-	int mid = pl + pr >> 1;
-	pushdown(u);
-	int res = 0;
-	if (l <= mid)
-		res = (1ll * res + query(u << 1, l, r, pl, mid)) % mod;
-	if (r > mid)
-		res = (1ll * res + query(u << 1 | 1, l, r, mid + 1, pr)) % mod;
-	return res;
+    if (l <= pl && pr <= r)
+        return tr[u].val.num;
+    int mid = pl + pr >> 1;
+    pushdown(u);
+    int res = 0;
+    if (l <= mid)
+        res = (1ll * res + query(u << 1, l, r, pl, mid)) % mod;
+    if (r > mid)
+        res = (1ll * res + query(u << 1 | 1, l, r, mid + 1, pr)) % mod;
+    return res;
 }
 ```
 
@@ -783,121 +786,122 @@ int query(int u, int l, int r, int pl = 1, int pr = st_size)
 #### 基本模板
 
 ```c++
-template<class T> struct Splay
+template <class T> struct Splay
 {
-	struct Node
-	{
-		int s[2],p; //存储子节点和父节点
-		int v; //节点的编号
-		int size; //子树的大小
-		bool flag; //懒标记
+    struct Node
+    {
+        int s[2], p; // 存储子节点和父节点
+        int v;       // 节点的编号
+        int size;    // 子树的大小
+        bool flag;   // 懒标记
 
-		void init(int _v,int _p)
-		{
-			v = _v,p = _p;
-			size = 1;
-		}
-	} tr[N];
-	int root,idx; // 根节点和节点下标
-	int size; // 序列的大小
+        void init(int _v, int _p)
+        {
+            v = _v, p = _p;
+            size = 1;
+        }
+    } tr[N];
+    int root, idx; // 根节点和节点下标
+    int size;      // 序列的大小
 
-	void pushup(int u)
-	{
-		tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1;
-	}
+    void pushup(int u)
+    {
+        tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1;
+    }
 
-	void pushdown(int u)
-	{
-		if(tr[u].flag)
-		{
-			// 执行操作
-			swap(tr[u].s[0],tr[u].s[1]);
-			// 对懒标记的操作
-			tr[tr[u].s[0]].flag ^= 1;
-			tr[tr[u].s[1]].flag ^= 1;
-			tr[u].flag = 0;
-		}
-	}
+    void pushdown(int u)
+    {
+        if (tr[u].flag)
+        {
+            // 执行操作
+            swap(tr[u].s[0], tr[u].s[1]);
+            // 对懒标记的操作
+            tr[tr[u].s[0]].flag ^= 1;
+            tr[tr[u].s[1]].flag ^= 1;
+            tr[u].flag = 0;
+        }
+    }
 
-	void rotate(int x) // 旋转操作，两种旋转在一个函数中完成
-	{
-		int y = tr[x].p,z = tr[y].p;// 找出当前节点x的父节点y和y的父节点z
-		int k = tr[y].s[1] == x; // k=1时，x为y的右儿子，k=0时，x为y的左儿子
-		tr[z].s[tr[z].s[1] == y] = x,tr[x].p = z;
-		tr[y].s[k] = tr[x].s[k ^ 1],tr[tr[x].s[k ^ 1]].p = y;
-		tr[x].s[k ^ 1] = y,tr[y].p = x;
-		pushup(y),pushup(x);
-	}
+    void rotate(int x) // 旋转操作，两种旋转在一个函数中完成
+    {
+        int y = tr[x].p, z = tr[y].p; // 找出当前节点x的父节点y和y的父节点z
+        int k = tr[y].s[1] == x;      // k=1时，x为y的右儿子，k=0时，x为y的左儿子
+        tr[z].s[tr[z].s[1] == y] = x, tr[x].p = z;
+        tr[y].s[k] = tr[x].s[k ^ 1], tr[tr[x].s[k ^ 1]].p = y;
+        tr[x].s[k ^ 1] = y, tr[y].p = x;
+        pushup(y), pushup(x);
+    }
 
-	void splay(int x,int k) // 将x转到k的下面，当k为0时，即将x转到根节点
-	{
-		while(tr[x].p != k)
-		{
-			int y = tr[x].p,z = tr[y].p;
-			if(z != k)
-				if((tr[y].s[1] == x) ^ (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
-					rotate(x);
-				else rotate(y); // xyz呈直线关系，先转y在转x
-			rotate(x);
-		}
-		if(!k) // k为0时，x转到根节点，则更新根节点
-			root = x;
-	}
+    void splay(int x, int k) // 将x转到k的下面，当k为0时，即将x转到根节点
+    {
+        while (tr[x].p != k)
+        {
+            int y = tr[x].p, z = tr[y].p;
+            if (z != k)
+                if ((tr[y].s[1] == x) ^ (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
+                    rotate(x);
+                else
+                    rotate(y); // xyz呈直线关系，先转y在转x
+            rotate(x);
+        }
+        if (!k) // k为0时，x转到根节点，则更新根节点
+            root = x;
+    }
 
-	void insert(int v)
-	{
-		int u = root,p = 0;
-		while(u)
-			p = u,u = tr[u].s[v > tr[u].v]; // 更新父节点，判断往左走还是往右走
-		u = ++idx; // 给插入的点分配下标
-		if(p) // 更新父节点的子节点
-			tr[p].s[v > tr[p].v] = u;
-		tr[u].init(v,p); // 初始化新建点的信息
-		splay(u, 0); // 将当前点旋转到根节点
-	}
+    void insert(int v)
+    {
+        int u = root, p = 0;
+        while (u)
+            p = u, u = tr[u].s[v > tr[u].v]; // 更新父节点，判断往左走还是往右走
+        u = ++idx;                           // 给插入的点分配下标
+        if (p)                               // 更新父节点的子节点
+            tr[p].s[v > tr[p].v] = u;
+        tr[u].init(v, p); // 初始化新建点的信息
+        splay(u, 0);      // 将当前点旋转到根节点
+    }
 
-	int get_k(int k) // 寻找中序遍历中的第k个数
-	{
-		int u = root;
-		while(true)
-		{
-			pushdown(u);
-			if(tr[tr[u].s[0]].size >= k) // 在左子树
-				u = tr[u].s[0];
-			else if(tr[tr[u].s[0]].size + 1 == k) // 是当前节点
-				return u;
-			else // 在右子树
-				k -= tr[tr[u].s[0]].size + 1,u = tr[u].s[1];
-		}
-		return -1;
-	}
+    int get_k(int k) // 寻找中序遍历中的第k个数
+    {
+        int u = root;
+        while (true)
+        {
+            pushdown(u);
+            if (tr[tr[u].s[0]].size >= k) // 在左子树
+                u = tr[u].s[0];
+            else if (tr[tr[u].s[0]].size + 1 == k) // 是当前节点
+                return u;
+            else // 在右子树
+                k -= tr[tr[u].s[0]].size + 1, u = tr[u].s[1];
+        }
+        return -1;
+    }
 
-	void output(int u) // 输出该splay
-	{
-		pushdown(u); // 先pushdown
-		if(tr[u].s[0]) // 如果存在左儿子就往左递归
-			output(tr[u].s[0]);
-		if(tr[u].v >= 1 && tr[u].v <= size) // 如果当前节点不是哨兵，就直接输出
-			cout << tr[u].v << ' ';
-		if(tr[u].s[1]) // 如果存在右儿子就往右递归
-			output(tr[u].s[1]);
-	}
+    void output(int u) // 输出该splay
+    {
+        pushdown(u);    // 先pushdown
+        if (tr[u].s[0]) // 如果存在左儿子就往左递归
+            output(tr[u].s[0]);
+        if (tr[u].v >= 1 && tr[u].v <= size) // 如果当前节点不是哨兵，就直接输出
+            cout << tr[u].v << ' ';
+        if (tr[u].s[1]) // 如果存在右儿子就往右递归
+            output(tr[u].s[1]);
+    }
 
-	void init(int n)
-	{
-		size = n;
-		for(int i = 0;i <= size + 1;++i) // 插入0和size + 1两个哨兵
-			insert(i);
-	}
+    void init(int n)
+    {
+        size = n;
+        for (int i = 0; i <= size + 1; ++i) // 插入0和size + 1两个哨兵
+            insert(i);
+    }
 
     // 具体的操作，根据实际情况改写
-	void op(int l,int r) 
-	{
-		l = get_k(l),r = get_k(r + 2);
-		splay(l, 0),splay(r, l);
-		tr[tr[r].s[0]].flag ^= 1;
-	}
-}; 
+    void op(int l, int r)
+    {
+        l = get_k(l), r = get_k(r + 2);
+        splay(l, 0), splay(r, l);
+        tr[tr[r].s[0]].flag ^= 1;
+    }
+};
 ```
 
 
@@ -909,49 +913,50 @@ template<class T> struct Splay
 ```c++
 struct Topsort
 {
-	int n,m;
-	int e[N],ne[N],h[N],idx;
-	int into[N];
-	int q[N];
+    int n, m;
+    int e[N], ne[N], h[N], idx;
+    int into[N];
+    int q[N];
 
-	void add(int a,int b)
-	{
-		e[idx] = b,ne[idx] = h[a],h[a] = idx++;
-	}
+    void add(int a, int b)
+    {
+        e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+    }
 
-	bool topsort()
-	{
-		int hh = 0,tt = 0;
-		for(int i = 1;i <= n;++i)
-			if(!into[i]) q[tt++] = i;
-		while(hh < tt)
-		{
-			int t = q[hh++];
-			for(int i = h[t];~i;i = ne[i])
-			{
-				int j = e[i];
-				into[j]--;
-				if(!into[j])
-					q[tt++] = j;
-			}
-		}
-		if(tt == n)
-			return true;
-		return false;
-	}
+    bool topsort()
+    {
+        int hh = 0, tt = 0;
+        for (int i = 1; i <= n; ++i)
+            if (!into[i])
+                q[tt++] = i;
+        while (hh < tt)
+        {
+            int t = q[hh++];
+            for (int i = h[t]; ~i; i = ne[i])
+            {
+                int j = e[i];
+                into[j]--;
+                if (!into[j])
+                    q[tt++] = j;
+            }
+        }
+        if (tt == n)
+            return true;
+        return false;
+    }
 
-	void init(int a, int b)
-	{
-		memset(h,-1,sizeof h);
-		n = a,m = b;
-		while(m--)
-		{
-			cin >> a >> b;
-			add(a,b);
-			into[b]++;
-		}
-		bool f = topsort();
-	}
+    void init(int a, int b)
+    {
+        memset(h, -1, sizeof h);
+        n = a, m = b;
+        while (m--)
+        {
+            cin >> a >> b;
+            add(a, b);
+            into[b]++;
+        }
+        bool f = topsort();
+    }
 };
 ```
 
@@ -1104,32 +1109,32 @@ bool spfa()
 ```c++
 struct Floyd
 {
-	const int inf = 0x3f3f3f3f;
-	int g[N][N];
-	int size;
-	Floyd(int n)
-	{
-		size = n;
-		for(int i = 1;i <= size;++i)
-			for(int j = 1;j <= size;++j)
-				if(i == j)
-					g[i][j] = 0;
-				else 
-					g[i][j] = inf;
-	}
+    const int inf = 0x3f3f3f3f;
+    int g[N][N];
+    int size;
+    Floyd(int n)
+    {
+        size = n;
+        for (int i = 1; i <= size; ++i)
+            for (int j = 1; j <= size; ++j)
+                if (i == j)
+                    g[i][j] = 0;
+                else
+                    g[i][j] = inf;
+    }
 
-	void change(int a,int b,int c)
-	{
-		g[a][b] = min(g[a][b],c);
-	}
+    void change(int a, int b, int c)
+    {
+        g[a][b] = min(g[a][b], c);
+    }
 
-	void floyd()
-	{
-		for(int k = 1;k <= size;++k)
-			for(int i = 1;i <= size;++i)
-				for(int j = 1;j <= size;++j)
-					g[i][j] = min(g[i][j],g[i][k] + g[k][j]);
-	}
+    void floyd()
+    {
+        for (int k = 1; k <= size; ++k)
+            for (int i = 1; i <= size; ++i)
+                for (int j = 1; j <= size; ++j)
+                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+    }
 };
 ```
 
@@ -1138,63 +1143,64 @@ struct Floyd
 ### Kruskal
 
 ```c++
-struct Kruskal 
+struct Kruskal
 {
-	struct node 
-	{
-		int a,b,c;
-		bool operator < (const node &v)
-		{
-			return c < v.c;
-		}
-	};
-	vint p;
-	vector<node> s;
-	int size_n,size_m;
+    struct node
+    {
+        int a, b, c;
+        bool operator<(const node &v)
+        {
+            return c < v.c;
+        }
+    };
+    vector<int> p;
+    vector<node> s;
+    int size_n, size_m;
 
-	Kruskal(int n,int m):p(n + 1),s(m)
-	{
-		size_n = n,size_m = m;
-		for(int i = 1;i <= n;++i)
-			p[i] = i;
-	};
-	int find(int x)
-	{
-		if(p[x] != x)
-			p[x] = find(p[x]);
-		return p[x];
-	}
+    Kruskal(int n, int m) : p(n + 1), s(m)
+    {
+        size_n = n, size_m = m;
+        for (int i = 1; i <= n; ++i)
+            p[i] = i;
+    };
+    int find(int x)
+    {
+        if (p[x] != x)
+            p[x] = find(p[x]);
+        return p[x];
+    }
 
-	void Kruskal_int()
-	{
-		int a,b,c;
-		for(int i = 0;i < size_m;++i)
-		{
-			cin >> a >> b >> c;
-			s[i] = {a,b,c};
-		}
-	}
+    void Kruskal_int()
+    {
+        int a, b, c;
+        for (int i = 0; i < size_m; ++i)
+        {
+            cin >> a >> b >> c;
+            s[i] = {a, b, c};
+        }
+    }
 
-	void Kruskal_get()
-	{
-		sort(all(s));
-		int res = 0,cnt = 0;
-		for(int i = 0;i < size_m;++i)
-		{
-			int a = s[i].a,b = s[i].b,c = s[i].c;
+    void Kruskal_get()
+    {
+        sort(all(s));
+        int res = 0, cnt = 0;
+        for (int i = 0; i < size_m; ++i)
+        {
+            int a = s[i].a, b = s[i].b, c = s[i].c;
 
-			a = find(a),b = find(b);
-			if(a != b)
-			{
-				p[a] = b;
-				res += c;
-				cnt++;
-			}
-		}
-		if(cnt < size_n - 1)
-			cout << "impossible" << endl;
-		else cout << res << endl;
-	}
+            a = find(a), b = find(b);
+            if (a != b)
+            {
+                p[a] = b;
+                res += c;
+                cnt++;
+            }
+        }
+        if (cnt < size_n - 1)
+            cout << "impossible" << endl;
+        else
+            cout << res << endl;
+    }
 };
 ```
 
@@ -1532,32 +1538,32 @@ template <typename T> T qmi(long long a, long long b, T p)
 #### 大指数快速幂
 
 ```c++
-template<class T> struct BIG_QMI
+template <class T> struct BIG_QMI
 {
-	T qmi(long long a, long long b, T p)
-	{
-		T res = 1;
+    T qmi(long long a, long long b, T p)
+    {
+        T res = 1;
         a %= p;
-		while (b)
-		{
-			if (b & 1)
-				res = (logn long)res * a % p;
-			b >>= 1;
-			a = (long long)a * a % p;
-		}
-		return res;
-	}	
+        while (b)
+        {
+            if (b & 1)
+                res = (long long)res * a % p;
+            b >>= 1;
+            a = (long long)a * a % p;
+        }
+        return res;
+    }
 
-	void get_pow(int a,string b,int p)
-	{
-		T ans = 1;
-		for(int i = (int)b.size() - 1;~i;--i)
-		{
-			ans = ans * qmi(a,b[i] - '0',p) % p;
-			a = qmi(a,10,p);
-		}
-		cout << ans << endl;
-	}
+    void get_pow(int a, string b, int p)
+    {
+        T ans = 1;
+        for (int i = (int)b.size() - 1; ~i; --i)
+        {
+            ans = ans * qmi(a, b[i] - '0', p) % p;
+            a = qmi(a, 10, p);
+        }
+        cout << ans << endl;
+    }
 };
 ```
 
