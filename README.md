@@ -95,21 +95,24 @@ int read()
 `整数快读`
 
 ```c++
-int read(){
-	int f=1,k=0;
-	char c=getchar();//读入一个字符 
-	//非数字 
-	while(c<'0'||c>'9'){//读到空格后
-		if(c=='-') //读到负数 
-		f=-1;//保留负号 
-		c=getchar();//两个功能：读取负号后面的数字或者读入空格等。 
-	}
-	//数字 
-	while(c>='0'&&c<='9'){
-		k=k*10+c-'0';
-		c=getchar();//一位一位读入数字 
-	}
-	return f*k;
+int read()
+{
+    int f = 1, k = 0;
+    char c = getchar(); // 读入一个字符
+    // 非数字
+    while (c < '0' || c > '9')
+    {                  // 读到空格后
+        if (c == '-')  // 读到负数
+            f = -1;    // 保留负号
+        c = getchar(); // 两个功能：读取负号后面的数字或者读入空格等。
+    }
+    // 数字
+    while (c >= '0' && c <= '9')
+    {
+        k = k * 10 + c - '0';
+        c = getchar(); // 一位一位读入数字
+    }
+    return f * k;
 }
 ```
 
@@ -157,22 +160,24 @@ int main()
 ```c++
 vector<int> add(vector<int> a, vector<int> b)
 {
-	if (a.size() < b.size()) return add(b, a);
-	vector<int>c;
+    if (a.size() < b.size())
+        return add(b, a);
+    vector<int> c;
 
-	int t = 0;
-	for (int i = 0; i < a.size() || t; i++)
-	{
-		if (i < a.size())
-		{
-			t += a[i];
-			if (i < b.size()) t += b[i];
-		}
-		c.push_back(t % 10);
-		t /= 10;
-	}
+    int t = 0;
+    for (int i = 0; i < a.size() || t; i++)
+    {
+        if (i < a.size())
+        {
+            t += a[i];
+            if (i < b.size())
+                t += b[i];
+        }
+        c.push_back(t % 10);
+        t /= 10;
+    }
 
-	return c;
+    return c;
 }
 ```
 
@@ -205,40 +210,43 @@ vector<int> sub(vector<int> a, vector<int> b)
 ##### 一、高精度乘低精度
 
 ```c++
-vector<int> mul(vector<int>a, int b)
+vector<int> mul(vector<int> a, int b)
 {
-	vector<int>ans;
-	int t = 0;
-	for (int i = 0; i < a.size() || t; i++)
-	{
-		if(i < a.size())t += a[i] * b;
-		ans.push_back(t % 10);
-		t /= 10;
-	}
-	return ans;
+    vector<int> ans;
+    int t = 0;
+    for (int i = 0; i < a.size() || t; i++)
+    {
+        if (i < a.size())
+            t += a[i] * b;
+        ans.push_back(t % 10);
+        t /= 10;
+    }
+    return ans;
 }
 ```
 
 ##### 二、高精度乘高精度
 
 ```c++
-vector<int> mul(vector<int>a, vector<int> b)
+vector<int> mul(vector<int> a, vector<int> b)
 {
-	vector<int >ans;
-	for (int i = 0; i < a.size(); i++)
-	{
-		int t = 0;
-		vector<int>n;
-		for (int j = 0; j < i; j++)n.push_back(0);//列竖式中要往前移一位，这里通过在数的后边加0来实现，由于数是倒过来
-		for (int j = 0; j < b.size() || t; j++)	  //的，就在它的左边加0。
-		{
-			if(j < b.size())t += a[i] * b[j];
-			n.push_back(t % 10);
-			t /= 10;
-		}
-		ans = add(ans, n);//add为高精度加法
-	}
-	return ans;
+    vector<int> ans;
+    for (int i = 0; i < a.size(); i++)
+    {
+        int t = 0;
+        vector<int> n;
+        for (int j = 0; j < i; j++)
+            n.push_back(0); // 列竖式中要往前移一位，这里通过在数的后边加0来实现，由于数是倒过来
+        for (int j = 0; j < b.size() || t; j++) // 的，就在它的左边加0。
+        {
+            if (j < b.size())
+                t += a[i] * b[j];
+            n.push_back(t % 10);
+            t /= 10;
+        }
+        ans = add(ans, n); // add为高精度加法
+    }
+    return ans;
 }
 ```
 
@@ -247,19 +255,20 @@ vector<int> mul(vector<int>a, vector<int> b)
 #### 高精度除法
 
 ```c++
-vector<int> div(vector<int> A, int b,int& r)
+vector<int> div(vector<int> A, int b, int &r)
 {
-	vector<int>C;
-	r = 0;
-	for (int i = A.size() - 1; i >= 0; i--)
-	{
-		r = r * 10 + A[i];
-		C.push_back(r / b);
-		r = r % b;
-	}
-	reverse(C.begin(), C.end());
-	while (C.size() > 1 && C.back() == 0)C.pop_back();
-	return C;
+    vector<int> C;
+    r = 0;
+    for (int i = A.size() - 1; i >= 0; i--)
+    {
+        r = r * 10 + A[i];
+        C.push_back(r / b);
+        r = r % b;
+    }
+    reverse(C.begin(), C.end());
+    while (C.size() > 1 && C.back() == 0)
+        C.pop_back();
+    return C;
 }
 ```
 
