@@ -16,7 +16,6 @@
 */
 // #pragma GCC optimize(2)
 #include <bits/stdc++.h>
-#include <ratio>
 using namespace std;
 #define endl '\n'
 #define all(a) a.begin(), a.end()
@@ -26,47 +25,75 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
-const int N = 110;
-#define ai2 array<int, 2>
+const int N = 11, M = 400, K = 1 << 10;
+#define PII pair<int, int>
 
-int n, m, p;
-int w[N][N];
-int key[15][15];
-int vis[15][15];
-int dist[15][15];
-int mx[4]{-1, 0, 1, 0}, my[4]{0, -1, 0, 1};
+int e[M], ne[M], h[N * N], w[M], idx;
+int n, m, p, k;
+int id[N][N];
+set<PII> edge;
+int key[N * N];
 
+void add(int a, int b, int c)
+{
+    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
+}
+
+int mx[4]{0, -1, 0, 1}, my[4]{-1, 0, 1, 0};
+void build()
+{
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= m; ++j)
+            for (int u = 0; u < 4; ++u)
+            {
+                int x = i + mx[u], y = j + my[u];
+                if (!x || x > n || !y || y > m)
+                    continue;
+                int a = id[i][j], b = id[x][y];
+                if (!edge.count({a, b}))
+                    add(a, b, 0);
+            }
+}
+
+int dist[N * N][K];
+bool vis[N * N][K];
 int bfs()
 {
-    queue<ai2> q;
-    vector<bool> k(p + 1);
-    q.push({0, 0});
+    memset(dist, 0x3f, sizeof dist);
+    deque<PII> q;
+    q.push_back({1, 0});
+    dist[1][0] = 0;
     while (!q.empty())
     {
-        auto t = q.front();
-        if (t[0] == n - 1 && t[1] == m - 1)
-            return dist[n - 1][m - 1];
-        if (vis[t[0]][t[1]] == 2)
-            continue;
-        vis[t[0]][t[1]]++;
-        k[key[t[0]][t[1]]] = true;
+        PII t = q.front();
+        q.pop_front();
 
-        for (int i = 0; i < 4; ++i)
+        if (vis[t.first][t.second])
+            continue;
+        vis[t.first][t.second] = true;
+        if (t.first == n * m)
+            return dist[t.first][t.second];
+
+        if (key[t.first])
         {
-            int x = t[0] + mx[i], y = t[1] + my[i];
-            if (x < 0 || x >= n || y < 0 || y >= m)
-                continue;
-            int a = t[0] * 10 + t[1], b = x * 10 + y;
-            if (w[a][b] == -1)
-			{
-				dist[]
-			}
-            if (w[a][b])
+            int state = t.second | key[t.first];
+            if (dist[t.first][state] > dist[t.first][t.second])
             {
-                if (!k[w[a][b]])
-                    continue;
+                dist[t.first][state] = dist[t.first][t.second];
+                q.push_front({t.first, state});
             }
-            dist[x][y] = dist[t[0]][t[1]];
+        }
+
+        for (int i = h[t.first]; ~i; i = ne[i])
+        {
+            int j = e[i];
+            if (w[i] && !(t.second >> w[i] - 1 & 1))
+                continue;
+            if (dist[j][t.second] > dist[t.first][t.second] + 1)
+            {
+                dist[j][t.second] = dist[t.first][t.second] + 1;
+                q.push_back({j, t.second});
+            }
         }
     }
     return -1;
@@ -74,24 +101,32 @@ int bfs()
 
 void solve()
 {
-    cin >> n >> m >> p;
-    int k;
-    cin >> k;
-    int a, b, c, d, x;
+    cin >> n >> m >> p >> k;
+    for (int i = 1, t = 1; i <= n; ++i)
+        for (int j = 1; j <= m; ++j, ++t)
+            id[i][j] = t;
+    memset(h, -1, sizeof h);
     while (k--)
     {
-        cin >> a >> b >> c >> d >> x;
-        if (x == 0)
-            w[a * n + b][c * 10 + d] = -1;
-        else
-            w[a * n + b][c * 10 + d] = x;
+        int x1, y1, x2, y2, c;
+        cin >> x1 >> y1 >> x2 >> y2 >> c;
+        int a = id[x1][y1], b = id[x2][y2];
+        edge.insert({a, b}), edge.insert({b, a});
+        if (c)
+            add(a, b, c), add(b, a, c);
     }
-    cin >> k;
-    while (k--)
+
+    build();
+
+    int x;
+    cin >> x;
+    while (x--)
     {
+        int a, b, c;
         cin >> a >> b >> c;
-        key[a][b] = c;
+        key[id[a][b]] |= 1 << c - 1;
     }
+
     cout << bfs() << endl;
 }
 

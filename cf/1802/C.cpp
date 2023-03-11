@@ -25,33 +25,28 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 1;
-const int N = 1010, M = 10010;
-
-int e[M], ne[M], w[M], h[N], idx;
-int n, m;
-
-void add(int a, int b, int c)
-{
-    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
-}
-
-void dijkstra(int st, int en)
-{
-
-}
+#define int long long
 
 void solve()
 {
+    int n, m;
     cin >> n >> m;
-    int a, b, c;
-    while (m--)
+    vector<vint> w(n + 1, vint(m + 1));
+    cout << n * m << endl;
+    ll cnt = 0, p = 512;
+    for (int i = 0; i < n; i += 2)
     {
-        cin >> a >> b >> c;
-        add(a, b, c);
+        for (int j = 0; j < m; j += 2)
+            w[i][j] = cnt++, w[i][j + 1] = cnt++, w[i + 1][j] = cnt++, w[i + 1][j + 1] = cnt++;
+        cnt = p;
+        p += 512;
     }
-    int s, f;
-    cin >> s >> f;
-    dijkstra(s, f);
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+            cout << w[i][j] << ' ';
+        cout << endl;
+    }
 }
 
 signed main()

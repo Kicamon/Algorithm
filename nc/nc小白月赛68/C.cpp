@@ -25,33 +25,38 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 1;
-const int N = 1010, M = 10010;
-
-int e[M], ne[M], w[M], h[N], idx;
-int n, m;
-
-void add(int a, int b, int c)
-{
-    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
-}
-
-void dijkstra(int st, int en)
-{
-
-}
 
 void solve()
 {
-    cin >> n >> m;
-    int a, b, c;
-    while (m--)
+    int n;
+    cin >> n;
+    char s[n + 2];
+    cin >> s + 1;
+    vector<array<int, 26>> num(n + 1);
+    for (int i = 1; i <= n; ++i)
     {
-        cin >> a >> b >> c;
-        add(a, b, c);
+        num[i] = num[i - 1];
+        num[i][s[i] - 'a']++;
     }
-    int s, f;
-    cin >> s >> f;
-    dijkstra(s, f);
+
+    auto get = [&](int l, int r) {
+        array<int, 26> res;
+        for (int i = 0; i < 26; ++i)
+            res[i] = num[r][i] - num[l - 1][i];
+        double t = 0;
+        for (int i = 0; i < 26; ++i)
+            t += res[i] * (res[i] - 1) >> 1;
+        return t / (r - l + 1);
+    };
+
+    double ans = 0;
+    for (int i = 1; i <= n; ++i)
+        for (int j = i; j <= n; ++j)
+        {
+            double res = get(i, j);
+            ans = max(ans, res);
+        }
+    cout << ans << endl;
 }
 
 signed main()

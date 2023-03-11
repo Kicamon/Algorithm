@@ -25,33 +25,47 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 1;
-const int N = 1010, M = 10010;
-
-int e[M], ne[M], w[M], h[N], idx;
-int n, m;
-
-void add(int a, int b, int c)
-{
-    e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
-}
-
-void dijkstra(int st, int en)
-{
-
-}
 
 void solve()
 {
-    cin >> n >> m;
-    int a, b, c;
-    while (m--)
+    int res = 0;
+    for (int i = 0, c; i < 4; ++i)
     {
-        cin >> a >> b >> c;
-        add(a, b, c);
+        cin >> c;
+        int x, y;
+        if (c <= 110)
+        {
+            x = (c - 10) / 10;
+            x += min((c - 10) % 10, 10 - (c - 10) % 10 + 1);
+            y = (110 - c) / 10;
+            y += min((110 - c) % 10, 10 - (110 - c) % 10 + 1);
+            res += min(x, y + 1);
+        }
+        else if (c <= 200)
+        {
+            res++;
+            x = (c - 110) / 10;
+            x += min((c - 110) % 10, 10 - (c - 110) % 10 + 1);
+            y = (200 - c) / 10;
+            y += min((200 - c) % 10, 10 - (200 - c) % 10 + 1);
+            res += min(x, y + 1);
+        }
+        else if (c <= 210)
+        {
+            res += 2;
+            res += min(c - 200, 210 - c);
+        }
+        else
+        {
+            res++;
+            x = (c - 210) / 10;
+            x += min((c - 210) % 10, 10 - (c - 210) % 10 + 1);
+            y = (300 - c) / 10;
+            y += min((300 - c) % 10, 10 - (300 - c) % 10 + 1);
+            res += min(x + 1, y);
+        }
     }
-    int s, f;
-    cin >> s >> f;
-    dijkstra(s, f);
+    cout << res << endl;
 }
 
 signed main()
