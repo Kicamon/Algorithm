@@ -28,12 +28,23 @@ int input = 0;
 
 void solve()
 {
-    string s;
-    cin >> s;
-    int len = s.length();
-    for (int i = 0; i < len / 2; ++i)
-        swap(s[i * 2], s[i * 2 + 1]);
-    cout << s << endl;
+    int n;
+    cin >> n;
+    vector<bool> a(n + 1);
+    for (int i = 1, c; i <= n; ++i)
+    {
+        cin >> c;
+        if (!a[i])
+            a[c] = true;
+    }
+    vint ans;
+    for (int i = 1; i <= n; ++i)
+        if (!a[i])
+            ans.pb(i);
+    cout << (int)ans.size() << endl;
+    for (int x : ans)
+        cout << x << ' ';
+    cout << endl;
 }
 
 signed main()
