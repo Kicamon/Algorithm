@@ -16,7 +16,6 @@
 */
 // #pragma GCC optimize(2)
 #include <bits/stdc++.h>
-#include <random>
 using namespace std;
 #define endl '\n'
 #define all(a) a.begin(), a.end()
@@ -26,57 +25,60 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
-const int N = 200;
-const double inf = 1e20;
-#define PDD pair<double, double>
+const int N = 110, M = 10000;
 
-int n;
-PDD p[N];
-double dist[N][N];
-char g[N][N];
-double maxd[N];
+int e[M], ne[M], h[N], idx;
+int it[N];
 
-double get(PDD a, PDD b)
+void add(int a, int b)
 {
-    double dx = a.first - b.first, dy = a.second - b.second;
-    return sqrt(dx * dx + dy * dy);
+    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+}
+
+void topsort(int n)
+{
+    vector<int> res(n);
+    int res_idx = 0;
+    queue<int> q;
+    for (int i = 1; i <= n; ++i)
+        if (it[i] == 0)
+            q.push(i);
+    while (!q.empty())
+    {
+        int t = q.front();
+        q.pop();
+
+        res[res_idx++] = t;
+
+        for (int i = h[t]; ~i; i = ne[i])
+        {
+            int j = e[i];
+            if (--it[j] == 0)
+                q.push(j);
+        }
+    }
+    for (int i = 0; i < res_idx; ++i)
+        cout << res[i] << ' ';
+    cout << endl;
 }
 
 void solve()
 {
-    cin >> n;
-    for (int i = 0; i < n; ++i)
-        cin >> p[i].first >> p[i].second;
-    for (int i = 0; i < n; ++i)
-        cin >> g[i];
-    for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-            if (i != j)
-            {
-                if (g[i][j] == '1')
-                    dist[i][j] = get(p[i], p[j]);
-                else
-                    dist[i][j] = inf;
-            }
-    for (int k = 0; k < n; ++k)
-        for (int i = 0; i < n; ++i)
-            for (int j = 0; j < n; ++j)
-                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
 
-    double res1 = 0;
-    for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-            if (dist[i][j] < inf / 2)
-            {
-                maxd[i] = max(maxd[i], dist[i][j]);
-                res1 = max(res1, maxd[i]);
-            }
-    double res2 = inf;
-    for (int i = 0; i < n; ++i)
-        for (int j = 0; j < n; ++j)
-            if (dist[i][j] > inf / 2)
-                res2 = min(res2, maxd[i] + get(p[i], p[j]) + maxd[j]);
-    printf("%lf\n", max(res1, res2));
+    int n;
+    memset(h, -1, sizeof h);
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+    {
+        int c;
+        while (cin >> c, c)
+        {
+            add(i, c);
+            it[c]++;
+        }
+    }
+
+    topsort(n);
 }
 
 signed main()

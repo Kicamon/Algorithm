@@ -28,10 +28,10 @@ int input = 0;
 const int N = 11, M = 400, K = 1 << 10;
 #define PII pair<int, int>
 
-int e[M], ne[M], h[N * N], w[M], idx;
-int n, m, p, k;
-int id[N][N];
+int n, m, p;
+int e[M], ne[M], w[M], h[N * N], idx;
 set<PII> edge;
+int g[N][N];
 int key[N * N];
 
 void add(int a, int b, int c)
@@ -39,9 +39,9 @@ void add(int a, int b, int c)
     e[idx] = b, w[idx] = c, ne[idx] = h[a], h[a] = idx++;
 }
 
-int mx[4]{0, -1, 0, 1}, my[4]{-1, 0, 1, 0};
 void build()
 {
+    int mx[4]{0, 1, 0, -1}, my[4]{1, 0, -1, 0};
     for (int i = 1; i <= n; ++i)
         for (int j = 1; j <= m; ++j)
             for (int u = 0; u < 4; ++u)
@@ -49,7 +49,7 @@ void build()
                 int x = i + mx[u], y = j + my[u];
                 if (!x || x > n || !y || y > m)
                     continue;
-                int a = id[i][j], b = id[x][y];
+                int a = g[i][j], b = g[x][y];
                 if (!edge.count({a, b}))
                     add(a, b, 0);
             }
@@ -59,9 +59,9 @@ int dist[N * N][K];
 bool vis[N * N][K];
 int bfs()
 {
-    memset(dist, 0x3f, sizeof dist);
     deque<PII> q;
     q.push_back({1, 0});
+    memset(dist, 0x3f, sizeof dist);
     dist[1][0] = 0;
     while (!q.empty())
     {
@@ -101,16 +101,17 @@ int bfs()
 
 void solve()
 {
+    memset(h, -1, sizeof h);
+    int k;
     cin >> n >> m >> p >> k;
     for (int i = 1, t = 1; i <= n; ++i)
         for (int j = 1; j <= m; ++j, ++t)
-            id[i][j] = t;
-    memset(h, -1, sizeof h);
+            g[i][j] = t;
+    int x1, y1, x2, y2, c;
     while (k--)
     {
-        int x1, y1, x2, y2, c;
         cin >> x1 >> y1 >> x2 >> y2 >> c;
-        int a = id[x1][y1], b = id[x2][y2];
+        int a = g[x1][y1], b = g[x2][y2];
         edge.insert({a, b}), edge.insert({b, a});
         if (c)
             add(a, b, c), add(b, a, c);
@@ -118,13 +119,12 @@ void solve()
 
     build();
 
-    int x;
-    cin >> x;
-    while (x--)
+    cin >> k;
+    int a, b;
+    while (k--)
     {
-        int a, b, c;
         cin >> a >> b >> c;
-        key[id[a][b]] |= 1 << c - 1;
+        key[g[a][b]] |= 1 << c - 1;
     }
 
     cout << bfs() << endl;
