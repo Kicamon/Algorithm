@@ -33,9 +33,10 @@ signed main()
     // clock_t start, finish;
     // start = clock();
 
-    int n, m;
-    cin >> n >> m;
-	vector<vint> g(m + 1,vint(n,1));
+    ll n;
+    cin >> n;
+	cout << n / 2520 << endl;
+
 
     // finish = clock();
     // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
