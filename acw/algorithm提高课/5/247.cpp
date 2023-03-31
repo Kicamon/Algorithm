@@ -25,64 +25,102 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 1;
-const int N = 10010;
-
+const int N = 1e5 + 10;
 int n;
 
-vint ys;
 struct segment
 {
     double x, y1, y2;
-
+    int k;
     bool operator<(const segment &t) const
     {
         return x < t.x;
     }
-} sg[N << 1];
+} seg[N << 1];
 
 struct node
 {
-    int num;
     int l, r;
+    int num;
     double len;
 } tr[N << 3];
 
+vector<double> ys;
+
+int find(double y)
+{
+    return lower_bound(all(ys), y) - ys.begin();
+}
+
+void pushup(int u)
+{
+    if (tr[u].num)
+        tr[u].len = ys[tr[u].r + 1] - ys[tr[u].l];
+    else if (tr[u].l != tr[u].r)
+        tr[u].len = tr[u << 1].len + tr[u << 1 | 1].len;
+    else
+        tr[u].len = 0;
+}
+
 void build(int u, int l, int r)
 {
-    tr[u] = {0, l, r, 0};
+    tr[u] = {l, r, 0, 0};
     if (l == r)
         return;
     int mid = l + r >> 1;
-    build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+    build(u << 1, l, mid);
+    build(u << 1 | 1, mid + 1, r);
 }
 
-double solve()
+void modify(int u, int l, int r, int k)
+{
+    if (l <= tr[u].l && tr[u].r <= r)
+        tr[u].num += k;
+    else
+    {
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (l <= mid)
+            modify(u << 1, l, r, k);
+        if (r > mid)
+            modify(u << 1 | 1, l, r, k);
+    }
+    pushup(u);
+}
+
+void solve()
 {
     ys.clear();
     for (int i = 0, j = 0; i < n; ++i)
     {
-        double x1, x2, y1, y2;
-        cin >> x1 >> y1 >> x2 >> y2;
-        sg[j++] = {x1, y1, y2}, sg[j++] = {x2, y1, y2};
+        double x1, y1, x2, y2;
+        scanf("%lf%lf%lf%lf", &x1, &y1, &x2, &y2);
+        seg[j++] = {x1, y1, y2, 1}, seg[j++] = {x2, y1, y2, -1};
         ys.pb(y1), ys.pb(y2);
     }
     sort(all(ys));
     ys.erase(unique(all(ys)), ys.end());
+    build(1, 0, ys.size() - 2);
+    sort(seg, seg + n * 2);
+    double res = 0;
+    for (int i = 0; i < n * 2; ++i)
+    {
+        if (i)
+            res += tr[1].len * (seg[i].x - seg[i - 1].x);
+        modify(1, find(seg[i].y1), find(seg[i].y2) - 1, seg[i].k);
+    }
+    printf("Total explored area: %.2lf\n\n", res);
 }
 
 signed main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
     // clock_t start, finish;
     // start = clock();
 
     int t = 1;
-    while (cin >> n, n)
+    while (scanf("%d", &n), n)
     {
-        cout << "Test case #" << t << endl;
-        cout << solve() << endl;
+        printf("Test case #%d\n", t++);
+        solve();
     }
 
     // finish = clock();
