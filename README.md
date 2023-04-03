@@ -1282,7 +1282,7 @@ bool Hungarian(int u)
 
 
 ### 强连通分量
-#### tarjan
+#### Tarjan
 ```cpp
 int n, m;
 vector<int> e[N];
@@ -1345,6 +1345,72 @@ void tarjan()
     }
 }
 ```
+
+
+
+#### Kosaraju
+```cpp
+const int N = 1e5 + 10;
+
+int n, m;
+vector<int> e[N], ne[N];
+bool vis[N];
+vector<int> out, c;
+vector<vector<int>> ssc;
+
+void dfs(int u)
+{
+    vis[u] = true;
+    for (auto v : e[u])
+        if (!vis[v])
+            dfs(v);
+    out.push_back(u);
+}
+
+void dfs2(int u)
+{
+    vis[u] = true;
+    for (auto v : ne[u])
+        if (!vis[v])
+            dfs2(v);
+    c.push_back(u);
+}
+
+void Kosaraju()
+{
+    cin >> n >> m;
+    for (int i = 0; i < m; ++i)
+    {
+        int a, b;
+        cin >> a >> b;
+        e[a].push_back(b);
+        ne[b].push_back(a);
+    }
+    for (int i = 1; i <= n; ++i)
+        if (!vis[i])
+            dfs(i);
+    reverse(out.begin(), out.end());
+    memset(vis, 0, sizeof vis);
+    for (int i : out)
+    {
+        if (!vis[i])
+        {
+            dfs2(i);
+            sort(c.begin(), c.end());
+            ssc.push_back(c);
+            c.clear();
+        }
+    }
+    sort(ssc.begin(), ssc.end());
+    for (auto s : ssc)
+    {
+        for (auto u : s)
+            cout << u << ' ';
+        cout << endl;
+    }
+}
+```
+
 
 
 
