@@ -28,10 +28,10 @@ const int N = 1e5 + 10;
 
 int n, m, mod;
 vector<int> e[N], scc[N];
-int dfn[N], low[N], bel[N], idx, cnt;
-bool ins[N], vis[N];
+int dfn[N], bel[N], low[N], vis[N], idx, cnt;
+bool ins[N];
 stack<int> stk;
-int dp[N], way[N];
+int far[N], way[N];
 
 void dfs(int u)
 {
@@ -51,10 +51,10 @@ void dfs(int u)
         while (true)
         {
             int v = stk.top();
+            stk.pop();
+            ins[v] = false;
             bel[v] = cnt;
             scc[cnt].push_back(v);
-            ins[v] = false;
-            stk.pop();
             if (v == u)
                 break;
         }
@@ -79,35 +79,32 @@ signed main()
     for (int i = 1; i <= n; ++i)
         if (!dfn[i])
             dfs(i);
-    int ans1 = 0, ans2 = 0;
+    int ans = 0, w = 0, T = 0;
     for (int i = 1; i <= cnt; ++i)
     {
         way[i] = 1;
-        dp[i] = 0;
+        far[i] = 0;
+        T++;
         for (int u : scc[i])
-        {
             for (int v : e[u])
             {
-                if (bel[v] != i && !vis[bel[v]])
+                if (bel[v] != i && vis[bel[v]] != T)
                 {
+                    vis[bel[v]] = T;
                     vis[bel[v]] = true;
-                    if (dp[bel[v]] > dp[i])
-                        dp[i] = dp[bel[v]], way[i] = 0;
-                    if (dp[bel[v]] == dp[i])
+                    if (far[bel[v]] > far[i])
+                        far[i] = far[bel[v]], way[i] = 0;
+                    if (far[bel[v]] == far[i])
                         way[i] = (way[i] + way[bel[v]]) % mod;
                 }
             }
-        }
-        dp[i] += scc[i].size();
-        if (dp[i] > ans1)
-            ans1 = dp[i], ans2 = 0;
-        if (dp[i] == ans1)
-            ans2 = (ans2 + way[i]) % mod;
-        for (int u : scc[i])
-            for (int v : e[u])
-                vis[bel[v]] = false;
+        far[i] += scc[i].size();
+        if (far[i] > ans)
+            ans = far[i], w = 0;
+        if (far[i] == ans)
+            w = (w + way[i]) % mod;
     }
-    cout << ans1 << endl << ans2 << endl;
+    cout << ans << endl << w << endl;
 
     // finish = clock();
     // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
