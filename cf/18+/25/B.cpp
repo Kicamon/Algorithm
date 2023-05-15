@@ -23,7 +23,18 @@ using namespace std;
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    if (n < m)
+        swap(n, m);
+    int k = n * m;
+    vector<int> a(k);
+    for (int i = 0; i < k; ++i)
+        cin >> a[i];
+    sort(a.begin(), a.end());
+    int x = a[k - 1] - a[0];
+    int y = max(a[k - 2] - a[0], a[k - 1] - a[1]);
+    cout << 1ll * x * (n - 1) * m + y * (m - 1) << endl;
 }
 
 signed main()
