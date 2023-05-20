@@ -18,43 +18,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
-#define all(a) a.begin(), a.end()
-#define rall(a) a.rbegin(), a.rend()
 #define ll long long
-#define vint vector<int>
-#define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 const int N = 1e4 + 10;
 
-int n, m;
 vector<int> e[N];
-int dfn[N], low[N], bel[N], idx, cnt, sz[N];
-int out[N];
+int dnf[N], low[N], bel[N], sz[N], idx, cnt;
 bool ins[N];
+int out[N];
 stack<int> stk;
 
 void dfs(int u)
 {
-    dfn[u] = low[u] = ++idx;
+    dnf[u] = low[u] = ++idx;
     ins[u] = true;
     stk.push(u);
-    for (auto v : e[u])
+    for (int v : e[u])
     {
-        if (!dfn[v])
+        if (!dnf[v])
             dfs(v);
         if (ins[v])
             low[u] = min(low[u], low[v]);
     }
-    if (dfn[u] == low[u])
+    if (low[u] == dnf[u])
     {
         ++cnt;
         while (true)
         {
             int v = stk.top();
-            sz[cnt]++;
+            stk.pop();
             bel[v] = cnt;
             ins[v] = false;
-            stk.pop();
+            sz[cnt]++;
             if (v == u)
                 break;
         }
@@ -69,28 +64,40 @@ signed main()
     // clock_t start, finish;
     // start = clock();
 
+    int n, m;
     cin >> n >> m;
-    for (int i = 0; i < m; ++i)
+    while (m--)
     {
         int a, b;
         cin >> a >> b;
         e[a].push_back(b);
     }
     for (int i = 1; i <= n; ++i)
-        if (!dfn[i])
+        if (!dnf[i])
             dfs(i);
-    for (int i = 1; i <= n; ++i)
-        for (int v : e[i])
-            if (bel[v] != bel[i])
-                out[bel[i]]++;
-    int cntn = 0, cnts = 0;
+    for (int u = 1; u <= n; ++u)
+    {
+        for (int v : e[u])
+        {
+            if (bel[v] != bel[u])
+                out[bel[u]]++;
+        }
+    }
+    int ot = 0;
     for (int i = 1; i <= cnt; ++i)
+    {
         if (!out[i])
         {
-            cntn++;
-            cnts += sz[i];
+            if (!ot)
+                ot = i;
+            else
+            {
+                cout << 0 << endl;
+                return 0;
+            }
         }
-    cout << (cntn > 1 ? 0 : cnts) << endl;
+    }
+    cout << sz[ot] << endl;
 
     // finish = clock();
     // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;

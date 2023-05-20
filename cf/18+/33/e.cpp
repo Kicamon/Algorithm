@@ -20,43 +20,53 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 1e5 + 10, M = 3e5 + 10;
-int n, m;
-vector<int> e[N];
-int dfn[N], low[N], bel[N], idx, cnt;
-bool ins[N];
-stack<int> stk;
-vector<vector<int>> scc;
+const int N = 2e5 + 10;
 
-void dfs(int u)
+vector<int> e[N];
+bool vis[N];
+
+bool dfs(int u, int fa)
 {
-    dfn[u] = low[u] = ++idx;
-    ins[u] = true;
-    stk.push(u);
+    // cout << u << endl;
+    if (vis[u])
+        return true;
+    vis[u] = true;
     for (auto v : e[u])
     {
-        if (!dfn[v])
-            dfs(v);
-        if (ins[v])
-            low[u] = min(low[u], low[v]);
+        if (v == fa)
+            continue;
+        bool res = dfs(v, u);
+        if (res)
+            return true;
     }
-    if (dfn[u] == low[u])
+    return false;
+}
+
+void solve()
+{
+    int n;
+    cin >> n;
+    set<ll> ins;
+    for (int i = 1, a; i <= n; ++i)
     {
-        vector<int> c;
-        ++cnt;
-        while (true)
-        {
-            int v = stk.top();
-            stk.pop();
-            c.push_back(v);
-            ins[v] = false;
-            bel[v] = cnt;
-            if (v == u)
-                break;
-        }
-        sort(c.begin(), c.end());
-        scc.push_back(c);
+        cin >> a;
+        if (ins.count(1ll * i * n + a) || ins.count(1ll * a * n + i))
+            continue;
+        ins.insert(1ll * i * n + a);
+        ins.insert(1ll * a * n + i);
+        e[i].push_back(a);
+        e[a].push_back(i);
     }
+    int res = 0, cnt = 0;
+    for (int i = 1; i <= n; ++i)
+        if (!vis[i])
+        {
+            res += dfs(i, -1), cnt++;
+            // cout << endl;
+        }
+    cout << min(res + 1, cnt) << ' ' << cnt << endl;
+    for (int i = 1; i <= n; ++i)
+        e[i].clear(), vis[i] = false;
 }
 
 signed main()
@@ -67,23 +77,10 @@ signed main()
     // clock_t start, finish;
     // start = clock();
 
-    cin >> n >> m;
-    for (int i = 0, a, b; i < m; ++i)
-    {
-        cin >> a >> b;
-        e[a].push_back(b);
-    }
-
-    for (int i = 1; i <= n; ++i)
-        if (!dfn[i])
-            dfs(i);
-    sort(scc.begin(), scc.end());
-    for (auto u : scc)
-    {
-        for (auto v : u)
-            cout << v << ' ';
-        cout << endl;
-    }
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     // finish = clock();
     // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
