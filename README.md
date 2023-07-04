@@ -1790,69 +1790,52 @@ template <class T = long long> struct CRT
 #### 高斯消元解线性方程
 
 ```c++
-template <class T = int> struct Gauzz
-{
-    const double eps = 1e-6;
-    double a[N][N];
-    int size;
-    void resize(int n)
-    {
-        size = n;
-    }
-    T gauzz()
-    {
-        int c, r;
-        for (c = 0, r = 0; c < size; c++)
-        {
-            int t = r;
-            for (int i = r; i < size; i++)
-                if (fabs(a[i][c]) > fabs(a[t][c]))
-                    t = i;
-            if (fabs(a[t][c]) < eps)
-                continue;
+const int N = 15;
+const double eps = 1e-6;
 
-            for (int i = c; i <= size; i++)
-                swap(a[t][i], a[r][i]);
-            for (int i = size; i >= c; --i)
-                a[r][i] /= a[r][c];
-            for (int i = r + 1; i < size; i++)
-                if (fabs(a[i][c]) > eps)
-                    for (int j = size; j >= c; --j)
-                        a[i][j] -= a[r][j] * a[i][c];
-            r++;
+int n;
+double a[N][N], b[N][N];
+
+int gauss() {
+    int cnt = 0;
+    for (int r = 1; r <= n; r++) {
+        int t = r;
+        for (int i = r + 1; i <= n; ++i) {
+            if (fabs(b[i][r]) > fabs(b[t][r])) {
+                t = i;
+            }
         }
-        if (r < size)
-        {
-            for (int i = r; i < size; i++)
-                if (fabs(a[i][size]) > eps)
-                    return 2;
-            return 1;
+        for (int i = r; i <= n + 1; ++i) {
+            swap(b[r][i], b[t][i]);
         }
-
-        for (int i = size - 1; ~i; --i)
-            for (int j = i + 1; j < size; j++)
-                a[i][size] -= a[i][j] * a[j][size];
-
-        return 0;
+        for (int i = n + 1; i >= r; --i) {
+            b[r][i] /= b[r][r];
+        }
+        for (int i = r + 1; i <= n; ++i) {
+            for (int j = n + 1; j >= r; --j) {
+                b[i][j] -= b[r][j] * b[i][r];
+            }
+        }
+        cnt++;
     }
 
-    void get_answer()
-    {
-        T t = gauzz();
-        if (!t)
-        {
-            for (int i = 0; i < size; ++i)
-                if (fabs(a[i][size]) < eps)
-                    printf("0.00\n");
-                else
-                    printf("%.2f\n", a[i][size]);
+    if (cnt < n) {
+        for (int i = 1; i <= n; ++i) {
+            if (fabs(b[i][n + 1]) > eps) {
+                return 2; // 无解
+            }
+            return 1; // 无穷解
         }
-        else if (t == 1)
-            printf("Infinite group solutions\n");
-        else
-            printf("No solution\n");
     }
-};
+
+    for (int i = n; i > 1; --i) {
+        for (int j = i - 1; j; --j) {
+            b[j][n + 1] -= b[j][i] * b[i][n + 1];
+            b[i][j] = 0;
+        }
+    }
+    return 0; // 有解
+}
 ```
 
 
