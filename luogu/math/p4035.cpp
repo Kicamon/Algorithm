@@ -20,56 +20,58 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 1e3 + 10, M = N << 1;
+const int N = 15;
 
-int n, m;
-bitset<N> a[M];
-
-int gauss() {
-    int cnt = -1;
-    for (int i = 0; i < n; ++i) {
-        int t = i;
-        while (t < m && !a[t].test(i)) {
-            t++;
+int n;
+double a[N][N], b[N][N];
+void gauss() {
+    for (int r = 1; r <= n; ++r) {
+        int t = r;
+        for (int i = r; i <= n; ++i) {
+            if (fabs(b[i][r]) > fabs(b[t][r])) {
+                t = i;
+            }
         }
-        if (t >= m) {
-            return 0;
+        if (t != r) {
+            for (int i = r; i <= n + 1; ++i) {
+                swap(b[r], b[t]);
+            }
         }
-        cnt = max(cnt, t);
-        if (t != i) {
-            swap(a[i], a[t]);
+        for (int i = n + 1; i >= r; --i) {
+            b[r][i] /= b[r][r];
         }
-        for (int j = 0; j < m; ++j) {
-            if (j != i && a[j].test(i)) {
-                a[j] ^= a[i];
+        for (int i = r + 1; i <= n; ++i) {
+            for (int j = n + 1; j >= r; --j) {
+                b[i][j] -= b[i][r] * b[r][j];
             }
         }
     }
-    return cnt + 1;
+    for (int i = n; i > 1; --i) {
+        for (int j = i - 1; j; --j) {
+            b[j][n + 1] -= b[i][n + 1] * b[j][i];
+            b[j][i] = 0;
+        }
+    }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-
-    cin >> n >> m;
-    string s;
-    for (int i = 0, res; i < m; ++i) {
-        cin >> s >> res;
-        for (int j = 0; j < n; ++j) {
-            a[i].set(j, s[j] == '1');
+    cin >> n;
+    for (int i = 0; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            cin >> a[i][j];
         }
-        a[i].set(n, res);
     }
-    int res = gauss();
-    if (res) {
-        cout << res << endl;
-        for (int i = 0; i < n; ++i) {
-            cout << (a[i].test(n) ? "?y7M#" : "Earth") << endl;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            b[i][j] += 2 * (a[i][j] - a[0][j]);
+            b[i][n + 1] += a[i][j] * a[i][j] - a[0][j] * a[0][j];
         }
-    } else {
-        cout << "Cannot Determine" << endl;
     }
+    gauss();
+    for (int i = 1; i <= n; ++i) {
+        printf("%.3lf ", b[i][n + 1]);
+    }
+    cout << endl;
 
     return 0;
 }

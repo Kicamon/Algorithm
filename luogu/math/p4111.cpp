@@ -20,32 +20,16 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 1e3 + 10, M = N << 1;
+const int N = 20, M = 100, mod = 1e9;
+#define int long long
 
-int n, m;
-bitset<N> a[M];
+int n, m, idx, ans = 1;
+char ch[N][N];
+int num[N][N], a[M][M];
 
-int gauss() {
-    int cnt = -1;
-    for (int i = 0; i < n; ++i) {
-        int t = i;
-        while (t < m && !a[t].test(i)) {
-            t++;
-        }
-        if (t >= m) {
-            return 0;
-        }
-        cnt = max(cnt, t);
-        if (t != i) {
-            swap(a[i], a[t]);
-        }
-        for (int j = 0; j < m; ++j) {
-            if (j != i && a[j].test(i)) {
-                a[j] ^= a[i];
-            }
-        }
-    }
-    return cnt + 1;
+void add(int x, int y) {
+    a[x][y]--, a[y][x]--;
+    a[x][x]++, a[y][y]++;
 }
 
 signed main() {
@@ -53,23 +37,50 @@ signed main() {
     cin.tie(0);
 
     cin >> n >> m;
-    string s;
-    for (int i = 0, res; i < m; ++i) {
-        cin >> s >> res;
-        for (int j = 0; j < n; ++j) {
-            a[i].set(j, s[j] == '1');
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            cin >> ch[i][j];
         }
-        a[i].set(n, res);
     }
-    int res = gauss();
-    if (res) {
-        cout << res << endl;
-        for (int i = 0; i < n; ++i) {
-            cout << (a[i].test(n) ? "?y7M#" : "Earth") << endl;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (ch[i][j] == '.') {
+                num[i][j] = ++idx;
+            }
         }
-    } else {
-        cout << "Cannot Determine" << endl;
     }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (ch[i][j] != '.') {
+                continue;
+            }
+            if (ch[i + 1][j] == '.') {
+                add(num[i][j], num[i + 1][j]);
+            }
+            if (ch[i][j + 1] == '.') {
+                add(num[i][j], num[i][j + 1]);
+            }
+        }
+    }
+    idx--;
+    for (int i = 1; i < idx; ++i) {
+        for (int j = i + 1; j <= idx; ++j) {
+            while (a[j][i]) {
+                int l = a[i][i] / a[j][i];
+                for (int k = 1; k <= idx; ++k) {
+                    a[i][k] = (a[i][k] - a[j][k] * l % mod + mod) % mod;
+                }
+                for (int k = 1; k <= idx; ++k) {
+                    swap(a[i][k], a[j][k]);
+                }
+                ans *= -1;
+            }
+        }
+    }
+    for (int i = 1; i <= idx; ++i) {
+        ans = (ans * a[i][i] % mod + mod) % mod;
+    }
+    cout << ans << endl;
 
     return 0;
 }

@@ -1842,6 +1842,36 @@ int gauss() {
 ```
 
 
+#### 高斯消元解异或方程组
+```cpp
+int n, m;
+bitset<N> a[M];
+
+int gauss() {
+    int cnt = -1;
+    for (int i = 0; i < n; ++i) {
+        int t = i;
+        while (t < m && !a[t].test(i)) {
+            t++;
+        }
+        if (t >= m) {
+            return 0;
+        }
+        cnt = max(cnt, t);
+        if (t != i) {
+            swap(a[i], a[t]);
+        }
+        for (int j = 0; j < m; ++j) {
+            if (j != i && a[j].test(i)) {
+                a[j] ^= a[i];
+            }
+        }
+    }
+    return cnt + 1;
+}
+```
+
+
 
 ### 组合数
 
