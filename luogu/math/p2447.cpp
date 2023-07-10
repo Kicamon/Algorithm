@@ -16,67 +16,57 @@
 */
 // #pragma GCC optimize(2)
 #include <bits/stdc++.h>
+#include <bitset>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 15;
+const int N = 1e3 + 10, M = 2 * N;
 
-int n;
-double a[N][N], b[N][N];
+int n, m;
+bitset<N> a[M];
 
-void gauss() {
+int gauss() {
+    int cnt = 0;
     for (int r = 1; r <= n; ++r) {
         int t = r;
-        for (int i = r + 1; i <= n; ++i) {
-            if (fabs(b[i][r]) > fabs(b[t][r])) {
-                t = i;
-            }
+        while (t <= m && !a[r].test(r)) {
+            ++t;
         }
-        for (int i = r; i <= n + 1; ++i) {
-            swap(b[r][i], b[t][i]);
+        if (t > m) {
+            return 0;
         }
-        for (int i = n + 1; i >= r; --i) {
-            b[r][i] /= b[r][r];
+        cnt = max(cnt, t);
+        if (t != r) {
+            swap(a[r], a[t]);
         }
-        for (int i = r + 1; i <= n; ++i) {
-            for (int j = n + 1; j >= r; --j) {
-                b[i][j] -= b[i][r] * b[r][j];
+        for (int i = 1; i <= m; ++i) {
+            if (i != r && a[i].test(r)) {
+                a[i] ^= a[r];
             }
         }
     }
-
-    for (int i = n; i > 1; --i) {
-        for (int j = i - 1; j; --j) {
-            b[j][n + 1] -= b[j][i] * b[i][n + 1];
-            b[i][j] = 0;
-        }
-    }
+    return cnt;
 }
-
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    scanf("%d", &n);
-    for (int i = 0; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            scanf("%lf", &a[i][j]);
+    cin >> n >> m;
+    string s;
+    for (int i = 0, res; i < m; ++i) {
+        cin >> s >> res;
+        for (int j = 0; j < n; ++j) {
+            a[i].set(j, s[i] == '1');
         }
+        a[i].set(m, res);
     }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            b[i][j] += (a[i][j] - a[0][j]) * 2;
-            b[i][n + 1] += a[i][j] * a[i][j] - a[0][j] * a[0][j];
-        }
+    int ans = gauss();
+    if (ans) {
+        cout << ans << endl;
+    } else {
+        cout << "Cannot Determine" << endl;
     }
-
-    gauss();
-
-    for (int i = 1; i <= n; ++i) {
-        printf("%.3lf ", b[i][n + 1]);
-    }
-    printf("\n");
 
     return 0;
 }

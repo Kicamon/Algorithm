@@ -20,37 +20,63 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 15;
-
+const int N = 35;
 int n;
-double a[N][N], b[N][N];
+int a[N][N];
 
-void gauss() {
+int gauss() {
+    int cnt = 1;
     for (int r = 1; r <= n; ++r) {
         int t = r;
         for (int i = r + 1; i <= n; ++i) {
-            if (fabs(b[i][r]) > fabs(b[t][r])) {
+            if (a[i][r]) {
                 t = i;
             }
         }
-        for (int i = r; i <= n + 1; ++i) {
-            swap(b[r][i], b[t][i]);
+        if (!a[t][r]) {
+            continue;
         }
-        for (int i = n + 1; i >= r; --i) {
-            b[r][i] /= b[r][r];
+        for (int i = r; i <= n + 1; ++i) {
+            swap(a[r][i], a[t][i]);
         }
         for (int i = r + 1; i <= n; ++i) {
             for (int j = n + 1; j >= r; --j) {
-                b[i][j] -= b[i][r] * b[r][j];
+                a[i][j] ^= a[i][r] & a[r][j];
             }
         }
+        cnt++;
     }
-
-    for (int i = n; i > 1; --i) {
-        for (int j = i - 1; j; --j) {
-            b[j][n + 1] -= b[j][i] * b[i][n + 1];
-            b[i][j] = 0;
+    int res = 1;
+    if (cnt < n + 1) {
+        for (int i = cnt; i <= n; ++i) {
+            if (a[i][n + 1]) {
+                return -1;
+            }
+            res <<= 1;
         }
+    }
+    return res;
+}
+
+void solve() {
+    cin >> n;
+    memset(a, 0, sizeof a);
+    for (int i = 1; i <= n; ++i)
+        cin >> a[i][n + 1];
+    for (int i = 1, t; i <= n; ++i) {
+        cin >> t;
+        a[i][n + 1] ^= t;
+        a[i][i] = 1;
+    }
+    int x, y;
+    while (cin >> x >> y, x || y) {
+        a[y][x] = 1;
+    }
+    int res = gauss();
+    if (res == -1) {
+        cout << "Oh,it's impossible~!!" << endl;
+    } else {
+        cout << res << endl;
     }
 }
 
@@ -58,25 +84,10 @@ signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    scanf("%d", &n);
-    for (int i = 0; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            scanf("%lf", &a[i][j]);
-        }
-    }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            b[i][j] += (a[i][j] - a[0][j]) * 2;
-            b[i][n + 1] += a[i][j] * a[i][j] - a[0][j] * a[0][j];
-        }
-    }
-
-    gauss();
-
-    for (int i = 1; i <= n; ++i) {
-        printf("%.3lf ", b[i][n + 1]);
-    }
-    printf("\n");
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

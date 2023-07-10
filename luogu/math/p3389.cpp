@@ -20,38 +20,43 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int N = 15;
-
+const int N = 1e4 + 10;
 int n;
-double a[N][N], b[N][N];
 
-void gauss() {
+double a[N][N];
+
+bool gauss() {
+    int cnt = 0;
     for (int r = 1; r <= n; ++r) {
         int t = r;
         for (int i = r + 1; i <= n; ++i) {
-            if (fabs(b[i][r]) > fabs(b[t][r])) {
+            if (fabs(a[i][r]) > fabs(a[t][r])) {
                 t = i;
             }
         }
+        if (!a[r][r]) {
+            return false;
+        }
         for (int i = r; i <= n + 1; ++i) {
-            swap(b[r][i], b[t][i]);
+            swap(a[t][i], a[r][i]);
         }
         for (int i = n + 1; i >= r; --i) {
-            b[r][i] /= b[r][r];
+            a[r][i] /= a[r][r];
         }
         for (int i = r + 1; i <= n; ++i) {
             for (int j = n + 1; j >= r; --j) {
-                b[i][j] -= b[i][r] * b[r][j];
+                a[i][j] -= a[r][j] * a[i][r];
             }
         }
+        cnt++;
     }
-
     for (int i = n; i > 1; --i) {
         for (int j = i - 1; j; --j) {
-            b[j][n + 1] -= b[j][i] * b[i][n + 1];
-            b[i][j] = 0;
+            a[j][n + 1] -= a[i][n + 1] * a[j][i];
+            a[i][j] = 0;
         }
     }
+    return true;
 }
 
 signed main() {
@@ -59,24 +64,18 @@ signed main() {
     cin.tie(0);
 
     scanf("%d", &n);
-    for (int i = 0; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n + 1; ++j) {
             scanf("%lf", &a[i][j]);
         }
     }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            b[i][j] += (a[i][j] - a[0][j]) * 2;
-            b[i][n + 1] += a[i][j] * a[i][j] - a[0][j] * a[0][j];
+    if (gauss()) {
+        for (int i = 1; i <= n; ++i) {
+            printf("%.2lf\n", a[i][n + 1]);
         }
+    } else {
+        printf("No Solution");
     }
-
-    gauss();
-
-    for (int i = 1; i <= n; ++i) {
-        printf("%.3lf ", b[i][n + 1]);
-    }
-    printf("\n");
 
     return 0;
 }

@@ -1805,6 +1805,9 @@ int gauss() {
                 t = i;
             }
         }
+        if (!a[r][r]) {
+            continue;
+        }
         for (int i = r; i <= n + 1; ++i) {
             swap(b[r][i], b[t][i]);
         }
