@@ -3,17 +3,14 @@ using namespace std;
 
 const int N = 1e5 + 10;
 
-template <class T> struct Splay
-{
-    struct Node
-    {
+template <class T> struct Splay {
+    struct Node {
         int s[2], p; // 存储子节点和父节点
         int v;       // 节点的编号
         int size;    // 子树的大小
         bool flag;   // 懒标记
 
-        void init(int _v, int _p)
-        {
+        void init(int _v, int _p) {
             v = _v, p = _p;
             size = 1;
         }
@@ -21,15 +18,12 @@ template <class T> struct Splay
     int root, idx; // 根节点和节点下标
     int size;      // 序列的大小
 
-    void pushup(int u)
-    {
+    void pushup(int u) {
         tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1;
     }
 
-    void pushdown(int u)
-    {
-        if (tr[u].flag)
-        {
+    void pushdown(int u) {
+        if (tr[u].flag) {
             // 执行操作
             swap(tr[u].s[0], tr[u].s[1]);
             // 对懒标记的操作
@@ -42,7 +36,7 @@ template <class T> struct Splay
     void rotate(int x) // 旋转操作，两种旋转在一个函数中完成
     {
         int y = tr[x].p, z = tr[y].p; // 找出当前节点x的父节点y和y的父节点z
-        int k = tr[y].s[1] == x;      // k=1时，x为y的右儿子，k=0时，x为y的左儿子
+        int k = tr[y].s[1] == x; // k=1时，x为y的右儿子，k=0时，x为y的左儿子
         tr[z].s[tr[z].s[1] == y] = x, tr[x].p = z;
         tr[y].s[k] = tr[x].s[k ^ 1], tr[tr[x].s[k ^ 1]].p = y;
         tr[x].s[k ^ 1] = y, tr[y].p = x;
@@ -51,11 +45,11 @@ template <class T> struct Splay
 
     void splay(int x, int k) // 将x转到k的下面，当k为0时，即将x转到根节点
     {
-        while (tr[x].p != k)
-        {
+        while (tr[x].p != k) {
             int y = tr[x].p, z = tr[y].p;
             if (z != k)
-                if ((tr[y].s[1] == x) ^ (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
+                if ((tr[y].s[1] == x) ^
+                    (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
                     rotate(x);
                 else
                     rotate(y); // xyz呈直线关系，先转y在转x
@@ -65,8 +59,7 @@ template <class T> struct Splay
             root = x;
     }
 
-    void insert(int v)
-    {
+    void insert(int v) {
         int u = root, p = 0;
         while (u)
             p = u, u = tr[u].s[v > tr[u].v]; // 更新父节点，判断往左走还是往右走
@@ -80,8 +73,7 @@ template <class T> struct Splay
     int get_k(int k) // 寻找中序遍历中的第k个数
     {
         int u = root;
-        while (true)
-        {
+        while (true) {
             pushdown(u);
             if (tr[tr[u].s[0]].size >= k) // 在左子树
                 u = tr[u].s[0];
@@ -104,15 +96,13 @@ template <class T> struct Splay
             output(tr[u].s[1]);
     }
 
-    void init(int n)
-    {
+    void init(int n) {
         size = n;
         for (int i = 0; i <= size + 1; ++i) // 插入0和size + 1两个哨兵
             insert(i);
     }
 
-    void op(int l, int r)
-    {
+    void op(int l, int r) {
         l = get_k(l), r = get_k(r + 2);
         splay(l, 0), splay(r, l);
         tr[tr[r].s[0]].flag ^= 1;
@@ -121,13 +111,11 @@ template <class T> struct Splay
 
 Splay<int> s;
 
-int main()
-{
+int main() {
     int n, m;
     cin >> n >> m;
     s.init(n);
-    while (m--)
-    {
+    while (m--) {
         int l, r;
         cin >> l >> r;
         s.op(l, r);
