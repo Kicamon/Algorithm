@@ -1986,7 +1986,7 @@ template <typename T> T C(T a, T b)
 
 #### int范围内数字较小时
 
-$\C_{M}^{N} $ = $\C_{M - 1}^{N}$ + $\C_{M - 1}^{N-1}$
+$C_{M}^{N}  = C_{M - 1}^{N} + C_{M - 1}^{N-1}$
 
 ```c++
 void init(int n)
