@@ -1986,7 +1986,7 @@ template <typename T> T C(T a, T b)
 
 #### int范围内数字较小时
 
-$C_{M}^{N}  = C_{M - 1}^{N} + C_{M - 1}^{N-1}$
+$C_{M}^{N} = C_{M - 1}^{N} + C_{M - 1}^{N-1}$
 
 ```c++
 void init(int n)
@@ -2161,7 +2161,7 @@ template <class T> struct C
 
 #### 卡特兰数
 
-> 卡特兰数的定义：$C_{2n}^{n} - C_{2n}^{n-1}$ $= \frac{C_{2n}^{n}} {n+1}$
+> 卡特兰数的定义：$C_{2n}^{n} - C_{2n}^{n - 1} = \frac{C_{2n}^{n}} {n + 1}$
 
 
 
