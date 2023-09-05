@@ -2164,7 +2164,6 @@ template <class T> struct C
 > 卡特兰数的定义：$C_{2n}^{n} - C_{2n}^{n - 1} = \frac{C_{2n}^{n}} {n + 1}$
 
 
-
 ### 容斥原理
 
 #### 容斥原理
