@@ -21,22 +21,56 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
+char cl[2] = {'W', 'B'};
+
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    ll b = 1ll * n * (n + 1) / 2;
+    int n, m;
+    cin >> n >> m;
+    vector<string> s(n);
     for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        b -= a[i];
+        cin >> s[i];
     }
-    a.push_back(b);
-    k %= n + 1;
-    rotate(a.begin(), a.end() - k, a.end());
+    vector<int> num(m);
     for (int i = 0; i < n; ++i) {
-        cout << a[i] << ' ';
+        int idx = 0;
+        for (int j = 0; j < m; ++j) {
+            if (s[i][j] == '.') {
+                continue;
+            }
+            if (s[i][j] == 'L') {
+                s[i][j] = cl[num[j]];
+                num[j] ^= 1;
+            } else if (s[i][j] == 'R') {
+                if (s[i][j - 1] == 'W') {
+                    s[i][j] = 'B';
+                } else {
+                    s[i][j] = 'W';
+                }
+            } else if (s[i][j] == 'U') {
+                s[i][j] = cl[idx];
+                idx ^= 1;
+            } else {
+                if (s[i - 1][j] == 'W') {
+                    s[i][j] = 'B';
+                } else {
+                    s[i][j] = 'W';
+                }
+            }
+        }
+        if (idx) {
+            cout << -1 << endl;
+            return;
+        }
     }
-    cout << endl;
+    for (int i = 0; i < m; ++i) {
+        if (num[i]) {
+            cout << -1 << endl;
+            return;
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        cout << s[i] << endl;
+    }
 }
 
 signed main() {
