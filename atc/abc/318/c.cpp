@@ -21,23 +21,29 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-void solve() {
-    int n, m, k;
-    cin >> n >> m >> k;
-    vector<int> h(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> h[i];
-    }
-}
-
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    int n, d, p;
+    cin >> n >> d >> p;
+    vector<int> a(n);
+    ll sum = 0;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        sum += a[i];
+    }
+    sort(a.begin(), a.end(), greater<int>());
+    for (int i = 0; i < n; i += d) {
+        ll cnt = 0;
+        for (int j = i; j < d + i && j < n; ++j) {
+            cnt += a[j];
+        }
+        if (cnt > p) {
+            sum = sum - cnt + p;
+        }
+    }
+    cout << sum << endl;
 
     return 0;
 }

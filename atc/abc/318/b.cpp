@@ -20,24 +20,31 @@ using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
+const int N = 110;
 
-void solve() {
-    int n, m, k;
-    cin >> n >> m >> k;
-    vector<int> h(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> h[i];
-    }
-}
+bool w[N][N];
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+    int n;
+    cin >> n;
+    for (int i = 0, a, b, c, d; i < n; ++i) {
+        cin >> a >> b >> c >> d;
+        for (int x = a + 1; x <= b; ++x) {
+            for (int y = c + 1; y <= d; ++y) {
+                w[x][y] = true;
+            }
+        }
+    }
+    int res = 0;
+    for (int i = 0; i <= 100; ++i) {
+        for (int j = 0; j <= 100; ++j) {
+            res += w[i][j];
+        }
+    }
+    cout << res << endl;
 
     return 0;
 }
