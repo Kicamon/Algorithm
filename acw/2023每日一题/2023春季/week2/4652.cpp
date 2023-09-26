@@ -26,8 +26,7 @@ using namespace std;
 // const int mod =
 // const int N =
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -35,8 +34,7 @@ signed main()
     string s;
     cin >> s;
     int x = s[1] - '0';
-    while (x--)
-    {
+    while (x--) {
         l /= 2;
         swap(l, w);
     }

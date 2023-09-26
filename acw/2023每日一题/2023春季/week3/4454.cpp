@@ -25,8 +25,7 @@ using namespace std;
 #define eqs 1e-6
 // const int mod =
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -35,8 +34,7 @@ signed main()
     vector<bool> vis(n + 1, 0);
     vis[0] = true;
     int res = 0, a, b;
-    while (m--)
-    {
+    while (m--) {
         cin >> a >> b;
         if (!vis[b])
             res++;

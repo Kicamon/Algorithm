@@ -26,8 +26,7 @@ using namespace std;
 // const int mod =
 const int N = 1e5 + 10;
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -35,8 +34,7 @@ signed main()
     cin >> n;
     vint a(n + 1, 0);
     vector<ll> b(n + 1, 0);
-    for (int i = 1; i <= n; ++i)
-    {
+    for (int i = 1; i <= n; ++i) {
         cin >> a[i];
         b[i] = a[i] + b[i - 1];
     }
@@ -44,8 +42,7 @@ signed main()
     cin >> m;
     ll res = 0;
     vint s(n + 2, 0);
-    for (int i = 0; i < m; ++i)
-    {
+    for (int i = 0; i < m; ++i) {
         int l, r;
         cin >> l >> r;
         res += b[r] - b[l - 1];

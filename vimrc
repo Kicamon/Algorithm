@@ -1,4 +1,4 @@
-# xcpc适用的vim配置
+" xcpc适用的vim配置
 set number
 set relativenumber
 syntax on
@@ -14,7 +14,6 @@ set autoindent
 set smartindent
 set list
 set listchars=tab:\│\ ,trail:▪
-hi Visual term=reverse cterm=reverse
 let leadermap=" "
 nnoremap W :w<CR>
 nnoremap Q :q<CR>
@@ -26,9 +25,10 @@ inoremap <A-l> <Right>
 nnoremap tu :tabe<CR>:edit<space>
 nnoremap tn :+tabnext<CR>
 nnoremap tp :-tabnext<CR>
+vnoremap Y "+y
 nnoremap ca ggVG"+y
 nnoremap <leader><CR> :noh<CR>
-vnoremap Y "+y
+vnoremap N :normal 
 nmap <F5> :call Run()<CR>
 function! Run()
 	execute 'w'

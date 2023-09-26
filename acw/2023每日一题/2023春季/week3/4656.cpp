@@ -26,8 +26,7 @@ using namespace std;
 // const int mod =
 // const int N =
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -41,8 +40,7 @@ signed main()
     auto check = [&](int x) {
         int res = 0;
         int l = 0, r = n - 1;
-        while (l < r)
-        {
+        while (l < r) {
             int mid = l + r >> 1;
             if (a[mid][0] <= x)
                 l = mid + 1;
@@ -55,8 +53,7 @@ signed main()
     };
 
     int l = 0, r = a[n - 1][0];
-    while (l < r)
-    {
+    while (l < r) {
         int mid = l + r >> 1;
         if (check(mid))
             l = mid + 1;
@@ -73,8 +70,7 @@ signed main()
     };
 
     ll res = 0;
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         if (a[i][0] > l)
             res = add(res, i);
     }

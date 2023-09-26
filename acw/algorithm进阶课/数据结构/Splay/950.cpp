@@ -24,23 +24,20 @@ template <class T> struct Splay {
         tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1;
     }
 
-    void rotate(int x) // 旋转操作，两种旋转在一个函数中完成
-    {
+    void rotate(int x) {              // 旋转操作，两种旋转在一个函数中完成
         int y = tr[x].p, z = tr[y].p; // 找出当前节点x的父节点y和y的父节点z
-        int k = tr[y].s[1] == x; // k=1时，x为y的右儿子，k=0时，x为y的左儿子
+        int k = tr[y].s[1] == x;      // k=1时，x为y的右儿子，k=0时，x为y的左儿子
         tr[z].s[tr[z].s[1] == y] = x, tr[x].p = z;
         tr[y].s[k] = tr[x].s[k ^ 1], tr[tr[x].s[k ^ 1]].p = y;
         tr[x].s[k ^ 1] = y, tr[y].p = x;
         pushup(y), pushup(x);
     }
 
-    void splay(int x, int k) // 将x转到k的下面，当k为0时，即将x转到根节点
-    {
+    void splay(int x, int k) { // 将x转到k的下面，当k为0时，即将x转到根节点
         while (tr[x].p != k) {
             int y = tr[x].p, z = tr[y].p;
             if (z != k) {
-                if ((tr[y].s[1] == x) ^
-                    (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
+                if ((tr[y].s[1] == x) ^ (tr[z].s[1] == y)) // xyz呈折线关系，转两次x
                     rotate(x);
                 else
                     rotate(y); // xyz呈直线关系，先转y在转x
@@ -74,8 +71,7 @@ template <class T> struct Splay {
         return p;
     }
 
-    int get_k(int k) // 寻找中序遍历中的第k个数
-    {
+    int get_k(int k) { // 寻找中序遍历中的第k个数
         int u = root;
         while (true) {
             if (tr[tr[u].s[0]].size >= k) // 在左子树
@@ -117,8 +113,7 @@ template <class T> struct Splay {
             cout << get_k(tr[root].size - k) + delta << endl;
     }
 
-    void op(char opc, int k) // 具体的操作，根据题目来写，可以多写几个
-    {
+    void op(char opc, int k) { // 具体的操作，根据题目来写，可以多写几个
         if (opc == 'I')
             opi(k), tot++;
         else if (opc == 'A')

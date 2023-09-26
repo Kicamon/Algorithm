@@ -26,8 +26,7 @@ using namespace std;
 // const int mod =
 const int N = 1e6 + 10;
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -35,8 +34,7 @@ signed main()
     cin >> n >> m;
 
     vint a(n), b(n + 1);
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         a[i] = i + 1;
         int s = 0;
         for (int j = i + 1; j; j /= 10)

@@ -18,8 +18,7 @@ using namespace std;
 // const int mod =
 // const int N =
 
-signed main()
-{
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
@@ -32,8 +31,7 @@ signed main()
 
     ll res = 0;
     int num;
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         ll t = a[i] * (n - i);
         if (t > res)
             res = t, num = a[i];
