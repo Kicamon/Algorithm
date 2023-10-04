@@ -2352,6 +2352,121 @@ signed main() {
 }
 ```
 
+#### 筛法求欧拉函数
+```cpp
+const int N = 1e7 + 10;
+int p[N], pr[N / 5], idx;
+int phi[N];
+
+void uler() {
+    int n;
+    cin >> n;
+    p[1] = 1, phi[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        if (!p[i]) {
+            p[i] = i, phi[i] = i - 1, pr[++idx] = i;
+        }
+        for (int j = 1; j <= idx && pr[j] * i <= n; ++j) {
+            p[pr[j] * i] = pr[j];
+            if (p[i] == pr[j]) {
+                phi[i * pr[j]] = phi[i] * pr[j];
+                break;
+            } else {
+                phi[i * pr[j]] = phi[i] * (pr[j] - 1);
+            }
+        }
+    }
+}
+```
+
+#### 莫比乌斯函数
+```cpp
+const int N = 1e7 + 10;
+int p[N], pe[N], pr[N / 5], idx; // pe用于存储最小质因子出现的个数
+int d[N];
+
+void getD() {
+    int n;
+    cin >> n;
+    p[1] = 1, d[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        if (!p[i]) {
+            p[i] = i, pe[i] = i, d[i] = 2, pr[++idx] = i;
+        }
+        for (int j = 1; j <= idx && pr[j] * i <= n; ++j) {
+            p[pr[j] * i] = pr[j];
+            if (p[i] == pr[j]) {
+                pe[i * pr[j]] = pe[i] + 1;
+                d[i * pr[j]] = d[i] / pe[i * pr[j]] * (pe[i * pr[j]] + 1);
+                break;
+            } else {
+                pe[i * pr[j]] = 1;
+                d[i * pr[j]] = d[i] * 2;
+            }
+        }
+    }
+}
+```
+
+#### 因子个数
+```cpp
+const int N = 1e7 + 10;
+int p[N], pe[N], pr[N / 5], idx; // pe用于存储最小质因子出现的个数
+int d[N];
+
+void getD() {
+    int n;
+    cin >> n;
+    p[1] = 1, d[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        if (!p[i]) {
+            p[i] = i, pe[i] = i, d[i] = 2, pr[++idx] = i;
+        }
+        for (int j = 1; j <= idx && pr[j] * i <= n; ++j) {
+            p[pr[j] * i] = pr[j];
+            if (p[i] == pr[j]) {
+                pe[i * pr[j]] = pe[i] + 1;
+                d[i * pr[j]] = d[i] / pe[i * pr[j]] * (pe[i * pr[j]] + 1);
+                break;
+            } else {
+                pe[i * pr[j]] = 1;
+                d[i * pr[j]] = d[i] * 2;
+            }
+        }
+    }
+}
+```
+
+#### 因子和
+```cpp
+const int N = 1e7 + 10;
+int p[N], pe[N], pr[N / 5], idx; // pe用于存储最小质因子p的所有指数值之和即p^0 + p^1 + ... +p^x
+int sigma[N];
+
+void getSigma() {
+    int n;
+    cin >> n;
+    p[1] = 1, sigma[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        if (!p[i]) {
+            p[i] = i, pe[i] = i + 1, sigma[i] = i + 1, pr[++idx] = i;
+        }
+        for (int j = 1; j <= idx && pr[j] * i <= n; ++j) {
+            p[pr[j] * i] = pr[j];
+            if (p[i] == pr[j]) {
+                pe[i * pr[j]] = pe[i] * pr[j] + 1;
+                sigma[i * pr[j]] = sigma[i] / pe[i * pr[j]] * pe[i];
+                break;
+            } else {
+                pe[i * pr[j]] = 1 + pr[j];
+                sigma[i * pr[j]] = sigma[i] * sigma[pr[j]];
+            }
+        }
+    }
+}
+```
+
+
 ### 莫比乌斯反演
 ```cpp
 const int N = 1e6 + 10;
