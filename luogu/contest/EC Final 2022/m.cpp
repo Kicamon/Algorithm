@@ -28,9 +28,28 @@ signed main() {
 
     int n, a;
     cin >> n >> a;
-    vector<int> b(n + 1);
-    for (int i = 1; i <= n; ++i) {
+    vector<int> b(n);
+    for (int i = 0; i < n; ++i) {
         cin >> b[i];
+    }
+    int ans = 0;
+    vector<int> res(n);
+    for (int i = 0; i < n; ++i) {
+        if (b[i]) {
+            res[i] = 3;
+            continue;
+        }
+        int l = i % n + 1, r = (i + n - 2) % n + 1;
+        if (a >= 3) {
+            res[i] = 3;
+            if (l < i && b[l] == 0) {
+                a -= 2;
+            } else {
+                a -= 3;
+            }
+        } else if (a == 2) {
+             
+        }
     }
 
     return 0;
