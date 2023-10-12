@@ -21,30 +21,67 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+const int N = 1e3 + 10;
+
+vector<int> primes;
+
+void prime() {
+    vector<bool> vis(N + 1);
+    for (int i = 2; i <= N; ++i) {
+        if (!vis[i]) {
+            primes.push_back(i);
+        }
+        for (int j : primes) {
+            if (i * j > N) {
+                break;
+            }
+            vis[i * j] = true;
+            if (i % j == 0) {
+                break;
+            }
+        }
+    }
+}
+
+void solve() {
+    int n;
+    cin >> n;
+    map<int, int> a;
+    for (int i = 0, c; i < n; ++i) {
+        cin >> c;
+        for (int j : primes) {
+            if (c < j) {
+                break;
+            }
+            int res = 0;
+            while (c % j == 0) {
+                res++;
+                c /= j;
+            }
+            a[j] += res;
+        }
+        if (c > 1) {
+            a[c] += 1;
+        }
+    }
+    for (auto x : a) {
+        if (x.second % n) {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
+}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n, a;
-    cin >> n >> a;
-    a = n - a;
-    vector<int> b(n + 1);
-    int ans = 0;
-    for (int i = 1; i <= n; ++i) {
-        cin >> b[i];
-        ans += b[i] * 3;
-    }
-    vector<int> res(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        int l = i % n + 1, r = (i + n - 2) % n + 1;
-        res[i] = (b[i] == 0) + (b[l] == 0) + (b[r] == 0);
-    }
-    sort(res.rbegin(), res.rend());
-    for (int i = 0; i < a; ++i) {
-        ans += res[i];
-    }
-    cout << ans << endl;
+    prime();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }
