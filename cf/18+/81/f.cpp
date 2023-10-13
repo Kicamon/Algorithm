@@ -25,7 +25,6 @@ using namespace std;
 const int N = 2e5 + 10;
 
 vector<int> e[N];
-bool vis[N];
 int dp[N], rdp[N];
 
 void bfs(int u) {
@@ -38,7 +37,7 @@ void bfs(int u) {
             if (dp[v] || v == u) {
                 continue;
             }
-            dp[v] = dp[u] + 1;
+            dp[v] = dp[t] + 1;
             q.push(v);
         }
     }
@@ -60,7 +59,7 @@ void rdfs(int u, int f) {
             continue;
         }
         rdp[v] = rdp[u] + 1;
-        dfs(v, u);
+        rdfs(v, u);
     }
 }
 
@@ -70,14 +69,13 @@ void solve() {
     for (int i = 1; i <= n; ++i) {
         e[i].clear();
         dp[i] = 0;
-        vis[i] = false;
+        rdp[i] = 0;
     }
     int u, v;
     vector<int> tag;
     while (k--) {
         cin >> u;
         tag.push_back(u);
-        vis[u] = true;
     }
     for (int i = 1; i < n; ++i) {
         cin >> u >> v;
@@ -108,9 +106,6 @@ void solve() {
     rdfs(r, 0);
     int res = INT_MAX;
     for (int i = 1; i <= n; ++i) {
-        if (vis[i]) {
-            continue;
-        }
         res = min(res, max(dp[i], rdp[i]));
     }
     if (res == INT_MAX) {
