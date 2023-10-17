@@ -50,7 +50,6 @@ function! Command()
 		normal! 0i// 
 	endif
 endfunction
-
 ```
 
 
