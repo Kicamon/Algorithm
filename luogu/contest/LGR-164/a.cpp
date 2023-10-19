@@ -50,21 +50,12 @@ signed main() {
         int m;
         cin >> m;
         vector<int> p(m);
-        int res = a[n];
         for (int i = 0; i < m; ++i) {
             cin >> p[i];
-            res += c[p[i]];
         }
-        vector<int> dp3(m + 1);
+        vector<int> ans(m + 1);
         for (int i = 0; i < m; ++i) {
-            int j = p[i];
-            int cnt = min(a[j] + dp2[j], a[j - 1]);
-            if (i) {
-                cnt = min({cnt, dp[j] - dp[p[i - 1]] + c[j], dp[j - 1] - dp[p[i - 1]]});
-            }
-            dp3[i + 1] = dp3[i] + cnt;
         }
-        cout << res << endl;
     }
 
     return 0;
