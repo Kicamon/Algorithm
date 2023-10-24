@@ -1493,6 +1493,7 @@ void Prime(int n)
 #### 欧拉筛
 
 ```c++
+vector<int> primes;
 void prime(int n)
 {
     vector<bool> vis(n + 1, 0);
