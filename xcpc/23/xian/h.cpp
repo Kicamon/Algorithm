@@ -21,6 +21,7 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+#define int long long
 
 int n, k;
 

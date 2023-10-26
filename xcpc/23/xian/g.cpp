@@ -21,6 +21,7 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+#define int long long
 
 vector<int> primes;
 void prime(int n) {
@@ -41,7 +42,7 @@ void solve() {
     int n, ans = 1;
     cin >> n;
     for (int i : primes) {
-        if (i > n) {
+        if (i * i > n) {
             break;
         }
         int cnt = 0;
