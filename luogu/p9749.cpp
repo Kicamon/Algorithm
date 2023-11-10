@@ -16,6 +16,7 @@
 */
 // #pragma GCC optimize(2)
 #include <bits/stdc++.h>
+#include <queue>
 using namespace std;
 #define endl '\n'
 #define ll long long
@@ -31,6 +32,11 @@ signed main() {
     vector<int> v(n - 1);
     for (int i = 0; i < n - 1; ++i) {
         cin >> v[i];
+    }
+    priority_queue<array<int, 2>, vector<array<int, 2>>, less<array<int, 2>>> q;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
     }
 
     return 0;
