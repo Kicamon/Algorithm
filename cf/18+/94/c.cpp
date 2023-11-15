@@ -21,49 +21,34 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-#define int long long
+
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> b(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> b[i];
+    }
+    k = min(k, n);
+    for (int i = 0, x = n - 1; i < k; ++i) {
+        if (b[x] > n) {
+            cout << "No" << endl;
+            return;
+        }
+        x += n - b[x];
+        x %= n;
+    }
+    cout << "Yes" << endl;
+}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int n, d;
-    cin >> n >> d;
-    vector<int> v(n);
-    for (int i = 1; i < n; ++i) {
-        cin >> v[i];
-    }
-    vector<int> a(n + 1);
-    vector<array<int, 2>> e;
-    int idx = 1;
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-        if (a[i] < a[idx]) {
-            int len = 0;
-            for (int j = idx; j < i; ++j) {
-                len += v[j];
-            }
-            e.push_back({len, idx});
-            idx = i;
-        }
-    }
-    if (idx != n) {
-        int len = 0;
-        for (int i = idx; i < n; ++i) {
-            len += v[i];
-        }
-        e.push_back({len, idx});
-    }
-    int res = 0, cnt = 0;
-    for (auto x : e) {
-        if (cnt < x[0]) {
-            int c = (x[0] - cnt + d - 1) / d;
-            cnt += c * d;
-            res += c * a[x[1]];
-        }
-        cnt -= x[0];
-    }
-    cout << res << endl;
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }
