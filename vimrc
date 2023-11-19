@@ -31,18 +31,18 @@ nnoremap <leader><CR> :noh<CR>
 vnoremap N :normal 
 nmap <F5> :call Run()<CR>
 function! Run()
-	execute 'w'
-	:set splitright
-	:vsplit
-	:vertical res -20
-	term g++ "%" -std=c++17 -O2 -g -Wall -o "%<" && "./%<" && rm -f "./%<"
+  execute 'w'
+  :set splitright
+  :vsplit
+  :vertical res -20
+  term g++ "%" -std=c++17 -O2 -g -Wall -o "%<" && "./%<" && rm -f "./%<"
 endfunction
 nmap <leader>cc :call Command()<CR>
 function! Command()
-	let has_command = getline('.')[0:1]
-	if has_command == "//"
-		normal! 0veld
-	else
-		normal! 0i// 
-	endif
+  let has_command = getline('.')[0:1]
+  if has_command == "//"
+    normal! 0veld
+  else
+    normal! 0i// 
+  endif
 endfunction
