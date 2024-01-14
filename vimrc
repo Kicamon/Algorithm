@@ -4,8 +4,7 @@ set relativenumber
 syntax on
 set cursorline
 let mapleader = "\<space>"
-set showtabline=2
-set laststatus=2
+set laststatus=3
 colorscheme slate
 set tabstop=4
 set shiftwidth=4
@@ -13,7 +12,7 @@ set softtabstop=4
 set autoindent
 set smartindent
 set list
-set listchars=tab:\│\ ,trail:▪
+set listchars=tab:\│⋅,trail:⋅
 let leadermap=" "
 nnoremap W :w<CR>
 nnoremap Q :q<CR>
@@ -29,6 +28,9 @@ vnoremap Y "+y
 nnoremap ca ggVG"+y
 nnoremap <leader><CR> :noh<CR>
 vnoremap N :normal 
+autocmd TermOpen term://* startinsert
+tnoremap <C-n> <C-\><C-N>
+tnoremap <C-o> <C-\><C-N><C-O>
 nmap <F5> :call Run()<CR>
 function! Run()
   execute 'w'

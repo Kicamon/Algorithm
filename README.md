@@ -1,56 +1,6 @@
 # 代码模板整理
 
-## 简短vim配置
-```vim
-" xcpc适用的vim配置
-set number
-set relativenumber
-syntax on
-set cursorline
-let mapleader = "\<space>"
-set showtabline=2
-set laststatus=2
-colorscheme slate
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set smartindent
-set list
-set listchars=tab:\│\ ,trail:▪
-let leadermap=" "
-nnoremap W :w<CR>
-nnoremap Q :q<CR>
-inoremap ( ()<ESC>i
-inoremap { {<CR>}<ESC>O
-inoremap ' ''<ESC>i
-inoremap " ""<ESC>i
-inoremap <A-l> <Right>
-nnoremap tu :tabe<CR>:edit<space>
-nnoremap tn :+tabnext<CR>
-nnoremap tp :-tabnext<CR>
-vnoremap Y "+y
-nnoremap ca ggVG"+y
-nnoremap <leader><CR> :noh<CR>
-vnoremap N :normal 
-nmap <F5> :call Run()<CR>
-function! Run()
-	execute 'w'
-	:set splitright
-	:vsplit
-	:vertical res -20
-	term g++ "%" -std=c++17 -O2 -g -Wall -o "%<" && "./%<" && rm -f "./%<"
-endfunction
-nmap <leader>cc :call Command()<CR>
-function! Command()
-	let has_command = getline('.')[0:1]
-	if has_command == "//"
-		normal! 0veld
-	else
-		normal! 0i// 
-	endif
-endfunction
-```
+## 简短vim配置：[vimrc](./vimrc)
 
 
 ## 基本代码模板
@@ -191,9 +141,9 @@ int main()
     start = clock();
     //clock()函数返回此时CPU时钟计时单元数
     /*
-	 你的代码
-	
-	*/
+     你的代码
+    
+    */
     finish = clock();
     //clock()函数返回此时CPU时钟计时单元数
     cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
@@ -504,7 +454,7 @@ for(int i = 1;i <= n;++i)
     {
         f[i][j] = f[i - 1][j];
         if(j >= s[i])
-	        f[i][j] = max(f[i - 1][j],f[i - 1][j - s[i]] + v[i]);
+            f[i][j] = max(f[i - 1][j],f[i - 1][j - s[i]] + v[i]);
     }
 ```
 
@@ -698,8 +648,8 @@ template <class T> struct BIT
         size = x;
         while(x)
         {
-        	x >>= 1;
-        	blen++;
+            x >>= 1;
+            blen++;
         }
     }
 
@@ -715,7 +665,7 @@ template <class T> struct BIT
             c[i] = c[i] + d;
     }
 
-	int query(T x)
+    int query(T x)
     {
         int res = 0;
         for (int i = blen; ~i; --i)
@@ -1278,24 +1228,24 @@ int e[M],ne[M],h[N],idx;
 
 void add(int a,int b)
 {
-	e[idx] = b,ne[idx] = h[a],h[a] = idx++;
+    e[idx] = b,ne[idx] = h[a],h[a] = idx++;
 }
 
 bool dfs(int u,int c)
 {
-	color[u] = c;
-	for(int i = h[u];~i;i = ne[i])
-	{
-		int j = e[i];
-		if(!color[j])
-		{
-		    if(!dfs(j,3 - c))
-		        return 0;
-		}
-		else if(color[j] == c) 
-			return false;
-	}
-	return true;
+    color[u] = c;
+    for(int i = h[u];~i;i = ne[i])
+    {
+        int j = e[i];
+        if(!color[j])
+        {
+            if(!dfs(j,3 - c))
+                return 0;
+        }
+        else if(color[j] == c) 
+            return false;
+    }
+    return true;
 }
 ```
 
@@ -1308,7 +1258,7 @@ int e[M],ne[M],h[N],idx;
 
 void add(int a,int b)
 {
-	e[idx] = b,ne[idx] = h[a],h[a] = idx++;
+    e[idx] = b,ne[idx] = h[a],h[a] = idx++;
 }
 
 int metch[N];
@@ -1316,20 +1266,20 @@ bool vis[N];
 
 bool Hungarian(int u)
 {
-	for(int i = h[u];~i;i = ne[i])
-	{
-		int j = e[i];
-		if(!vis[j])
-		{
-			vis[j] = true;
-			if(!metch[j] || Hungarian(metch[j]))
-			{
-				metch[j] = u;
-				return true;
-			}
-		}
-	}
-	return false;
+    for(int i = h[u];~i;i = ne[i])
+    {
+        int j = e[i];
+        if(!vis[j])
+        {
+            vis[j] = true;
+            if(!metch[j] || Hungarian(metch[j]))
+            {
+                metch[j] = u;
+                return true;
+            }
+        }
+    }
+    return false;
 }
 ```
 
@@ -2049,7 +1999,7 @@ void init(int n)
         for(int j = 0;j <= i;j++)
             if(!f[i][j])
                 f[i][j] = 1;
-    		else 
+            else 
                 f[i][j] = f[i - 1][j] + f[i - 1][j - 1];
 }
 ```
