@@ -21,44 +21,32 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int mod = 998244353;
-
-int get_uler(int n) {
-    int res = n;
-    for (int i = 2; i * i <= n; ++i)
-        if (n % i == 0) {
-            res = res / i * (i - 1);
-            while (n % i == 0)
-                n /= i;
-        }
-    if (n > 1)
-        res = res / n * (n - 1);
-    return res;
-}
-
-template <typename T> T qmi(long long a, long long b, T p) {
-    T res = 1;
-    a %= p;
-    while (b) {
-        if (b & 1)
-            res = res * a % p;
-        b >>= 1;
-        a = a * a % p;
-    }
-    return res;
-}
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    ll a, b;
-    cin >> a >> b;
-    if (a == 1) {
-        cout << 0 << endl;
-    } else {
-        int res = qmi(a, b - 1, mod);
-        cout << (ll)res * get_uler(a) % mod << endl;
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> a(n + 1, vector<int>(n + 1));
+    while (m--) {
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
+        for (int i = x1; i <= x2; ++i) {
+            a[i][y1] ^= 1;
+            a[i][y2 + 1] ^= 1;
+        }
+    }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            a[i][j] ^= a[i][j - 1];
+        }
+    }
+    for(int i = 1;i <= n;++i){
+        for(int j = 1;j <= n;++j){
+            cout << a[i][j];
+        }
+        cout << endl;
     }
 
     return 0;
