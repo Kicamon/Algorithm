@@ -16,68 +16,40 @@
 */
 /* #pragma GCC optimize(2) */
 #include <bits/stdc++.h>
-#include <functional>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-
-void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n), d(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    for (int i = 0; i < n; ++i) {
-        cin >> d[i];
-    }
-    set<int> alive, die;
-    for (int i = 0; i < n; ++i) {
-        alive.insert(i);
-    }
-    for (int i = 0; i < n; ++i) {
-        if ((i ? a[i - 1] : 0) + (i + 1 < n ? a[i + 1] : 0) > d[i]) {
-            die.insert(i);
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        cout << die.size() << ' ';
-        set<int> to_die;
-        for (int x : die) {
-            alive.erase(x);
-        }
-        auto check = [&](auto it) {
-            if ((it != alive.begin() ? a[*prev(it)] : 0) +
-                    (next(it) != alive.end() ? a[*next(it)] : 0) >
-                d[*it]) {
-                to_die.insert(*it);
-            }
-        };
-        for (int x : die) {
-            auto it = alive.lower_bound(x);
-            if (it != alive.end()) {
-                check(it);
-            }
-            if (it != alive.begin()) {
-                check(prev(it));
-            }
-        }
-        to_die.swap(die);
-    }
-    cout << endl;
-}
+const int inf = 1e9;
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
+    int n;
+    cin >> n;
+    vector<int> q(n), a(n), b(n);
+    auto input = [&](vector<int> &x) {
+        for (int i = 0; i < n; ++i) {
+            cin >> x[i];
+        }
+    };
+    input(q), input(a), input(b);
+    int max_a = inf, max_b = inf;
+    for (int i = 0; i < n; ++i) {
+        max_a = a[i] ? min(max_a, q[i] / a[i]) : max_a;
+        max_b = b[i] ? min(max_b, q[i] / b[i]) : max_b;
     }
+    int res = inf;
+    for (int i = 0; i < n; ++i) {
+        int cnt = 0;
+        for (int x = 0; x <= max_a; ++x) {
+            cnt = max(cnt,x + (b[i] ? min(max_b, (q[i] - a[i] * x) / b[i]) : max_b));
+        }
+        res = min(res, cnt);
+    }
+    cout << res << endl;
 
     return 0;
 }

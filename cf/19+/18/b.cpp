@@ -26,47 +26,32 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n), d(n);
+    vector<array<int, 2>> a(n);
     for (int i = 0; i < n; ++i) {
-        cin >> a[i];
+        cin >> a[i][0];
     }
     for (int i = 0; i < n; ++i) {
-        cin >> d[i];
+        cin >> a[i][1];
     }
-    set<int> alive, die;
-    for (int i = 0; i < n; ++i) {
-        alive.insert(i);
-    }
-    for (int i = 0; i < n; ++i) {
-        if ((i ? a[i - 1] : 0) + (i + 1 < n ? a[i + 1] : 0) > d[i]) {
-            die.insert(i);
+    function<int(int)> check = [&](int opt) {
+        int res = 0;
+        for (int i = 0; i < n; ++i) {
+            res += a[i][opt] - i - 1;
         }
+        return res;
+    };
+    sort(all(a));
+    int res = check(1);
+    sort(all(a), [&](auto x, auto y) { return x[1] < y[1]; });
+    if (res < check(0)) {
+        sort(all(a));
     }
-    for (int i = 0; i < n; ++i) {
-        cout << die.size() << ' ';
-        set<int> to_die;
-        for (int x : die) {
-            alive.erase(x);
+    for (int _ = 0; _ < 2; ++_) {
+        for (int i = 0; i < n; ++i) {
+            cout << a[i][_] << ' ';
         }
-        auto check = [&](auto it) {
-            if ((it != alive.begin() ? a[*prev(it)] : 0) +
-                    (next(it) != alive.end() ? a[*next(it)] : 0) >
-                d[*it]) {
-                to_die.insert(*it);
-            }
-        };
-        for (int x : die) {
-            auto it = alive.lower_bound(x);
-            if (it != alive.end()) {
-                check(it);
-            }
-            if (it != alive.begin()) {
-                check(prev(it));
-            }
-        }
-        to_die.swap(die);
+        cout << endl;
     }
-    cout << endl;
 }
 
 signed main() {
@@ -81,3 +66,4 @@ signed main() {
 
     return 0;
 }
+

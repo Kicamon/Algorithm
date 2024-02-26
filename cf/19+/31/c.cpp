@@ -16,7 +16,6 @@
 */
 /* #pragma GCC optimize(2) */
 #include <bits/stdc++.h>
-#include <functional>
 using namespace std;
 #define endl '\n'
 #define ll long long
@@ -26,47 +25,29 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n), d(n);
+    vector<int> a(n);
     for (int i = 0; i < n; ++i) {
         cin >> a[i];
     }
-    for (int i = 0; i < n; ++i) {
-        cin >> d[i];
+    int idx = 1;
+    int len = 1;
+    while (idx < n && a[idx] == a[idx - 1]) {
+        idx++;
+        len++;
     }
-    set<int> alive, die;
-    for (int i = 0; i < n; ++i) {
-        alive.insert(i);
+    idx = n - 2;
+    int len_2 = 1;
+    while (~idx && a[idx] == a[idx + 1]) {
+        idx--;
+        len_2++;
     }
-    for (int i = 0; i < n; ++i) {
-        if ((i ? a[i - 1] : 0) + (i + 1 < n ? a[i + 1] : 0) > d[i]) {
-            die.insert(i);
-        }
+    if (a[0] == a[n - 1]) {
+        len += len_2;
+    } else {
+        len = max(len, len_2);
     }
-    for (int i = 0; i < n; ++i) {
-        cout << die.size() << ' ';
-        set<int> to_die;
-        for (int x : die) {
-            alive.erase(x);
-        }
-        auto check = [&](auto it) {
-            if ((it != alive.begin() ? a[*prev(it)] : 0) +
-                    (next(it) != alive.end() ? a[*next(it)] : 0) >
-                d[*it]) {
-                to_die.insert(*it);
-            }
-        };
-        for (int x : die) {
-            auto it = alive.lower_bound(x);
-            if (it != alive.end()) {
-                check(it);
-            }
-            if (it != alive.begin()) {
-                check(prev(it));
-            }
-        }
-        to_die.swap(die);
-    }
-    cout << endl;
+    len = min(len, n);
+    cout << n - len << endl;
 }
 
 signed main() {

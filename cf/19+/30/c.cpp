@@ -16,57 +16,55 @@
 */
 /* #pragma GCC optimize(2) */
 #include <bits/stdc++.h>
-#include <functional>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+const int N = 3e5 + 10;
+
+ll a[N];
+ll tr[N << 2];
+
+void build(int u, int l, int r) {
+    tr[u] = 0;
+    if (l == r) {
+        tr[u] = a[l];
+        return;
+    }
+    int mid = l + r >> 1;
+    build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
+}
+
+array<int, 2> check(int u, int l, int r) {
+    if (l == r) {
+        return {l, u};
+    }
+    int mid = l + r >> 1;
+    array<int, 2> L = check(u << 1, l, mid);
+    array<int, 2> R = check(u << 1 | 1, mid + 1, r);
+    if (L[0] >= R[0]) {
+        return L;
+    }
+    return R;
+}
+
+void modify(int u,int l,int r,int k,int ul,int ur){
+
+}
 
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n), d(n);
-    for (int i = 0; i < n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         cin >> a[i];
+        a[i] += i;
     }
+    build(1, 1, n);
+    vector<ll> b(n);
     for (int i = 0; i < n; ++i) {
-        cin >> d[i];
+        array<int, 2> val = check(1, 1, n);
     }
-    set<int> alive, die;
-    for (int i = 0; i < n; ++i) {
-        alive.insert(i);
-    }
-    for (int i = 0; i < n; ++i) {
-        if ((i ? a[i - 1] : 0) + (i + 1 < n ? a[i + 1] : 0) > d[i]) {
-            die.insert(i);
-        }
-    }
-    for (int i = 0; i < n; ++i) {
-        cout << die.size() << ' ';
-        set<int> to_die;
-        for (int x : die) {
-            alive.erase(x);
-        }
-        auto check = [&](auto it) {
-            if ((it != alive.begin() ? a[*prev(it)] : 0) +
-                    (next(it) != alive.end() ? a[*next(it)] : 0) >
-                d[*it]) {
-                to_die.insert(*it);
-            }
-        };
-        for (int x : die) {
-            auto it = alive.lower_bound(x);
-            if (it != alive.end()) {
-                check(it);
-            }
-            if (it != alive.begin()) {
-                check(prev(it));
-            }
-        }
-        to_die.swap(die);
-    }
-    cout << endl;
 }
 
 signed main() {
