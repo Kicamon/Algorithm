@@ -5,15 +5,26 @@ syntax on
 set cursorline
 let mapleader = "\<space>"
 set laststatus=3
-colorscheme slate
+colorscheme desert
+hi Normal guibg=#282828
+hi EndOfBuffer guibg=#282828
+hi CursorLine guibg=#3c3836
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
 set smartindent
 set list
-set listchars=tab:\│⋅,trail:⋅
+set listchars=tab:\│∙,trail:∙ "vv Sb
+set wildmenu
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[3 q"
+let &t_EI.="\e[1 q"
 let leadermap=" "
+map H 0
+map L $
+map J <c-d>
+map K <c-u>
 nnoremap W :w<CR>
 nnoremap Q :q<CR>
 inoremap ( ()<ESC>i
@@ -25,26 +36,17 @@ nnoremap tu :tabe<CR>:edit<space>
 nnoremap tn :+tabnext<CR>
 nnoremap tp :-tabnext<CR>
 vnoremap Y "+y
-nnoremap ca ggVG"+y
+nnoremap ca :%+y<CR>
 nnoremap <leader><CR> :noh<CR>
 vnoremap N :normal 
-autocmd TermOpen term://* startinsert
+autocmd TerminalOpen term://* startinsert
 tnoremap <C-n> <C-\><C-N>
 tnoremap <C-o> <C-\><C-N><C-O>
 nmap <F5> :call Run()<CR>
 function! Run()
-  execute 'w'
-  :set splitright
-  :vsplit
-  :vertical res -20
-  term g++ "%" -std=c++17 -O2 -g -Wall -o "%<" && "./%<" && rm -f "./%<"
+	echo " compiling..."
+	:! g++ "%" -o "%<" -Wall -std=c++20 && "./%<"
+	redraw!
+	echohl WarningMsg | echo " Running finish! :-)"
 endfunction
-nmap <leader>cc :call Command()<CR>
-function! Command()
-  let has_command = getline('.')[0:1]
-  if has_command == "//"
-    normal! 0veld
-  else
-    normal! 0i// 
-  endif
-endfunction
+

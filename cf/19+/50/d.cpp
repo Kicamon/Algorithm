@@ -21,30 +21,44 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int mod = 2147483647;
+const int N = 1e5;
+
+bool dp[N + 10];
 
 void solve() {
     int n;
     cin >> n;
-    map<int, int> p;
-    for (int i = 0, c; i < n; ++i) {
-        cin >> c;
-        p[c]++;
+    cout << (dp[n] ? "YES" : "NO") << endl;
+}
+
+int get_num(int num) {
+    int res = 0;
+    for (int i = 4; ~i; --i) {
+        res = res * 10 + (num >> i & 1);
     }
-    int ans = 0;
-    for (auto x : p) {
-        int res = x.first ^ mod;
-        ans += x.second;
-        if (p.count(res) && p[res]) {
-            p[res] -= min(x.second, p[res]);
-        }
-    }
-    cout << ans << endl;
+    return res;
 }
 
 signed main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
+
+    dp[1] = dp[N] = true;
+    vector<int> num(1 << 5);
+    for (int i = 1; i < (1 << 5); ++i) {
+        num[i] = get_num(i);
+    }
+    for (int i = 1; i <= N; ++i) {
+        for (int j = 2; j < (1 << 5); ++j) {
+            ll t = (ll)i * num[j];
+            if (t >= N) {
+                break;
+            }
+            if (dp[i]) {
+                dp[t] = dp[i];
+            }
+        }
+    }
 
     int t;
     cin >> t;

@@ -19,27 +19,52 @@
 using namespace std;
 #define endl '\n'
 #define ll long long
+#define int long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int mod = 2147483647;
 
 void solve() {
-    int n;
-    cin >> n;
-    map<int, int> p;
-    for (int i = 0, c; i < n; ++i) {
-        cin >> c;
-        p[c]++;
+    int n, k, q;
+    cin >> n >> k >> q;
+    vector<int> a(k + 1), b(k + 1);
+    for (int i = 1; i <= k; ++i) {
+        cin >> a[i];
     }
-    int ans = 0;
-    for (auto x : p) {
-        int res = x.first ^ mod;
-        ans += x.second;
-        if (p.count(res) && p[res]) {
-            p[res] -= min(x.second, p[res]);
+    for (int i = 1; i <= k; ++i) {
+        cin >> b[i];
+    }
+    while (q--) {
+        int d;
+        cin >> d;
+        int l = 0, r = k;
+        while (l < r) {
+            int mid = (l + r + 1) >> 1;
+            if (a[mid] > d) {
+                r = mid - 1;
+            } else {
+                l = mid;
+            }
+        }
+        int left = l;
+        l = 0, r = k;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            if (a[mid] < d) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        int right = l;
+        if (a[left] == a[right]) {
+            cout << b[left] << ' ';
+        } else {
+            int time = b[left];
+            time += floor(((double)(d - a[left]) * (b[right] - b[left]) / (a[right] - a[left])));
+            cout << time << ' ';
         }
     }
-    cout << ans << endl;
+    cout << endl;
 }
 
 signed main() {

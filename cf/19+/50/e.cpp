@@ -21,25 +21,33 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int mod = 2147483647;
 
 void solve() {
     int n;
     cin >> n;
-    map<int, int> p;
-    for (int i = 0, c; i < n; ++i) {
-        cin >> c;
-        p[c]++;
-    }
-    int ans = 0;
-    for (auto x : p) {
-        int res = x.first ^ mod;
-        ans += x.second;
-        if (p.count(res) && p[res]) {
-            p[res] -= min(x.second, p[res]);
+    string s;
+    cin >> s;
+    for (int len = 1; len <= n; ++len) {
+        if (n % len != 0) {
+            continue;
+        }
+        int res = 0;
+        int tmp = n / len;
+        for (int i = 0; i < len; ++i) {
+            map<char, int> num;
+            for (int j = i; j < n; j += len) {
+                num[s[j]]++;
+            }
+            int t = max(num.begin()->second, num.rbegin()->second);
+            if (t < tmp) {
+                res += tmp - t;
+            }
+        }
+        if (res <= 1) {
+            cout << len << endl;
+            return;
         }
     }
-    cout << ans << endl;
 }
 
 signed main() {
