@@ -3,7 +3,8 @@ using namespace std;
 const int N = 1e5 + 10;
 const int inf = 0x3f3f3f3f;
 
-template <class T> struct Splay {
+template<class T>
+struct Splay {
     struct Node {
         int s[2], p; // 存储子节点和父节点
         int v;       // 节点的编号
@@ -20,9 +21,7 @@ template <class T> struct Splay {
     int L, R;
     int tot;
 
-    void pushup(int u) {
-        tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1;
-    }
+    void pushup(int u) { tr[u].size = tr[tr[u].s[0]].size + tr[tr[u].s[1]].size + 1; }
 
     void rotate(int x) {              // 旋转操作，两种旋转在一个函数中完成
         int y = tr[x].p, z = tr[y].p; // 找出当前节点x的父节点y和y的父节点z
@@ -94,9 +93,7 @@ template <class T> struct Splay {
             insert(k - delta);
     }
 
-    void opa(int k) {
-        delta += k;
-    }
+    void opa(int k) { delta += k; }
 
     void ops(int k) {
         delta -= k;
