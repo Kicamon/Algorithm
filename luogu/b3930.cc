@@ -48,6 +48,7 @@ signed main() {
         sort(rall(a));
         int b_a = bit_len(a[0]);
         vector<int> b_n(b_a);
+        int res = 0;
 
         function<void()> change = [&]() {
                 for (int x : a) {
@@ -59,8 +60,20 @@ signed main() {
                 }
         };
 
+        function<int()> binary_search = [&]() {
+                int l = 0, r = n;
+                while (l < r) {
+                        int mid = (l + r) >> 1;
+                        if (a[mid] < res) {
+                                r = mid;
+                        } else {
+                                l = mid + 1;
+                        }
+                }
+                return l;
+        };
+
         change();
-        int res = 0;
         for (int i = b_a - 1; ~i; --i) {
                 int temp = 1 << i;
                 if (b_n[i] == 1) {
@@ -72,13 +85,7 @@ signed main() {
                         sort(rall(a));
                 } else if (b_n[i]) {
                         res += temp;
-                        int j = 0;
-                        for (; j < n; ++j) {
-                                if (a[j] < res) {
-                                        break;
-                                }
-                        }
-                        a.erase(a.begin() + j, a.end());
+                        a.erase(a.begin() + binary_search(), a.end());
                         n = a.size();
                 }
                 for (int j = 0; j < b_a; ++j) {
