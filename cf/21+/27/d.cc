@@ -19,15 +19,16 @@
 #include <iostream>
 #include <numeric>
 #include <queue>
-#include <set>
 #include <vector>
-#include <array>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 const int mod = 1e9 + 7;
+const int N = 2e5 + 10;
+
+int fac[N];
 
 struct DSU {
         vector<int> f, siz;
@@ -49,11 +50,11 @@ struct DSU {
                 x = find(x);
                 y = find(y);
                 if (x == y) {
-                        return true;
+                        return false;
                 }
                 f[y] = x;
                 siz[x] += siz[y];
-                return false;
+                return true;
         }
 
         bool same(int x, int y) {
@@ -65,88 +66,64 @@ struct DSU {
         }
 };
 
-ll funci(int res) {
-        ll ans = 1;
-        res++;
-        while (--res) {
-                (ans *= res) %= mod;
-        }
-        return ans;
-}
-
 void solve() {
         int n, m;
         cin >> n >> m;
-        vector<array<int, 2> > a(m);
-        vector<vector<int> > g(m + 1);
-        vector<int> tag(m + 1);
-        set<int> st;
+        vector<vector<int> > g(n + 1);
+        vector<bool> vis(n + 1, 1);
         DSU dsu(n + 1);
-        for (auto &x : a) {
-                cin >> x[0] >> x[1];
-                g[x[0]].push_back(x[1]);
-                g[x[1]].push_back(x[0]);
-        }
-        for (auto x : a) {
-                if (dsu.merge(x[0], x[1])) {
-                        cout << 0 << endl;
-                        return;
+        bool flag = false;
+        for (int i = 0, a, b; i < m; ++i) {
+                cin >> a >> b;
+                if (!dsu.merge(a, b)) {
+                        flag = true;
                 }
-                int f = dsu.find(x[0]);
-                if (!st.count(f)) {
-                        st.insert(f);
-                }
-                tag[f] = 1;
-                if (!tag[x[0]]) {
-                        for (int y : g[x[0]]) {
-                                tag[y] = 1;
-                        }
-                }
-                if (!tag[x[1]]) {
-                        for (int y : g[x[1]]) {
-                                tag[y] = 1;
-                        }
-                }
-        }
-        for (int i = 1; i <= n; ++i) {
-                int f = dsu.find(i);
-                if (f != i) {
-                        tag[f] += tag[i];
-                }
+                g[a].push_back(b), g[b].push_back(a);
         }
 
-        function<ll(int)> get_num = [&](int t) {
-                int res = 0;
-                ll ans = 0;
+        if (flag) {
+                cout << 0 << endl;
+                return;
+        }
+
+        function<ll(int)> get_num = [&](int root) {
+                ll ans = 1;
+                int tag = g[root].size() > 1, res = 0;
+
                 queue<int> q;
-                q.push(t);
-
+                q.push(root);
                 while (!q.empty()) {
-                        int temp = q.front();
+                        int node = q.front();
                         q.pop();
-                        for (int x : g[temp]) {
-                                if (g[x].size() > 1) {
-                                        q.push(x);
+                        vis[node] = false;
+                        tag++;
+                        for (int s : g[node]) {
+                                if (g[s].size() > 1) {
+                                        if (vis[s]) {
+                                                q.push(s);
+                                        }
                                 } else {
                                         res++;
+                                        vis[s] = false;
                                 }
                         }
-                        (ans += funci(res)) %= mod;
+                        (ans *= fac[res]) %= mod;
                         res = 0;
+                }
+                if (tag > 2) {
+                        (ans *= 4) %= mod;
+                } else {
+                        (ans *= 2) %= mod;
                 }
 
                 return ans;
         };
 
         ll ans = 1;
-        for (int x : st) {
-                ll res = get_num(x);
-                if (tag[x] > 1) {
-                        (res *= 4) %= mod;
-                } else {
-                        (res *= 2) %= mod;
+        for (int i = 1; i <= n; ++i) {
+                if (vis[i]) {
+                        (ans *= get_num(i)) %= mod;
                 }
-                (ans *= res) %= mod;
         }
         cout << ans << endl;
 }
@@ -154,6 +131,11 @@ void solve() {
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
+
+        fac[0] = 1;
+        for (int i = 1; i < N; ++i) {
+                fac[i] = (ll)fac[i - 1] * i % mod;
+        }
 
         int t;
         cin >> t;
