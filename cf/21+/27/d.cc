@@ -28,7 +28,7 @@ using namespace std;
 const int mod = 1e9 + 7;
 const int N = 2e5 + 10;
 
-int fac[N];
+ll fac[N];
 
 struct DSU {
         vector<int> f, siz;
@@ -134,7 +134,7 @@ signed main() {
 
         fac[0] = 1;
         for (int i = 1; i < N; ++i) {
-                fac[i] = (ll)fac[i - 1] * i % mod;
+                fac[i] = fac[i - 1] * i % mod;
         }
 
         int t;
