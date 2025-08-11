@@ -15,9 +15,12 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <algorithm>
+#include <functional>
 #include <iostream>
+#include <set>
+#include <utility>
 #include <vector>
-#include <array>
 using namespace std;
 #define endl '\n'
 #define ll long long
@@ -27,19 +30,54 @@ using namespace std;
 void solve() {
         int n, k;
         cin >> n >> k;
-        vector<array<int, 2> > cw(n + 1);
-        vector<vector<int> > g(n + 1);
-        for (int i = 1; i <= n; ++i) {
-                cin >> cw[i][0];
+        vector<int> w(n), c(n);
+        vector<vector<int> > g(n);
+        for (int &x : w) {
+                cin >> x;
         }
-        for (int i = 1; i <= n; ++i) {
-                cin >> cw[i][1];
+        for (int &x : c) {
+                cin >> x;
         }
-        for (int i = 1, a, b; i < n; ++i) {
+        for (int i = 0, a, b; i < n; ++i) {
                 cin >> a >> b;
-                g[a].push_back(b);
-                g[b].push_back(a);
+                a--, b--;
+                g[a].push_back(b), g[b].push_back(a);
         }
+
+        ll ans = 0;
+        vector<set<int> > s(n);
+        function<void(int, int)> dfs = [&](int u, int fp) {
+                vector<int> a;
+                for (int v : g[u]) {
+                        if (v == fp) {
+                                continue;
+                        }
+                        dfs(v, u);
+                        if (s[u].size() < s[v].size()) {
+                                swap(s[u], s[v]);
+                        }
+                        for (int x : s[v]) {
+                                if (s[u].count(x)) {
+                                        a.push_back(x);
+                                } else {
+                                        s[u].insert(x);
+                                }
+                        }
+                }
+                sort(all(a));
+                a.erase(unique(all(a)), a.end());
+
+                if (a.size() > 1 || (a.size() == 1 && c[u] && a[0] != c[u])) {
+                        ans += w[u];
+                }
+
+                if (c[u]) {
+                        s[u].insert(c[u]);
+                }
+        };
+        dfs(0, -1);
+
+        cout << ans << endl;
 }
 
 signed main() {
