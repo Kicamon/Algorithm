@@ -66,7 +66,7 @@ void solve() {
                                 continue;
                         };
                         dfs(v, u);
-                        if (s[u].size() < s[v].size()) {
+                        if (s[u].size() < s[v].size()) { // 优化，没有这个swap会MLE
                                 swap(s[u], s[v]);
                         }
                         for (int x : s[v]) {
