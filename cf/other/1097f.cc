@@ -15,35 +15,39 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <bitset>
 #include <iostream>
 #include <vector>
-#include <bitset>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-const int N = 101;
-
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        int n;
-        cin >> n;
-        vector<bitset<N * N * N> > f(2);
-        f[0][0] = 1;
-        int idx = 0;
-        for (int i = 0, a, b; i < n; ++i) {
-                cin >> a >> b;
-                idx ^= 1;
-                for (int j = a; j <= b; ++j) {
-                        f[idx] |= f[idx ^ 1] << (j * j);
+        int n, q;
+        cin >> n >> q;
+        vector<bitset<7001> > a(n + 1);
+        int op, x, y, v;
+        while (q--) {
+                cin >> op;
+                if (op == 1) {
+                        cin >> x >> v;
+                        a[x] = 0;
+                        a[x] |= 1 << v;
+                } else if (op == 2) {
+                        cin >> x >> y >> v;
+                        a[x] = a[y] ^ a[v];
+                } else if (op == 3) { // 如何计算gcd
+                        cin >> x >> y >> v;
+                } else {
+                        cin >> x >> v;
+                        a[x].test(v + 1);
                 }
-                f[idx ^ 1] = 0;
         }
-        cout << f[idx].count() << endl;
 
         return 0;
 }
