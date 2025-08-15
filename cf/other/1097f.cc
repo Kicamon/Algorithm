@@ -17,7 +17,6 @@
 /* #pragma GCC optimize(2) */
 #include <bitset>
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 #define endl '\n'
