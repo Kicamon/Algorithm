@@ -14,71 +14,51 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-// #pragma GCC optimize(2)
+/* #pragma GCC optimize(2) */
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int M = 5e4, N = M + 10;
-#define int long long
-
-int p[N], pr[N / 5], idx;
-int mu[N], smu[N];
-int h[N];
-
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    if (n > m) {
-        swap(n, m);
-    }
-    int ans = 0;
-    for (int l = 1; l <= n; ++l) {
-        int x = n / l, y = m / l;
-        int r = min(n / x, m / y);
-        ans += (smu[r] - smu[l - 1]) * h[x] * h[y];
-        l = r;
-    }
-    cout << ans << endl;
-}
+#define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    p[1] = mu[1] = 1;
-    for (int i = 2; i <= M; ++i) {
-        if (!p[i]) {
-            p[i] = i, mu[i] = -1, pr[++idx] = i;
+        int n;
+        cin >> n;
+        vector<vector<int> > g(n + 1);
+        vector<bool> vis(n + 1);
+        vector<array<int, 2> > a(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i][0] >> a[i][1];
+                g[a[i][0]].push_back(a[i][1]);
+                g[a[i][1]].push_back(a[i][0]);
         }
-        for (int j = 0; j <= idx && i * pr[j] <= M; ++j) {
-            p[i * pr[j]] = pr[j];
-            if (p[i] == pr[j]) {
-                mu[i * pr[j]] = 0;
-                break;
-            } else {
-                mu[i * pr[j]] = -mu[i];
-            }
+        vector<int> ans;
+        vis[1] = 1;
+        ans.push_back(1);
+        queue<int> q;
+        q.push(1);
+        while (!q.empty()) {
+                int t = q.front();
+                q.pop();
+                for (int x : g[t]) {
+                        if (!vis[x]) {
+                                q.push(x);
+                                vis[x] = true;
+                                ans.push_back(x);
+                                break;
+                        }
+                }
         }
-    }
-    for (int i = 1; i <= M; ++i) {
-        smu[i] = smu[i - 1] + mu[i];
-    }
-
-    for (int i = 1; i <= M; ++i) {
-        for (int l = 1; l <= i; ++l) {
-            int r = i / (i / l);
-            h[i] += (r - l + 1) * (i / l);
-            l = r;
+        if (ans[1] != a[1][0] && ans[1] != a[1][1]) {
+                reverse(all(ans));
         }
-    }
+        for (int x : ans) {
+                cout << x << " \n"[x == ans.back()];
+        }
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
-
-    return 0;
+        return 0;
 }
-

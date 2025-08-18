@@ -14,17 +14,25 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-// #pragma GCC optimize(2)
+/* #pragma GCC optimize(2) */
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
-const int M = 1e7, N = 1e7 + 10, mod = 20101009;
+#define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    return 0;
+        int n, m;
+        cin >> n >> m;
+        vector<int> a(n);
+        for (int &x : a) {
+                cin >> x;
+        }
+
+
+        return 0;
 }
