@@ -18,6 +18,7 @@
 #include <bitset>
 #include <iostream>
 #include <vector>
+#include <array>
 using namespace std;
 #define endl '\n'
 #define ll long long
@@ -43,15 +44,25 @@ signed main() {
         int u, v;
         while (m--) {
                 cin >> u >> v;
-                u--;
+                u--, v--;
                 g[u].push_back(v);
                 g[v].push_back(u);
         }
         ll ans = 0;
         for (int u = 0; u < n; ++u) {
+                vector<array<int, 32> > num(2);
                 for (int v : g[u]) {
+                        for (int i = 0; i < 32; ++i) {
+                                if (a[u][i]) {
+                                        (ans += 1ll * num[a[v][i]][i] * (1 << i)) %= mod;
+                                } else {
+                                        (ans += 1ll * num[1 - a[v][i]][i] * (1 << i)) %= mod;
+                                }
+                                num[a[v][i]][i]++;
+                        }
                 }
         }
+        cout << ans << endl;
 
         return 0;
 }
