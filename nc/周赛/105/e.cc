@@ -15,48 +15,42 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <bitset>
 #include <iostream>
+#include <vector>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+const int mod = 998244353;
+
+int ans = 0;
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        int n, k;
-        cin >> n >> k;
-        int num[2] = { 0, 0 };
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int> > g(n);
+        vector<int> vis(n), val(n);
+        vector<bitset<32> > a(n);
         for (int i = 0, x; i < n; ++i) {
                 cin >> x;
-                num[x - 1]++;
+                a[i] = x;
         }
-        int min_2 = max(0, num[1] - num[0] - 1);
-        int a = min_2, b = num[1] - 1;
-        int t = -1;
-        for (int i = a; i <= b; ++i) {
-                if (i * 2 + (n - 1 - i) == k) {
-                        t = i;
-                        break;
-                }
+        int u, v;
+        while (m--) {
+                cin >> u >> v;
+                u--;
+                g[u].push_back(v);
+                g[v].push_back(u);
         }
-        if (t == -1) {
-                cout << -1 << endl;
-        } else {
-                num[1] -= t + 1;
-                for (int i = 0; i <= t; ++i) {
-                        cout << 2 << ' ';
+        ll ans = 0;
+        for (int u = 0; u < n; ++u) {
+                for (int v : g[u]) {
                 }
-                for (int i = 0; i < num[0]; ++i) {
-                        cout << 1 << ' ';
-                        if (num[1]) {
-                                num[1]--;
-                                cout << 2 << ' ';
-                        }
-                }
-                cout << endl;
         }
 
         return 0;
