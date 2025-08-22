@@ -23,59 +23,41 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 
 vector<vector<int> > num(51);
-vector<int> ans;
-int n, m, x;
-
-bool dfs(int u, int val, int idx, const int &i) {
-        if (u == n) {
-                if (val == x) {
-                        return true;
-                } else {
-                        return false;
-                }
-        }
-        while (n - u - 1 + num[i][idx] > x - val) {
-                idx++;
-        }
-        for (int j = idx; j < (int)num[i].size(); ++j) {
-                if (num[i][j] + val > x) {
-                        continue;
-                }
-                ans.push_back(num[i][j]);
-                if (dfs(u + 1, num[i][j] + val, j, i)) {
-                        return true;
-                }
-                ans.pop_back();
-        }
-        return false;
-}
 
 void solve() {
+        int n, m, x;
         cin >> n >> m >> x;
-        if (x < n || x > n * m) {
+        if (x < n) {
                 cout << -1 << endl;
                 return;
         }
-        if (x % n == 0) {
-                int t = x / n;
-                for (int i = 0; i < n; ++i) {
-                        cout << t << ' ';
+        m = min(m, x);
+        vector<int> ans(n);
+        vector<vector<int> > dp(x + 1, vector<int>(n + 1));
+        for (int i = 1; i <= m; ++i) {
+                dp[i][1] = i;
+        }
+        for (int i = 1; i < x; ++i) {
+                for (int j = 1; j < n; ++j) {
+                        for (int t : num[dp[i][j]]) {
+                                if (i + t <= x) {
+                                        dp[i + t][j + 1] = max(dp[i + t][j + 1], t);
+                                }
+                        }
+                }
+        }
+        if (dp[x][n]) {
+                for (int j = n, idx = 0, t = x; j; t -= dp[t][j], --j, idx++) {
+                        ans[idx] = dp[t][j];
+                }
+                for (int v : vector<int>(ans.rbegin(), ans.rend())) {
+                        cout << v << ' ';
                 }
                 cout << endl;
                 return;
-        }
-        m = min(m, x);
-        for (int i = 1; i <= m; ++i) {
-                if (dfs(0, 0, 0, i)) {
-                        for (int x : ans) {
-                                cout << x << ' ';
-                        }
-                        cout << endl;
-                        return;
-                }
-                ans.clear();
         }
         cout << -1 << endl;
 }
@@ -90,7 +72,6 @@ signed main() {
                                 num[i].push_back(j);
                         }
                 }
-                reverse(all(num[i]));
         }
 
         int t;
