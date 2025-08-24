@@ -15,91 +15,79 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
-#include <cstdio>
-#include <functional>
 #include <iostream>
+#include <array>
 #include <queue>
 #include <vector>
-#include <array>
 #include <algorithm>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int N = 155, inf = 0x3f3f3f3f;
-int n, m, d, temp;
+const int N = 510;
+const ll inf = 1e18;
+int n, m, d;
+vector<vector<bool> > vis(N, vector<bool>(N));
+vector<vector<array<int, 3> > > g(N);
+vector<vector<double> > dis(N, vector<double>(N, inf));
+vector<vector<array<int, 2> > > path(N, vector<array<int, 2> >(N, { -1, -1 }));
 
-vector<vector<array<int, 2> > > g(N, vector<array<int, 2> >(N));
-vector<vector<int> > G(N, vector<int>(N));
-vector<int> dis(N, inf);
-vector<bool> vis(N);
+struct node {
+        double t;
+        int v;
+        int nd;
+        bool operator>(const node &u) const {
+                return t > u.t;
+        }
+};
 
-int get(array<int, 2> a) {
-        return a[1] * (temp / a[0]);
+double get(int v, int w) {
+        return double(w) / v;
 }
 
-void init() {
-        priority_queue<array<int, 2>, vector<array<int, 2> >, greater<array<int, 2> > > q;
-
-        function<void(int, int)> f = [&](int u, int v) {
-                for (int i = 0; i < n; ++i) {
-                        if (!vis[i] || i == u || i == v || !g[i][u][1]) {
-                                continue;
-                        }
-                        if (!g[i][v][1] ||
-                            get(g[i][v]) > get({ g[i][u][0], g[i][u][1] + g[u][v][1] })) {
-                                g[i][v] = { g[i][u][0], g[i][u][1] + g[u][v][1] };
-                        }
-                        if (dis[i] + get(g[i][v]) < dis[v]) {
-                                dis[v] = dis[i] + get(g[i][v]);
-                        }
-                }
-        };
-
-        dis[0] = 0;
-        q.push({ 0, 0 });
+void dijkstra() {
+        priority_queue<node, vector<node>, greater<node> > q;
+        dis[0][70] = 0;
+        q.push({ 0, 70, 0 });
         while (!q.empty()) {
-                int t = q.top()[1];
+                auto t = q.top();
                 q.pop();
-                if (vis[t]) {
+                if (vis[t.nd][t.v]) {
                         continue;
                 }
-                vis[t] = true;
-                for (int i = 0; i < n; ++i) {
-                        if (i == t || !g[t][i][1]) {
+                vis[t.nd][t.v] = true;
+                for (auto x : g[t.nd]) {
+                        if (x[0] == t.nd) {
                                 continue;
                         }
-                        if (!g[t][i][0]) {
-                                f(t, i);
-                                g[t][i] = { 0, 0 };
-                        } else if (dis[t] + get(g[t][i]) < dis[i]) {
-                                dis[i] = dis[t] + get(g[t][i]);
-                                q.push({ dis[i], i });
+                        int v = x[1] ? x[1] : t.v;
+                        if (dis[t.nd][t.v] + get(v, x[2]) < dis[x[0]][v]) {
+                                dis[x[0]][v] = dis[t.nd][t.v] + get(v, x[2]);
+                                path[x[0]][v][0] = t.nd;
+                                path[x[0]][v][1] = t.v;
+                                q.push({ dis[x[0]][v], v, x[0] });
                         }
-                }
+                };
         }
 }
 
-vector<int> ans;
-void dfs(int u, int v) {
-        ans.push_back(u);
-        if (u == d) {
-                for (int x : ans) {
-                        cout << x << ' ';
+int get_pre(int x) {
+        int res = 0;
+        for (int i = 0; i < N; ++i) {
+                if (dis[x][i] < dis[x][res]) {
+                        res = i;
                 }
-                cout << endl;
+        }
+        return res;
+}
+
+void print(int nd, int v) {
+        if (nd == -1) {
                 return;
         }
-        for (int i = 0; i < n; ++i) {
-                if (i == u || vis[i] || !G[u][i] || G[u][i] + v > min(dis[d], dis[i])) {
-                        continue;
-                }
-                vis[i] = true;
-                dfs(i, v + G[u][i]);
-                vis[i] = false;
-        }
-        ans.pop_back();
+        print(path[nd][v][0], path[nd][v][1]);
+        cout << nd << ' ';
 }
 
 signed main() {
@@ -113,31 +101,11 @@ signed main() {
                 if (!a && !v) {
                         v = 70;
                 }
-                g[a][b] = { v, l };
-                if (!temp) {
-                        temp = v;
-                }
-                if (v) {
-                        temp = temp * v / __gcd(temp, v);
-                }
+                g[a].push_back({ b, v, l });
         }
-        init();
-        for (int i = 0; i < n; ++i) {
-                for (int j = 0; j < n; ++j) {
-                        if (g[i][j][0]) {
-                                G[i][j] = get(g[i][j]);
-                        }
-                }
-        }
-        for (int i = 0; i < n; ++i) {
-                for (int j = 0; j < n; ++j) {
-                        printf("%-10d", G[i][j]);
-                }
-                printf("\n");
-        }
-        fill(all(vis), false);
-        vis[0] = true;
-        dfs(0, 0);
+        dijkstra();
+        print(d, get_pre(d));
+        cout << endl;
 
         return 0;
 }
