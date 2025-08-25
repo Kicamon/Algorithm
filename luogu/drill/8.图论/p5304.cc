@@ -15,6 +15,7 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -24,14 +25,16 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-
-vector<vector<array<int, 2> > > g;
+#define pli pair<ll, int>
+const ll inf = 5e18;
 
 void solve() {
         int n, m, k;
         cin >> n >> m >> k;
-        g.resize(n + 1);
-        vector<int> rd(n + 1);
+        vector<vector<array<int, 2> > > g(n + 1);
+        vector<int> rd(n + 1), nk(k);
+        vector<ll> dis(n + 1, inf);
+
         int u, v, w;
         while (m--) {
                 cin >> u >> v >> w;
@@ -41,22 +44,42 @@ void solve() {
                 g[u].push_back({ v, w });
                 rd[v]++;
         }
+        for (int &x : nk) {
+                cin >> x;
+        }
         int idx = 1;
         for (int i = 1; i <= n; ++i) {
                 if (rd[i] < rd[idx]) {
                         idx = i;
                 }
-                if (!rd[i]) {
-                        g[0].push_back({ i, 0 });
-                }
         }
-        if (idx) {
-                for (int i = 1; i <= n; ++i) {
-                        if (rd[i] == rd[idx]) {
-                                g[0].push_back({ i, 0 });
+        for (int i = 1; i <= n; ++i) {
+                if (rd[i] == rd[idx]) {
+                        g[0].push_back({ i, 0 });
+                        if (rd[idx]) {
+                                break;
                         }
                 }
-        } else {
+        }
+
+        // dijkstra
+        priority_queue<pli, vector<pli>, greater<pli> > q;
+        vector<bool> vis(n + 1);
+        q.push({ 0, 0 });
+        dis[0] = 0;
+        while (!q.empty()) {
+                int u = q.top().second;
+                q.pop();
+                if (vis[u]) {
+                        continue;
+                }
+                vis[u] = true;
+                for (auto [v, w] : g[u]) {
+                        if (dis[u] + w < dis[v]) {
+                                dis[v] = dis[u] + w;
+                                q.push({ dis[v], v });
+                        }
+                }
         }
 }
 
