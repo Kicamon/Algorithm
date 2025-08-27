@@ -16,10 +16,9 @@
 */
 /* #pragma GCC optimize(2) */
 #include <algorithm>
+#include <functional>
 #include <iostream>
-#include <map>
 #include <queue>
-#include <stack>
 #include <vector>
 #include <array>
 using namespace std;
@@ -27,74 +26,24 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-#define pli pair<ll, int>
-const ll inf = 5e18;
+const ll inf = 1e16;
 
-struct Tarjan {
-        struct Node {
-                int dfn, low;
-                Node(int n) {
-                        dfn = low = n;
-                }
-
-                bool check() {
-                        return dfn == low;
-                }
-        };
-        vector<int> scc, scc_size;
-        stack<int> s;
-        vector<bool> inStack;
-        vector<Node> node;
-        int n, dfncnt, scc_num;
-        vector<vector<array<int, 2> > > g;
-
-        Tarjan(vector<vector<array<int, 2> > > &G) {
-                n = (int)G.size();
-                scc.resize(n), scc_size.resize(n);
-                inStack.resize(n);
-                node.resize(n);
-                g = G;
+int bl(int x) {
+        int len = 0;
+        while (x) {
+                len++;
+                x >>= 1;
         }
-
-        void tarjan(int u) {
-                node[u] = Node(dfncnt++);
-                inStack[u] = true;
-                s.push(u);
-                for (auto [v, _] : g[u]) {
-                        if (!node[v].dfn) {
-                                tarjan(v);
-                                node[u].low = min(node[u].low, node[v].low);
-                        } else if (inStack[v]) {
-                                node[u].low = min(node[u].low, node[v].dfn);
-                        }
-                }
-                if (node[u].check()) {
-                        scc_num++;
-                        do {
-                                scc[s.top()] = scc_num;
-                                scc_size[scc_num]++;
-                                inStack[s.top()] = false;
-                                s.pop();
-                        } while (s.top() != u);
-                }
-        }
-
-        int size() {
-                return scc_num;
-        }
-
-        int scc_node(int u) {
-                return scc[u];
-        }
-};
+        return len;
+}
 
 void solve() {
         int n, m, k;
         cin >> n >> m >> k;
-        vector<vector<array<int, 2> > > g(n + 1);
-        vector<int> rd(n + 1), nk(k);
-        vector<ll> dis(n + 1, inf);
-
+        vector<vector<array<int, 2> > > g(n + 2), G;
+        vector<int> nk(k);
+        vector<ll> dis(n + 2);
+        vector<bool> vis(n + 2);
         int u, v, w;
         while (m--) {
                 cin >> u >> v >> w;
@@ -102,30 +51,50 @@ void solve() {
                         continue;
                 }
                 g[u].push_back({ v, w });
-                rd[v]++;
         }
+        int len = 0;
         for (int &x : nk) {
                 cin >> x;
-        }
-        int idx = 1;
-        for (int i = 1; i <= n; ++i) {
-                if (rd[i] < rd[idx]) {
-                        idx = i;
-                }
-        }
-        for (int i = 1; i <= n; ++i) {
-                if (rd[i] == rd[idx]) {
-                        g[0].push_back({ i, 0 });
-                        if (rd[idx]) {
-                                break;
-                        }
-                }
+                len = max(len, bl(x));
         }
 
-        Tarjan tj(g);
-        tj.tarjan(0);
-        int tj_size = tj.size();
-        vector<map<int, array<int, 3> > > out_node(tj_size + 1);
+        ll ans = inf;
+        function<void(int)> dijkstra = [&](int p) {
+                fill(all(dis), inf), fill(all(vis), false);
+                priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > q;
+                q.push({ 0, p });
+                dis[p] = 0;
+                while (!q.empty()) {
+                        u = q.top().second;
+                        q.pop();
+                        if (vis[u]) {
+                                continue;
+                        }
+                        vis[u] = true;
+                        for (auto [v, w] : G[u]) {
+                                if (dis[u] + w < dis[v]) {
+                                        dis[v] = dis[u] + w;
+                                        q.push({ dis[v], v });
+                                }
+                        }
+                }
+                ans = min(ans, dis[n + 1 - p]);
+        };
+
+        for (int i = 0; i < len; ++i) {
+                G = g;
+                for (int x : nk) {
+                        if (x >> i & 1) {
+                                G[0].push_back({ x, 0 });
+                                G[x].push_back({ 0, 0 });
+                        } else {
+                                G[n + 1].push_back({ x, 0 });
+                                G[x].push_back({ n + 1, 0 });
+                        }
+                }
+                dijkstra(0), dijkstra(n + 1);
+        }
+        cout << ans << endl;
 }
 
 signed main() {
