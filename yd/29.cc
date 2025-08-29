@@ -16,13 +16,20 @@
 */
 /* #pragma GCC optimize(2) */
 #include <algorithm>
+#include <cmath>
+#include <cstdio>
 #include <iostream>
 #include <vector>
+#include <array>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+
+ll get(int x, int y) {
+        return 1ll * (x - y) * (x - y);
+}
 
 signed main() {
         ios::sync_with_stdio(false);
@@ -30,23 +37,17 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<string> s(n);
-        for (string &x : s) {
-                cin >> x;
+        vector<array<int, 3> > a(n);
+        for (auto &x : a) {
+                cin >> x[0] >> x[1] >> x[2];
         }
-        sort(all(s), [&](const string &a, const string &b) {
-                int len = (int)max(a.size(), b.size());
-                for (int i = 0; i < len; ++i) {
-                        if (a[i % (int)a.size()] != b[i % (int)b.size()]) {
-                                return a[i % (int)a.size()] > b[i % (int)b.size()];
-                        }
-                }
-                return true;
-        });
-        for (string x : s) {
-                cout << x;
+        sort(all(a), [&](auto x, auto y) { return x[2] < y[2]; });
+        double ans = 0;
+        for (int i = 1; i < n; ++i) {
+                ans += sqrt(get(a[i - 1][0], a[i][0]) + get(a[i - 1][1], a[i][1]) +
+                            get(a[i - 1][2], a[i][2]));
         }
-        cout << endl;
+        printf("%.3lf\n", ans);
 
         return 0;
 }

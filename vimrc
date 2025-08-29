@@ -2,7 +2,7 @@
 set number
 set relativenumber
 syntax on
-set cursorline
+set cursorlini % (int)b.size()0
 let mapleader = "\<space>"
 set laststatus=3
 colorscheme desert

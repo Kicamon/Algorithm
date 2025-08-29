@@ -15,7 +15,6 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
-#include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -30,23 +29,25 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<string> s(n);
-        for (string &x : s) {
-                cin >> x;
-        }
-        sort(all(s), [&](const string &a, const string &b) {
-                int len = (int)max(a.size(), b.size());
-                for (int i = 0; i < len; ++i) {
-                        if (a[i % (int)a.size()] != b[i % (int)b.size()]) {
-                                return a[i % (int)a.size()] > b[i % (int)b.size()];
+        vector<vector<bool> > a(1, vector<bool>(1));
+        a[0][0] = 1;
+        int m = 1;
+        for (int i = 1; i <= n; ++i) {
+                int M = 1 << i;
+                vector<vector<bool> > b(M, vector<bool>(M));
+                for (int j = 0; j < m; ++j) {
+                        for (int k = 0; k < m; ++k) {
+                                b[j][k] = b[j][k + m] = b[j + m][k] = a[j][k];
                         }
                 }
-                return true;
-        });
-        for (string x : s) {
-                cout << x;
+                a = b;
+                m = M;
         }
-        cout << endl;
+        for (int i = m - 1; ~i; --i) {
+                for (int j = m - 1; ~j; --j) {
+                        cout << a[i][j] << " \n"[j == 0];
+                }
+        }
 
         return 0;
 }
