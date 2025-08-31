@@ -49,4 +49,3 @@ function! Run()
 	redraw!
 	echohl WarningMsg | echo " Running finish! :-)"
 endfunction
-
