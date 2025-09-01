@@ -15,9 +15,13 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <algorithm>
 #include <functional>
+#include <ios>
 #include <iostream>
+#include <numeric>
 #include <queue>
+#include <set>
 #include <utility>
 #include <vector>
 #include <array>
@@ -26,88 +30,139 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-const int inf = 1e9 + 10;
+const ll inf = 1e18;
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        int n, m, q;
-        cin >> n >> m >> q;
+        int n, m, k;
+        cin >> n >> m >> k;
         vector<array<int, 3> > a(m);
-        vector<vector<array<int, 2> > > g(n);
-        vector<int> dep(n);
-        int max_dep = 0;
-        for (auto &x : a) {
-                cin >> x[0] >> x[1] >> x[2];
-                x[0]--, x[1]--;
-                g[x[0]].push_back({ x[1], x[2] });
-                g[x[1]].push_back({ x[0], x[2] });
+        vector<vector<array<int, 3> > > g(n);
+        for (int i = 0, u, v, w; i < m; ++i) {
+                cin >> u >> v >> w;
+                u--, v--;
+                a[i] = { u, v, w };
+                g[u].push_back({ v, w, i });
+                g[v].push_back({ u, w, i });
         }
 
-        function<void(vector<ll> &, int)> dijkstra = [&](vector<ll> &dis, int p) {
-                vector<bool> vis(n);
-                priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > q;
-                q.push({ 0, p });
-                dis[p] = 0;
-                dep[p] = 0;
-                while (!q.empty()) {
-                        int u = q.top().second;
-                        q.pop();
-                        if (vis[u]) {
+        function<void(vector<ll> &, int)> dijkstra = [&](vector<ll> &dis, int start) {
+                priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > pq;
+                vector<bool> vis(n, false);
+                dis[start] = 0;
+                pq.push({ 0, start });
+                while (!pq.empty()) {
+                        int u = pq.top().second;
+                        pq.pop();
+                        if (vis[u])
                                 continue;
-                        }
                         vis[u] = true;
-                        for (auto [v, w] : g[u]) {
+                        for (auto [v, w, i] : g[u]) {
                                 if (dis[u] + w < dis[v]) {
-                                        dep[v] = dep[u] + 1;
-                                        max_dep = max(max_dep, dep[v]);
                                         dis[v] = dis[u] + w;
-                                        q.push({ dis[v], v });
+                                        pq.push({ dis[v], v });
                                 }
                         }
                 }
         };
 
         vector<ll> dis(n, inf), rdis(n, inf);
-        dijkstra(rdis, n - 1), dijkstra(dis, 0);
+        dijkstra(dis, 0);
+        dijkstra(rdis, n - 1);
 
-        vector<array<ll, 2> > Q(max_dep + 1, { inf, inf });
-        for (auto &[u, v, w] : a) {
-                if (dep[u] > dep[v]) {
-                        swap(u, v);
+        vector<int> inp(m, -1);
+        vector<int> l(n, n), r(n, -1);
+        int t = 0;
+        int u = 0;
+        while (u != n - 1) {
+                bool found = false;
+                for (auto [v, w, i] : g[u]) {
+                        if (dis[u] + w == dis[v] && dis[v] + rdis[v] == dis[n - 1]) {
+                                inp[i] = t;
+                                l[u] = t;
+                                r[u] = t - 1;
+                                u = v;
+                                t++;
+                                found = true;
+                                break;
+                        }
                 }
-                if (rdis[0] < max(rdis[u], rdis[v])) {
-                        continue;
-                }
-                int d = dep[v];
-                if (dis[u] + w + rdis[v] <= Q[d][0]) {
-                        Q[d][1] = Q[d][0];
-                        Q[d][0] = dis[u] + w + rdis[v];
-                } else if (dis[u] + w + rdis[v] < Q[d][1]) {
-                        Q[d][1] = dis[u] + w + rdis[v];
+                if (!found)
+                        break;
+        }
+        l[n - 1] = t;
+        r[n - 1] = t - 1;
+
+        vector<int> order(n);
+        iota(all(order), 0);
+        sort(all(order), [&](int x, int y) { return dis[x] < dis[y]; });
+        for (int u : order) {
+                for (auto [v, w, i] : g[u]) {
+                        if (inp[i] != -1)
+                                continue;
+                        if (dis[u] + w == dis[v]) {
+                                l[v] = min(l[v], l[u]);
+                        }
                 }
         }
 
-        int t, x;
-        while (q--) {
-                cin >> t >> x;
-                t--;
-                auto [u, v, w] = a[t];
-                if (dep[u] > dep[v]) {
-                        swap(u, v);
-                }
-                if (rdis[0] < max(rdis[u], rdis[v])) {
-                        cout << min(dis[n - 1], dis[u] + x + rdis[v]) << endl;
-                } else if (dis[u] + rdis[v] + w == dis[n - 1]) {
-                        int d = dep[v];
-                        if (Q[d][1] == inf) {
-                                cout << dis[u] + x + rdis[v] << endl;
-                        } else {
-                                cout << min(dis[u] + x + rdis[v], Q[d][1]) << endl;
+        sort(all(order), [&](int x, int y) { return rdis[x] < rdis[y]; });
+        for (int u : order) {
+                for (auto [v, w, i] : g[u]) {
+                        if (inp[i] != -1)
+                                continue;
+                        if (rdis[u] + w == rdis[v]) {
+                                r[v] = max(r[v], r[u]);
                         }
+                }
+        }
+
+        vector<vector<ll> > add(t + 1), rem(t + 1);
+        for (int i = 0; i < m; ++i) {
+                if (inp[i] != -1)
+                        continue;
+                auto [u, v, w] = a[i];
+                if (l[u] <= r[v]) {
+                        ll cost = dis[u] + w + rdis[v];
+                        add[l[u]].push_back(cost);
+                        rem[r[v]].push_back(cost);
+                }
+                if (l[v] <= r[u]) {
+                        ll cost = dis[v] + w + rdis[u];
+                        add[l[v]].push_back(cost);
+                        rem[r[u]].push_back(cost);
+                }
+        }
+
+        multiset<ll> ms;
+        vector<ll> sdis(t, inf);
+        for (int i = 0; i < t; ++i) {
+                for (ll cost : add[i]) {
+                        ms.insert(cost);
+                }
+                if (!ms.empty()) {
+                        sdis[i] = *ms.begin();
+                }
+                for (ll cost : rem[i]) {
+                        auto it = ms.find(cost);
+                        if (it != ms.end()) {
+                                ms.erase(it);
+                        }
+                }
+        }
+
+        while (k--) {
+                int i, x;
+                cin >> i >> x;
+                i--;
+                auto [u, v, w] = a[i];
+                if (inp[i] == -1) {
+                        cout << min(dis[n - 1], min(dis[u] + x + rdis[v], dis[v] + x + rdis[u]))
+                             << endl;
                 } else {
-                        cout << min(dis[n - 1], dis[u] + x + rdis[v]) << endl;
+                        cout << min(dis[n - 1] - w + x, sdis[inp[i]]) << endl;
                 }
         }
 
