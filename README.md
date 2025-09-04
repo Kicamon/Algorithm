@@ -1,7 +1,6 @@
 # 代码模板整理
 
-## 简短vim配置：[vimrc](./vimrc)
-
+[toc]
 
 ## 基本代码模板
 
@@ -32,7 +31,6 @@ using namespace std;
 #define vint vector<int>
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
-int input = 1;
 
 void solve() {
 }
@@ -44,11 +42,9 @@ signed main() {
         // clock_t start, finish;
         // start = clock();
 
-        int t = 1;
-        if (input)
-                cin >> t;
-        while (t--)
+        while (t--){
                 solve();
+        }
 
         // finish = clock();
         // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
@@ -130,10 +126,11 @@ int main() {
         //clock_t为CPU时钟计时单元数
         start = clock();
         //clock()函数返回此时CPU时钟计时单元数
+
         /*
-     你的代码
-    
-    */
+        你的代码
+        */
+
         finish = clock();
         //clock()函数返回此时CPU时钟计时单元数
         cout << endl << "the time cost is:" << double(finish - start) / CLOCKS_PER_SEC << endl;
@@ -151,17 +148,19 @@ int main() {
 #### 高精度加法
 
 ```c++
-vector<int> add(vector<int> a, vector<int> b) {
-        if (a.size() < b.size())
+vector<int> add(vector<int> &a, vector<int> &b) {
+        if (a.size() < b.size()) {
                 return add(b, a);
+        }
         vector<int> c;
 
         int t = 0;
         for (int i = 0; i < a.size() || t; i++) {
                 if (i < a.size()) {
                         t += a[i];
-                        if (i < b.size())
+                        if (i < b.size()) {
                                 t += b[i];
+                        }
                 }
                 c.push_back(t % 10);
                 t /= 10;
@@ -181,16 +180,19 @@ vector<int> sub(vector<int> a, vector<int> b) {
         int t = 0;
         for (int i = 0; i < a.size() || t; i++) {
                 int now = a[i] - t;
-                if (i < b.size())
+                if (i < b.size()) {
                         now -= b[i];
+                }
                 c.push_back((now + 10) % 10);
-                if (now < 0)
+                if (now < 0) {
                         t = 1;
-                else
+                } else {
                         t = 0;
+                }
         }
-        while (c.size() > 1 && c.back() == 0)
+        while (c.size() > 1 && c.back() == 0) {
                 c.pop_back();
+        }
         return c;
 }
 ```
@@ -206,8 +208,9 @@ vector<int> mul(vector<int> a, int b) {
         vector<int> ans;
         int t = 0;
         for (int i = 0; i < a.size() || t; i++) {
-                if (i < a.size())
+                if (i < a.size()) {
                         t += a[i] * b;
+                }
                 ans.push_back(t % 10);
                 t /= 10;
         }
@@ -223,17 +226,17 @@ vector<int> mul(vector<int> a, vector<int> b) {
         for (int i = 0; i < a.size(); i++) {
                 int t = 0;
                 vector<int> n;
-                for (int j = 0; j < i; j++)
-                        // 列竖式中要往前移一位，这里通过在数的后边加0来实现，由于数是倒过来
+                for (int j = 0; j < i; j++) {
                         n.push_back(0);
-                for (int j = 0; j < b.size() || t; j++) // 的，就在它的左边加0。
-                {
-                        if (j < b.size())
+                }
+                for (int j = 0; j < b.size() || t; j++) {
+                        if (j < b.size()) {
                                 t += a[i] * b[j];
+                        }
                         n.push_back(t % 10);
                         t /= 10;
                 }
-                ans = add(ans, n); // add为高精度加法
+                ans = add(ans, n);
         }
         return ans;
 }
@@ -244,18 +247,19 @@ vector<int> mul(vector<int> a, vector<int> b) {
 #### 高精度除法
 
 ```c++
-vector<int> div(vector<int> A, int b, int &r) {
-        vector<int> C;
-        r = 0;
-        for (int i = A.size() - 1; i >= 0; i--) {
-                r = r * 10 + A[i];
-                C.push_back(r / b);
-                r = r % b;
+vector<int> div(vector<int> a, int b) {
+        vector<int> res;
+        int t = 0;
+        for (int i = a.size() - 1; i >= 0; i--) {
+                t = t * 10 + a[i];
+                res.push_back(t / b);
+                t = t % b;
         }
-        reverse(C.begin(), C.end());
-        while (C.size() > 1 && C.back() == 0)
-                C.pop_back();
-        return C;
+        reverse(res.begin(), res.end());
+        while (res.size() > 1 && res.back() == 0) {
+                res.pop_back();
+        }
+        return res;
 }
 ```
 
@@ -464,7 +468,7 @@ for (int i = 0; i < n; i++) {
 `模板2：优化`
 
 ```c++
-vector << array < int, 2 >> good;
+vector < array < int, 2 >> good;
 
 void dp() {
         for (int i = 0; i < n; i++) {
@@ -1038,6 +1042,91 @@ bool spfa() {
         return false;
 }
 ```
+
+
+### Johnson 
+```c++
+struct Johnson {
+        const int inf = 1e9;
+        vector<vector<array<int, 2> > > g;
+        vector<ll> dis, h;
+        vector<bool> vis;
+        int n;
+
+        Johnson(int size) {
+                n = size;
+                g.resize(size + 1), vis.resize(size + 1), dis.resize(size + 1, inf),
+                        h.resize(size + 1, inf);
+        }
+
+        void add_edge(int u, int v, int w) {
+                g[u].push_back({ v, w });
+        }
+
+        bool spfa() {
+                queue<int> q;
+                h[0] = 0, vis[0] = true;
+                q.push(0);
+                vector<int> dep(n + 1);
+                while (!q.empty()) {
+                        int u = q.front();
+                        q.pop();
+                        vis[u] = false;
+                        for (auto [v, w] : g[u]) {
+                                if (h[u] + w < h[v]) {
+                                        h[v] = h[u] + w;
+                                        if (vis[v]) {
+                                                continue;
+                                        }
+                                        q.push(v);
+                                        vis[v] = true;
+                                        dep[v] = dep[u] + 1;
+                                        if (dep[v] >= n) {
+                                                return false;
+                                        }
+                                }
+                        }
+                }
+                return true;
+        }
+
+        void dijkstra(int root) {
+                priority_queue<pli, vector<pli>, greater<pli> > q;
+                dis[root] = 0;
+                q.push({ 0, root });
+                while (!q.empty()) {
+                        int u = q.top().second;
+                        q.pop();
+                        if (vis[u]) {
+                                continue;
+                        }
+                        vis[u] = true;
+                        for (auto [v, w] : g[u]) {
+                                if (dis[u] + w + h[u] - h[v] < dis[v]) {
+                                        dis[v] = dis[u] + w + h[u] - h[v];
+                                        q.push({ dis[v], v });
+                                }
+                        }
+                }
+        }
+
+        bool init() {
+                return spfa();
+        }
+
+        void get_dis(int x) {
+                fill(all(dis), inf);
+                fill(all(vis), false);
+                dijkstra(x);
+                for (int i = 1; i <= n; ++i) {
+                        if (dis[i] != inf) {
+                                dis[i] = dis[i] - h[x] + h[i];
+                        }
+                }
+        }
+};
+```
+
 
 
 
