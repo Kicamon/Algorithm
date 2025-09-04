@@ -1130,6 +1130,71 @@ struct Kruskal {
 ```
 
 
+### 最近公共祖先
+#### 倍增法
+```cpp
+struct LCA {
+        vector<vector<int> > g, fa;
+        vector<int> dep;
+        int mdep;
+
+        LCA(int n) {
+                mdep = 1;
+                while (1 << mdep < n) {
+                        mdep++;
+                }
+                g.resize(n), dep.resize(n);
+                fa.assign(n, vector<int>(mdep + 1, 0));
+        }
+
+        void add_edge(int u, int v) {
+                g[u].push_back(v);
+                g[v].push_back(u);
+        }
+
+        void init(int root, int fp) {
+                dep[root] = 1;
+                dfs(root, fp);
+                fa[root][0] = root;
+        }
+
+        void dfs(int u, int f) {
+                for (int v : g[u]) {
+                        if (v == f) {
+                                continue;
+                        }
+                        dep[v] = dep[u] + 1;
+                        fa[v][0] = u;
+                        for (int i = 1; i <= mdep; ++i) {
+                                fa[v][i] = fa[fa[v][i - 1]][i - 1];
+                        }
+                        dfs(v, u);
+                }
+        }
+
+        int get_lca(int a, int b) {
+                if (dep[a] < dep[b]) {
+                        swap(a, b);
+                }
+                for (int i = mdep; ~i; --i) {
+                        if (dep[fa[a][i]] >= dep[b]) {
+                                a = fa[a][i];
+                        }
+                }
+                if (a == b) {
+                        return a;
+                }
+                for (int i = mdep; ~i; --i) {
+                        if (fa[a][i] != fa[b][i]) {
+                                a = fa[a][i];
+                                b = fa[b][i];
+                        }
+                }
+                return fa[a][0];
+        }
+};
+```
+
 
 ### 二分图
 
