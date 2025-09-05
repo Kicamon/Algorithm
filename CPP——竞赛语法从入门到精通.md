@@ -23,7 +23,7 @@ Dev-C++这个软件已经长时间没有维护了，国内有一些技术大佬f
 ### Linux
 如果只是刷题的话，这里推荐直接使用[NOI Linux](https://www.noi.cn/gynoi/jsgz/2021-07-16/732450.shtml)，所有的环境都已经配置好了，下载安装后直接使用即可。
 
-如果日常使用Linux的话，安装clang即可，也能够配合VScode使用，下面是常用的Linux发行版的安装命令
+如果日常使用Linux的话，安装clang即可，也能够配合VScode或者Sublime使用，下面是常用的Linux发行版的安装命令
 安装`clang`
 ```shell
 sudo apt install clang #Debian系：Debian Linux, Ubuntu Linux, Linux Mint, Pop Os
