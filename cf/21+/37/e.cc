@@ -16,6 +16,8 @@
 */
 /* #pragma GCC optimize(2) */
 #include <iostream>
+#include <numeric>
+#include <set>
 #include <vector>
 using namespace std;
 #define endl '\n'
@@ -23,36 +25,33 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-int bit_len(int u) {
-        int res = 0;
-        while (u) {
-                u >>= 1;
-                res++;
-        }
-        return res;
-}
-
 void solve() {
-        int n;
-        cin >> n;
-        vector<int> dp(n + 1, (1ll << 31) - 1);
-        for (int i = 0, x; i < n; ++i) {
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n), b(n);
+        for (int &x : a) {
                 cin >> x;
-                dp[x] = x;
         }
-        int m = bit_len(n) + 1;
-        for (int i = n; ~i; --i) {
-                for (int b = 0, j = i | (1 << b); j <= n && b <= m; ++b, j = i | (1 << b)) {
-                        dp[i] &= dp[j];
+        k--;
+        set<int> s;
+        for (int i = 0; i <= n; ++i) {
+                s.insert(i);
+        }
+        k = k % 2 + 1;
+        while (k--) {
+                for (int i = 0; i < n; ++i) {
+                        set<int> t = s;
+                        for (int j = 0; j < n; ++j) {
+                                if (i == j) {
+                                        continue;
+                                }
+                                t.erase(a[j]);
+                        }
+                        b[i] = *t.begin();
                 }
+                a = b;
         }
-        for (int i = 1; i <= n; ++i) {
-                if (dp[i] > i) {
-                        cout << i << endl;
-                        return;
-                }
-        }
-        cout << n + 1 << endl;
+        cout << accumulate(all(a), 0) << endl;
 }
 
 signed main() {

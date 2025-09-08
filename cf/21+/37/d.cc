@@ -23,36 +23,30 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-int bit_len(int u) {
-        int res = 0;
-        while (u) {
-                u >>= 1;
-                res++;
-        }
-        return res;
-}
-
 void solve() {
         int n;
         cin >> n;
-        vector<int> dp(n + 1, (1ll << 31) - 1);
-        for (int i = 0, x; i < n; ++i) {
+        vector<int> a(n), b(n + 1), c(n + 1);
+        for (int &x : a) {
                 cin >> x;
-                dp[x] = x;
-        }
-        int m = bit_len(n) + 1;
-        for (int i = n; ~i; --i) {
-                for (int b = 0, j = i | (1 << b); j <= n && b <= m; ++b, j = i | (1 << b)) {
-                        dp[i] &= dp[j];
-                }
+                b[x]++;
         }
         for (int i = 1; i <= n; ++i) {
-                if (dp[i] > i) {
-                        cout << i << endl;
+                if (b[i] % i) {
+                        cout << -1 << endl;
                         return;
                 }
+                b[i] = 0;
         }
-        cout << n + 1 << endl;
+        int idx = 1;
+        for (int i : a) {
+                if (!c[i]) {
+                        b[i] = idx++;
+                }
+                c[i] = (c[i] + 1) % i;
+                cout << b[i] << ' ';
+        }
+        cout << endl;
 }
 
 signed main() {
