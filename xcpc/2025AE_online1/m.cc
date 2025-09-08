@@ -81,8 +81,8 @@ void dfs(int u, int fa) {
 }
 
 signed main() {
-        // ios::sync_with_stdio(false);
-        // cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
         cin >> n >> m;
         g.resize(n + 1), vis.resize(n + 1), stn.resize(n + 1);
