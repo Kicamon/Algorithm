@@ -16,6 +16,7 @@
 */
 /* #pragma GCC optimize(2) */
 #include <iostream>
+#include <numeric>
 #include <queue>
 #include <vector>
 #include <array>
@@ -27,41 +28,38 @@ using namespace std;
 #define pli pair<ll, int>
 const ll inf = 1e18;
 
+int n, m;
 vector<vector<array<int, 2> > > g;
+vector<vector<int> > rg;
 vector<vector<ll> > dis;
-vector<vector<bool> > vis;
 
-struct node {
-        ll val;
-        int t;
-        int nid;
-        bool operator<(const node &p) const {
-                return val < p.val;
-        }
-        bool operator>(const node &p) const {
-                return val > p.val;
-        }
-};
-
-void dijkstra() {
-        priority_queue<node, vector<node>, greater<node> > q;
-        dis[0][0] = 0;
-        q.push({ 0, 0, 0 });
-        while (!q.empty()) {
-                auto [_, t, u] = q.top();
-                q.pop();
-                if (vis[u][t]) {
+void init(int u, int fa) {
+        for (auto [v, w] : g[u]) {
+                if (v == fa) {
                         continue;
                 }
-                vis[u][t] = true;
+                dis[0][v] = dis[0][u] + w;
+                init(v, u);
+        }
+}
+
+void dijkstra(int dep) {
+        priority_queue<pli, vector<pli>, greater<pli> > q;
+        vector<bool> vis(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                q.push({ dis[dep][i], i });
+        }
+        while (!q.empty()) {
+                int u = q.top().second;
+                q.pop();
+                if (vis[u]) {
+                        continue;
+                }
+                vis[u] = true;
                 for (auto [v, w] : g[u]) {
-                        if (!w && t <= (int)dis.size() && dis[u][t] < dis[v][t + 1]) {
-                                dis[v][t + 1] = dis[u][t];
-                                q.push({ dis[v][t + 1], t + 1, v });
-                        }
-                        if (w && dis[u][t] + w < dis[v][t]) {
-                                dis[v][t] = dis[u][t] + w;
-                                q.push({ dis[v][t], t, v });
+                        if (dis[dep][u] + w < dis[dep][v]) {
+                                dis[dep][v] = dis[dep][u] + w;
+                                q.push({ dis[dep][v], v });
                         }
                 }
         }
@@ -71,33 +69,34 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        int n, m;
         cin >> n >> m;
-        g.resize(n);
-        dis.assign(n, vector<ll>(n + 1, inf));
-        vis.assign(n, vector<bool>(n));
+        g.resize(n + 1), rg.resize(n + 1);
+        dis.assign(n + 1, vector<ll>(n + 1, inf));
         for (int i = 1, u, v, w; i < n; ++i) {
                 cin >> u >> v >> w;
-                u--, v--;
                 g[u].push_back({ v, w });
                 g[v].push_back({ u, w });
         }
         for (int i = 0, u, v; i < m; ++i) {
                 cin >> u >> v;
-                u--, v--;
-                g[u].push_back({ v, 0 });
-                g[v].push_back({ u, 0 });
+                rg[u].push_back(v);
+                rg[v].push_back(u);
         }
-        dijkstra();
-        for (int j = 0; j <= n; ++j) {
-                ll ans = 0;
-                for (int i = 0; i < n; ++i) {
-                        if (j) {
-                                dis[i][j] = min(dis[i][j], dis[i][j - 1]);
+        for (int i = 1; i <= n; ++i) {
+                rg[i].push_back(i);
+        }
+        dis[0][1] = 0;
+        init(1, 0);
+        for (int i = 1; i <= n; ++i) {
+                for (int u = 1; u <= n; ++u) {
+                        for (int v : rg[u]) {
+                                dis[i][v] = min(dis[i][v], dis[i - 1][u]);
                         }
-                        ans += dis[i][j];
                 }
-                cout << ans << endl;
+                dijkstra(i);
+        }
+        for (int i = 0; i <= n; ++i) {
+                cout << accumulate(dis[i].begin() + 1, dis[i].end(), 0ll) << endl;
         }
 
         return 0;
