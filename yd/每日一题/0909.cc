@@ -37,7 +37,7 @@ void solve() {
                         res++;
                         temp = x - a[i];
                 }
-                if (x < a[i]) {
+                if (x <= a[i]) {
                         tmp = min(a[i] - x, tmp);
                 }
         }
