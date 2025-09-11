@@ -15,39 +15,50 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
-#include <array>
 #include <iostream>
 #include <vector>
 using namespace std;
 #define endl '\n'
-#define ll long long
+#define int long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
         int n;
         cin >> n;
-        array<int, 2> num = { 0, 0 };
-        bool f = true;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                int t = n - i + 1;
-                if (i == 1) {
-                        while (x) {
-                                if (x % t == 0) {
-                                        num[1] = x / t;
-                                        break;
-                                }
-                                x -= i;
-                                num[0]++;
-                        }
-                } else {
-                        if (x != num[0] * i + num[1] * t) {
-                                f = false;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+        }
+        int t = a[1] - a[0];
+        for (int i = 2; i < n; ++i) {
+                if (a[i] - a[i - 1] != t) {
+                        cout << "NO" << endl;
+                        return;
+                }
+        }
+        if (t == 0) {
+                for (int i = 0; i < n; ++i) {
+                        if (a[i] % (n + 1)) {
+                                cout << "NO" << endl;
+                                return;
                         }
                 }
         }
-        cout << (f ? "YES" : "NO") << endl;
+        if (t) {
+                int x = (a[0] + t * n) / (n + 1);
+                if (x < max(t, 0ll)) {
+                        cout << "NO" << endl;
+                        return;
+                }
+                for (int i = 0; i < n; ++i) {
+                        if (x * (n + 1) - t * (n - i) != a[i]) {
+                                cout << "NO" << endl;
+                                return;
+                        }
+                }
+        }
+        cout << "YES" << endl;
 }
 
 signed main() {
