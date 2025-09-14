@@ -456,7 +456,7 @@ def main():
     for contest in contests:
         print(f"\n平台: {contest['platform']}")
         print(f"比赛名称: {contest['name']}")
-        print(f"开始时间: {contest['start_time_str']} (北京时间)")
+        print(f"开始时间: {contest['start_time_str']}")
         print(f"持续时间: {contest['duration']} 小时")
         print(f"比赛链接: {contest['url']}")
         print("-" * 50)
@@ -474,7 +474,14 @@ def main():
             serializable_contest["sort_key"] = serializable_contest[
                 "sort_key"
             ].isoformat()
-            serializable_contests.append(serializable_contest)
+            serializable_contests.append(
+                [
+                    f"比赛平台:{serializable_contest['platform']}",
+                    f"比赛名称:{serializable_contest['name']}",
+                    f"比赛时间:{serializable_contest['start_time_str']}",
+                    f"比赛链接:{serializable_contest['url']}",
+                ]
+            )
 
         json.dump(serializable_contests, f, ensure_ascii=False, indent=2)
 
