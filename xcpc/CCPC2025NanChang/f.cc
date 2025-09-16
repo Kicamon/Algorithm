@@ -16,7 +16,9 @@
 */
 /* #pragma GCC optimize(2) */
 #include <algorithm>
+#include <array>
 #include <iomanip>
+#include <ios>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -28,24 +30,21 @@ using namespace std;
 void solve() {
         int n, k;
         cin >> n >> k;
-        vector<long double> r(n + 1), P(n + 1);
-        long double c, p, L, R;
-        cin >> c >> r[0] >> p >> L >> R;
+        array<double, 2> c;
+        vector<double> r(n + 1);
+        double L, R, p;
+        cin >> r[0] >> c[0] >> p >> L >> R;
         fill(r.begin() + 1, r.end(), L);
         for (int i = 0, x; i < k; ++i) {
-                long double y;
+                double y;
                 cin >> x >> y;
                 r[x] = y;
         }
-        P[0] = 1;
-        for (int i = 1; i <= n; ++i) {
-                P[i] = P[i - 1] * p;
+        double ans = 0;
+        for (int i = 1, idx = 1; i <= n; ++i, idx ^= 1) {
+                c[idx] = p * c[1 - idx] + (1 - p) * r[i - 1];
+                ans += c[idx] - r[i];
         }
-        long double ans = (1 - P[n]) * r[0];
-        for (int i = 1; i < n; ++i) {
-                ans += (c - r[i]) * P[n - i];
-        }
-        ans += c * P[n] - r[n];
         cout << fixed << setprecision(10) << ans << endl;
 }
 
