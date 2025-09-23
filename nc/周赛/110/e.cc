@@ -16,7 +16,6 @@
 */
 /* #pragma GCC optimize(2) */
 #include <iostream>
-#include <ratio>
 #include <vector>
 using namespace std;
 #define endl '\n'

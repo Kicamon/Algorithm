@@ -26,10 +26,23 @@ using namespace std;
 void solve() {
         int n;
         cin >> n;
-        vector<int> a(n);
-        for (int &x : a) {
-                cin >> x;
+        vector<int> a(n), b(n);
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+                ans ^= a[i];
+                b[i] = a[i];
+                if (i) {
+                        b[i] ^= b[i - 1];
+                }
         }
+        for (int i = n - 1, temp = 0; i; --i) {
+                temp ^= a[i];
+                if ((temp & b[i - 1]) > ans) {
+                        ans = temp & b[i - 1];
+                }
+        }
+        cout << ans << endl;
 }
 
 signed main() {
