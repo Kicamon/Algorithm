@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <iostream>
 #include <numeric>
-#include <set>
 #include <vector>
 using namespace std;
 #define endl '\n'
@@ -32,12 +31,31 @@ void solve() {
         int n = r - l + 1;
         vector<int> a(n);
         iota(all(a), l);
-        reverse(all(a));
-        vector<int> ans(n);
-        set<int> vis;
-        for (int i = 0; i < n; ++i) {
-                int t = a[i];
+        int L = 0, R = n;
+        for (int i = 29; ~i; --i) {
+                int x = L;
+                while (x < R && (~a[x] >> i & 1)) {
+                        x++;
+                }
+                if (x - L < R - x) {
+                        int m = x * 2 - L;
+                        reverse(a.begin() + L, a.begin() + m);
+                        L = m;
+                } else {
+                        int m = x * 2 - R;
+                        reverse(a.begin() + m, a.begin() + R);
+                        R = m;
+                }
         }
+        ll ans = 0;
+        for (int i = 0; i < n; ++i) {
+                ans += a[i] | (l + i);
+        }
+        cout << ans << endl;
+        for (int x : a) {
+                cout << x << ' ';
+        }
+        cout << endl;
 }
 
 signed main() {
