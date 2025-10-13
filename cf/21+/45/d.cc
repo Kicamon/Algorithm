@@ -15,88 +15,62 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
+#include <algorithm>
 #include <iostream>
+#include <numeric>
 #include <vector>
-#include <array>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
+const int N = 30, M = N * (N - 1) >> 1;
+int dp[N + 1][M + 1];
+bool vis[N + 1][M + 1];
 
 void solve() {
         int n, m;
         cin >> n >> m;
-        vector<vector<array<int, 2> > > f(n + 1, vector<array<int, 2> >(m + 1));
-        f[1][0][1] = 1;
-        for (int i = 2; i <= n; ++i) {
-                for (int j = 0; j <= m; ++j) {
-                        if (f[i - 1][j][0]) {
-                                int k = j + (f[i - 1][j][0] - 1);
-                                if (k <= m) {
-                                        f[i][k][0] = f[i - 1][j][0];
-                                        k = j + (i - 1);
-                                        if (k <= m) {
-                                                f[i][k][1] = i;
-                                        }
-                                }
-                        }
-                        if (f[i - 1][j][1]) {
-                                int k = j + (f[i - 1][j][1] - 1);
-                                if (k <= m) {
-                                        f[i][k][0] = f[i - 1][j][1];
-                                        k = j + (i - 1);
-                                        if (k <= m) {
-                                                f[i][k][1] = i;
-                                        }
-                                }
-                        }
-                }
-        }
-
-        for (int i = 1; i <= n; ++i) {
-                Debug(i);
-                for (int j = 0; j <= m; ++j) {
-                        cout << j << ':' << f[i][j][0] << " \n"[j == m];
-                }
-                for (int j = 0; j <= m; ++j) {
-                        cout << j << ':' << f[i][j][1] << " \n"[j == m];
-                }
-                cout << "-------------------\n";
-        }
-
-        if (!f[n][m][0] && !f[n][m][1]) {
+        int k = n * (n - 1) >> 1;
+        k -= m;
+        if (!dp[n][k]) {
                 cout << 0 << endl;
                 return;
         }
+        m = n;
         vector<int> ans(n + 1);
-        int k = 1;
-        for (int i = n, j = m; i;) {
-                if (f[i][j][1]) {
-                        cout << 1 << ':' << i << ' ' << j << endl;
-                        ans[i] = k++;
-                        j -= i - 1;
-                        --i;
-                } else {
-                        cout << 0 << ':' << i << ' ' << j << endl;
-                        int x = f[i][j][0];
-                        j -= (i - f[i][j][0]) * (f[i][j][0] - 1);
-                        i = x;
-                }
+        iota(all(ans), 0);
+        reverse(ans.begin() + 1, ans.end());
+        int idx = 1;
+        while (m) {
+                int t = dp[m][k];
+                reverse(ans.begin() + idx, ans.begin() + idx + t);
+                idx += t;
+                k -= t * (t - 1) >> 1;
+                m -= t;
         }
         for (int i = 1; i <= n; ++i) {
-                if (!ans[i]) {
-                        cout << k++ << ' ';
-                } else {
-                        cout << ans[i] << ' ';
-                }
+                cout << ans[i] << " \n"[i == n];
         }
-        cout << endl;
 }
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
+
+        vis[0][0] = true;
+        for (int i = 0; i < N; ++i) {
+                for (int j = 0; j <= M; ++j) {
+                        if (!vis[i][j]) {
+                                continue;
+                        }
+                        for (int k = 1; i + k <= N; ++k) {
+                                int t = k * (k - 1) >> 1;
+                                dp[i + k][j + t] = k;
+                                vis[i + k][j + t] = true;
+                        }
+                }
+        }
 
         int t;
         cin >> t;
