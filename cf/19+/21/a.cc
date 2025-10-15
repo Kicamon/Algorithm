@@ -23,23 +23,24 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    vector<array<int,2>> a(4);
-    for(int i = 0;i < 4;++i){
-        cin >> a[i][0] >> a[i][1];
-    }
-    sort(all(a));
-    cout << (a[0][0] - a[1][0]) * (a[0][0] - a[1][0]) + (a[0][1] - a[1][1]) * (a[0][1] - a[1][1]) << endl;
+        vector<array<int, 2>> a(4);
+        for (int i = 0; i < 4; ++i) {
+                cin >> a[i][0] >> a[i][1];
+        }
+        sort(all(a));
+        cout
+            << (a[0][0] - a[1][0]) * (a[0][0] - a[1][0]) + (a[0][1] - a[1][1]) * (a[0][1] - a[1][1])
+            << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }
-

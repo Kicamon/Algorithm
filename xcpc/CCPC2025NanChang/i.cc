@@ -38,7 +38,6 @@ void solve() {
                 cout << 0 << endl;
                 return;
         }
-
 }
 
 signed main() {

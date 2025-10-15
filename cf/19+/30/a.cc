@@ -24,30 +24,30 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    int m = n << 1;
-    vector<int> a(m);
-    for (int i = 0; i < m; ++i) {
-        cin >> a[i];
-    }
-    sort(all(a));
-    ll res = 0;
-    for (int i = 0; i < m; i += 2) {
-        res += a[i];
-    }
-    cout << res << endl;
+        int n;
+        cin >> n;
+        int m = n << 1;
+        vector<int> a(m);
+        for (int i = 0; i < m; ++i) {
+                cin >> a[i];
+        }
+        sort(all(a));
+        ll res = 0;
+        for (int i = 0; i < m; i += 2) {
+                res += a[i];
+        }
+        cout << res << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

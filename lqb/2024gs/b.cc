@@ -24,18 +24,18 @@ using namespace std;
 #define int long long
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    for (int i = 0; i < 100; ++i) {
-        for (int j = 0; j < 100; ++j) {
-            for (int k = 0; k < 100; ++k) {
-                if ((i * 2632 == k * 5 * 517) && (j * 308 == k * 517)) {
-                    cout << i << ',' << j << ',' << k << endl;
+        for (int i = 0; i < 100; ++i) {
+                for (int j = 0; j < 100; ++j) {
+                        for (int k = 0; k < 100; ++k) {
+                                if ((i * 2632 == k * 5 * 517) && (j * 308 == k * 517)) {
+                                        cout << i << ',' << j << ',' << k << endl;
+                                }
+                        }
                 }
-            }
         }
-    }
 
-    return 0;
+        return 0;
 }

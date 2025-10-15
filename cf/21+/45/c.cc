@@ -41,7 +41,7 @@ void solve() {
                         x = -x;
                 }
         }
-        map<int, stack<int> > mp;
+        map<int, stack<int>> mp;
         mp[0].push(0);
         for (int i = 1, temp = 0; i <= n; ++i) {
                 temp += a[i];

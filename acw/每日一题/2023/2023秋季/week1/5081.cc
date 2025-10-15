@@ -22,21 +22,21 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    map<string, int> p;
-    string s, res;
-    for (int i = 0; i < n; ++i) {
-        res = "";
-        for (int j = 0; j < 8; ++j) {
-            cin >> s;
-            res += s;
+        int n;
+        cin >> n;
+        map<string, int> p;
+        string s, res;
+        for (int i = 0; i < n; ++i) {
+                res = "";
+                for (int j = 0; j < 8; ++j) {
+                        cin >> s;
+                        res += s;
+                }
+                cout << ++p[res] << endl;
         }
-        cout << ++p[res] << endl;
-    }
 
-    return 0;
+        return 0;
 }

@@ -21,20 +21,19 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int k;
-    cin >> k;
-    vector<int> a(k);
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> b(k + 1);
-    b[0] = x % m;
-    for (int i = 1; i <= k; ++i)
-        b[i] = (b[i - 1] + a[i]) % m;
+        int k;
+        cin >> k;
+        vector<int> a(k);
+        int n, m, x;
+        cin >> n >> m >> x;
+        vector<int> b(k + 1);
+        b[0] = x % m;
+        for (int i = 1; i <= k; ++i)
+                b[i] = (b[i - 1] + a[i]) % m;
 
-    return 0;
+        return 0;
 }

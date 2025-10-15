@@ -23,28 +23,28 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    while (q--) {
-        int op;
-        cin >> op;
-        if (op == 1) {
-            int x;
-            cin >> x;
+        int n, q;
+        cin >> n >> q;
+        while (q--) {
+                int op;
+                cin >> op;
+                if (op == 1) {
+                        int x;
+                        cin >> x;
 
-        } else {
+                } else {
+                }
         }
-    }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

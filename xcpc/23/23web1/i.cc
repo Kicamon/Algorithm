@@ -24,32 +24,32 @@ using namespace std;
 const int mod = 998244353;
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    s = ' ' + s;
-    vector<ll> dp(n + 1);
-    dp[0] = 1;
-    for (int i = 1; i <= n; ++i) {
-        dp[i] = dp[i - 1];
-        if (s[i - 1] == '?') {
-            dp[i] = dp[i] * 60 / 61;
-        } else if (s[i - 1] == s[i] || abs(s[i - 1] - s[i]) == 32) {
-            dp[i] = dp[i] / 2;
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        s = ' ' + s;
+        vector<ll> dp(n + 1);
+        dp[0] = 1;
+        for (int i = 1; i <= n; ++i) {
+                dp[i] = dp[i - 1];
+                if (s[i - 1] == '?') {
+                        dp[i] = dp[i] * 60 / 61;
+                } else if (s[i - 1] == s[i] || abs(s[i - 1] - s[i]) == 32) {
+                        dp[i] = dp[i] / 2;
+                }
+                if (s[i] == '?') {
+                        dp[i] = dp[i] * 61 % mod;
+                } else if ('a' <= s[i] && s[i] <= 'z') {
+                        if (s[i - 1] != s[i] || s[i - 1] - 32 != s[i]) {
+                                dp[i] = dp[i] * 2 % mod;
+                        }
+                }
         }
-        if (s[i] == '?') {
-            dp[i] = dp[i] * 61 % mod;
-        } else if ('a' <= s[i] && s[i] <= 'z') {
-            if (s[i - 1] != s[i] || s[i - 1] - 32 != s[i]) {
-                dp[i] = dp[i] * 2 % mod;
-            }
-        }
-    }
-    /*
+        /*
      *  分类讨论一下
      *  1. 缺少小写字母
      *      if 有两个相同且相邻的小写字母，或者小写字母与相同的大写字母相邻，则不做处理
@@ -62,7 +62,7 @@ signed main() {
      *  * 如果只有一个？且在最末尾，则120 -> 122，60 -> 61
      */
 
-    cout << dp[n] << endl;
+        cout << dp[n] << endl;
 
-    return 0;
+        return 0;
 }

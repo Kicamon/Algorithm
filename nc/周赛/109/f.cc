@@ -32,14 +32,14 @@ signed main() {
 
         int n, q;
         cin >> n >> q;
-        vector<array<int, 2> > a(n);
+        vector<array<int, 2>> a(n);
         for (int i = 0, x, y; i < n; ++i) {
                 cin >> x >> y;
                 a[i][0] = y - x;
                 a[i][1] = y + x;
         }
         sort(all(a));
-        map<int, vector<int> > mp;
+        map<int, vector<int>> mp;
         mp[a[0][0]].push_back(a[0][1]);
         vector<int> idx;
         idx.push_back(a[0][0]);

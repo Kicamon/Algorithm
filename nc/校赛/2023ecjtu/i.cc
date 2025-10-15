@@ -23,21 +23,21 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll n;
-    cin >> n;
-    ll m = n << 1;
-    ll res = 0;
-    for (ll i = 1; i * (i + 1) <= m; ++i) {
-        if (i & 1) {
-            res += (n % i == 0);
-        } else {
-            res += (n % i && m % i == 0);
+        ll n;
+        cin >> n;
+        ll m = n << 1;
+        ll res = 0;
+        for (ll i = 1; i * (i + 1) <= m; ++i) {
+                if (i & 1) {
+                        res += (n % i == 0);
+                } else {
+                        res += (n % i && m % i == 0);
+                }
         }
-    }
-    cout << (res << 1) << endl;
+        cout << (res << 1) << endl;
 
-    return 0;
+        return 0;
 }

@@ -42,14 +42,14 @@ signed main() {
                         for (int k = 1; k <= p; ++k) {
                                 if (a[i] == b[j]) {
                                         dp[val][j][k][0] =
-                                                (dp[val ^ 1][j][k][0] + dp[val ^ 1][j][k][1]) % mod;
+                                            (dp[val ^ 1][j][k][0] + dp[val ^ 1][j][k][1]) % mod;
                                         dp[val][j][k][1] = (dp[val ^ 1][j - 1][k][1] +
                                                             dp[val ^ 1][j - 1][k - 1][1] +
                                                             dp[val ^ 1][j - 1][k - 1][0]) %
                                                            mod;
                                 } else {
                                         dp[val][j][k][0] =
-                                                (dp[val ^ 1][j][k][0] + dp[val ^ 1][j][k][1]) % mod;
+                                            (dp[val ^ 1][j][k][0] + dp[val ^ 1][j][k][1]) % mod;
                                         dp[val][j][k][1] = 0;
                                 }
                         }

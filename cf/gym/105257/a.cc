@@ -23,43 +23,43 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int a;
-    cin >> a;
-    string s = "";
-    while (a) {
-        int res = a % 10;
-        a /= 10;
-        string stemp = "---";
-        if (res >= 4) {
-            stemp[2] = 'r';
-            res -= 4;
+        int a;
+        cin >> a;
+        string s = "";
+        while (a) {
+                int res = a % 10;
+                a /= 10;
+                string stemp = "---";
+                if (res >= 4) {
+                        stemp[2] = 'r';
+                        res -= 4;
+                }
+                if (res >= 2) {
+                        stemp[1] = 'w';
+                        res -= 2;
+                }
+                if (res) {
+                        stemp[0] = 'x';
+                        res--;
+                }
+                s += stemp;
         }
-        if (res >= 2) {
-            stemp[1] = 'w';
-            res -= 2;
+        while (s.length() < 9) {
+                s += '-';
         }
-        if (res) {
-            stemp[0] = 'x';
-            res--;
-        }
-        s += stemp;
-    }
-    while (s.length() < 9) {
-        s += '-';
-    }
-    reverse(all(s));
-    cout << s << endl;
+        reverse(all(s));
+        cout << s << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

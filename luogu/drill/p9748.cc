@@ -23,21 +23,21 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    int res = 0, ans = 0, m = n;
-    while (m) {
-        res++;
-        if (!ans && (m - 1) % 3 == 0) {
-            ans = res;
+        int n;
+        cin >> n;
+        int res = 0, ans = 0, m = n;
+        while (m) {
+                res++;
+                if (!ans && (m - 1) % 3 == 0) {
+                        ans = res;
+                }
+                m -= max((m + 2) / 3, 1);
         }
-        m -= max((m + 2) / 3, 1);
-    }
-    ans = !ans ? res : ans;
-    cout << res << ' ' << ans << endl;
+        ans = !ans ? res : ans;
+        cout << res << ' ' << ans << endl;
 
-    return 0;
+        return 0;
 }

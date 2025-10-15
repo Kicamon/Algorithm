@@ -25,17 +25,17 @@ using namespace std;
 const int mod = 998244353;
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll a, b;
-    cin >> a >> b;
-    b %= mod;
-    ll res = 1;
-    do {
-        res = res * b % mod;
-    } while (--b > 0);
-    cout << res << endl;
+        ll a, b;
+        cin >> a >> b;
+        b %= mod;
+        ll res = 1;
+        do {
+                res = res * b % mod;
+        } while (--b > 0);
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

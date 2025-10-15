@@ -22,37 +22,39 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-class Splay
-{
-public:
-    Splay();
-    Splay(Splay&&) = default;
-    Splay(const Splay&) = default;
-    Splay& operator=(Splay&&) = default;
-    Splay& operator=(const Splay&) = default;
-    ~Splay();
+class Splay {
+    public:
+        Splay();
+        Splay(Splay &&) = default;
+        Splay(const Splay &) = default;
+        Splay &operator=(Splay &&) = default;
+        Splay &operator=(const Splay &) = default;
+        ~Splay();
 
-private:
-    struct Node {
-        int val;
-    };
+    private:
+        struct Node {
+                int val;
+        };
 };
 
-Splay::Splay() {}
+Splay::Splay() {
+}
 
-Splay::~Splay() {}
+Splay::~Splay() {
+}
 
-void solve() {}
+void solve() {
+}
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

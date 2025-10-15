@@ -32,11 +32,11 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<int, 2> > a(n);
+        vector<array<int, 2>> a(n);
         for (auto &x : a) {
                 cin >> x[0] >> x[1];
         }
-        vector<bitset<N * N * N> > f(n + 1);
+        vector<bitset<N * N * N>> f(n + 1);
         f[0][0] = 1;
         for (int i = 1; i <= n; ++i) {
                 for (int j = a[i - 1][0]; j <= a[i - 1][1]; ++j) {

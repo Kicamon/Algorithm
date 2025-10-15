@@ -28,7 +28,7 @@ using namespace std;
 void solve() {
         int n;
         cin >> n;
-        vector<array<int, 3> > a(n);
+        vector<array<int, 3>> a(n);
         for (int i = 0; i < n; ++i) {
                 cin >> a[i][0] >> a[i][1];
                 a[i][2] = i + 1;

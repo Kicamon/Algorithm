@@ -34,7 +34,7 @@ signed main() {
 
         int n;
         cin >> n;
-        set<array<int, 2> > st;
+        set<array<int, 2>> st;
         for (int i = 0, x, y; i < n; ++i) {
                 cin >> x >> y;
                 st.insert({ x, y });

@@ -34,10 +34,10 @@ signed main() {
 
         int n, m, q;
         cin >> n >> m >> q;
-        vector<vector<int> > a(n);
+        vector<vector<int>> a(n);
         vector<ll> dis(n, inf);
         vector<int> dep(n);
-        vector<vector<array<int, 2> > > g(n);
+        vector<vector<array<int, 2>>> g(n);
         for (int i = 0, u, v, w; i < m; ++i) {
                 cin >> u >> v >> w;
                 u--, v--;

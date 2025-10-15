@@ -27,39 +27,34 @@ using namespace std;
 int input = 1;
 #define int long long
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vint a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-	for(int i = 0;i < n;++i)
-	{
-		for(int j = i + 1;i < n;++j)
-		{
-
-		}
-	}
+void solve() {
+        int n;
+        cin >> n;
+        vint a(n);
+        for (int i = 0; i < n; ++i)
+                cin >> a[i];
+        for (int i = 0; i < n; ++i) {
+                for (int j = i + 1; i < n; ++j) {
+                }
+        }
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    // clock_t start, finish;
-    // start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-    int t = 1;
-    if (input)
-        cin >> t;
-    while (t--)
-        solve();
+        int t = 1;
+        if (input)
+                cin >> t;
+        while (t--)
+                solve();
 
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) /
-    // CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) /
+        // CLOCKS_PER_SEC<<endl;
 
-    return 0;
+        return 0;
 }

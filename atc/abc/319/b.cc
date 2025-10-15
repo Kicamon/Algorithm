@@ -23,29 +23,29 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vector<char> s(n + 1);
-    for (int i = 0; i <= n; ++i) {
-        bool f = true;
-        for (int j = 1; j < 10; ++j) {
-            if (n % j == 0 && i % (n / j) == 0) {
-                s[i] = char(j + '0');
-                f = false;
-                break;
-            }
+        int n;
+        cin >> n;
+        vector<char> s(n + 1);
+        for (int i = 0; i <= n; ++i) {
+                bool f = true;
+                for (int j = 1; j < 10; ++j) {
+                        if (n % j == 0 && i % (n / j) == 0) {
+                                s[i] = char(j + '0');
+                                f = false;
+                                break;
+                        }
+                }
+                if (f) {
+                        s[i] = '-';
+                }
         }
-        if (f) {
-            s[i] = '-';
+        for (int i = 0; i <= n; ++i) {
+                cout << s[i];
         }
-    }
-    for (int i = 0; i <= n; ++i) {
-        cout << s[i];
-    }
-    cout << endl;
+        cout << endl;
 
-    return 0;
+        return 0;
 }

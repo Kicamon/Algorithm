@@ -23,24 +23,24 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll a, b, c, m;
-    cin >> a >> b >> c >> m;
-    int x = 0, y = 0, z = 0;
-    while (m--) {
-        int op, k;
-        cin >> op >> k;
-        if (op == 1)
-            x = max(x, k);
-        else if (op == 2)
-            y = max(y, k);
-        else
-            z = max(z, k);
-        ll res = (a - x) * (b - y) * (c - z);
-        cout << res << endl;
-    }
+        ll a, b, c, m;
+        cin >> a >> b >> c >> m;
+        int x = 0, y = 0, z = 0;
+        while (m--) {
+                int op, k;
+                cin >> op >> k;
+                if (op == 1)
+                        x = max(x, k);
+                else if (op == 2)
+                        y = max(y, k);
+                else
+                        z = max(z, k);
+                ll res = (a - x) * (b - y) * (c - z);
+                cout << res << endl;
+        }
 
-    return 0;
+        return 0;
 }

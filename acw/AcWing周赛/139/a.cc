@@ -23,16 +23,16 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
-    if (a + b < c + d) {
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+        if (a + b < c + d) {
+                cout << "YES" << endl;
+        } else {
+                cout << "NO" << endl;
+        }
 
-    return 0;
+        return 0;
 }

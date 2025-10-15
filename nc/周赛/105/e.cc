@@ -34,9 +34,9 @@ signed main() {
 
         int n, m;
         cin >> n >> m;
-        vector<vector<int> > g(n);
+        vector<vector<int>> g(n);
         vector<int> vis(n), val(n);
-        vector<bitset<32> > a(n);
+        vector<bitset<32>> a(n);
         for (int i = 0, x; i < n; ++i) {
                 cin >> x;
                 a[i] = x;
@@ -50,7 +50,7 @@ signed main() {
         }
         ll ans = 0;
         for (int u = 0; u < n; ++u) {
-                vector<array<int, 32> > num(2);
+                vector<array<int, 32>> num(2);
                 for (int v : g[u]) {
                         for (int i = 0; i < 32; ++i) {
                                 if (a[u][i]) {

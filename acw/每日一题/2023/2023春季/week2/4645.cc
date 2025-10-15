@@ -29,25 +29,25 @@ const int N = (1 << 20) + 10;
 int num[N], dp[N];
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m, x;
-    cin >> n >> m >> x;
-    for (int i = 1, c; i <= n; ++i) {
-        cin >> c;
-        num[c] = i;
-        dp[i] = max(dp[i - 1], num[c ^ x]);
-    }
+        int n, m, x;
+        cin >> n >> m >> x;
+        for (int i = 1, c; i <= n; ++i) {
+                cin >> c;
+                num[c] = i;
+                dp[i] = max(dp[i - 1], num[c ^ x]);
+        }
 
-    while (m--) {
-        int l, r;
-        cin >> l >> r;
-        if (dp[r] >= l)
-            puts("yes");
-        else
-            puts("no");
-    }
+        while (m--) {
+                int l, r;
+                cin >> l >> r;
+                if (dp[r] >= l)
+                        puts("yes");
+                else
+                        puts("no");
+        }
 
-    return 0;
+        return 0;
 }

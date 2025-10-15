@@ -23,20 +23,20 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    string s;
-    cin >> s;
-    string str = "solution-";
-    for(int i = 0;i < s.size();++i){
-        if('A' <= s[i] && s[i] <= 'Z')
-            s[i] += 32;
-        else if(s[i] == '_')
-            s[i] = '-';
-    }
-    str += s;
-    cout << str << endl;
+        string s;
+        cin >> s;
+        string str = "solution-";
+        for (int i = 0; i < s.size(); ++i) {
+                if ('A' <= s[i] && s[i] <= 'Z')
+                        s[i] += 32;
+                else if (s[i] == '_')
+                        s[i] = '-';
+        }
+        str += s;
+        cout << str << endl;
 
-    return 0;
+        return 0;
 }

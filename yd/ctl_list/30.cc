@@ -29,8 +29,8 @@ signed main() {
 
         int n, m;
         cin >> n >> m;
-        vector<vector<char> > g(n + 1, vector<char>(m + 1));
-        vector<vector<int> > c(3, vector<int>(n + 1));
+        vector<vector<char>> g(n + 1, vector<char>(m + 1));
+        vector<vector<int>> c(3, vector<int>(n + 1));
         for (int i = 1; i <= n; ++i) {
                 for (int j = 1; j <= m; ++j) {
                         cin >> g[i][j];

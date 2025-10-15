@@ -26,42 +26,42 @@ using namespace std;
 const int N = sqrt(1e9) + 1;
 
 int lowbit(int x) {
-    return x & -x;
+        return x & -x;
 }
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    int d = __gcd(n, m);
-    n /= d;
-    m /= d;
-    if (n % m == 0) {
-        cout << 0 << endl;
-        return;
-    }
-    if (lowbit(m) != m) {
-        cout << -1 << endl;
-        return;
-    }
-    ll res = 0;
-    while (n) {
-        while (n < m) {
-            res += n;
-            n <<= 1;
+        int n, m;
+        cin >> n >> m;
+        int d = __gcd(n, m);
+        n /= d;
+        m /= d;
+        if (n % m == 0) {
+                cout << 0 << endl;
+                return;
         }
-        n %= m;
-    }
-    cout << res * d << endl;
+        if (lowbit(m) != m) {
+                cout << -1 << endl;
+                return;
+        }
+        ll res = 0;
+        while (n) {
+                while (n < m) {
+                        res += n;
+                        n <<= 1;
+                }
+                n %= m;
+        }
+        cout << res * d << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

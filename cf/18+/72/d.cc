@@ -22,24 +22,24 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    int n, x, y;
-    cin >> n >> x >> y;
-    int cnt = __gcd(x, y);
-    int Z = n / (1ll * x * y / cnt), X = n / x - Z, Y = n / y - Z;
-    /* Debug(X), Debug(Y); */
-    ll res = (1ll * n + (n - X + 1)) * X / 2;
-    res -= (1ll + (1ll * Y)) * Y / 2;
-    cout << res << endl;
+        int n, x, y;
+        cin >> n >> x >> y;
+        int cnt = __gcd(x, y);
+        int Z = n / (1ll * x * y / cnt), X = n / x - Z, Y = n / y - Z;
+        /* Debug(X), Debug(Y); */
+        ll res = (1ll * n + (n - X + 1)) * X / 2;
+        res -= (1ll + (1ll * Y)) * Y / 2;
+        cout << res << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

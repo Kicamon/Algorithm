@@ -24,7 +24,7 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-ll opt(vector<array<int, 2> > a) {
+ll opt(vector<array<int, 2>> a) {
         int n = (int)a.size();
         if (n < 1) {
                 return 0;
@@ -53,7 +53,7 @@ void solve() {
         cin >> n;
         string s;
         cin >> s;
-        vector<array<int, 2> > a, b;
+        vector<array<int, 2>> a, b;
         for (int i = 0; i < n; ++i) {
                 int l = i, r = i;
                 while (r + 1 < n && s[r + 1] == s[r]) {

@@ -75,7 +75,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<int, 2> > a(n);
+        vector<array<int, 2>> a(n);
         for (int i = 0; i < n; ++i) {
                 cin >> a[i][0] >> a[i][1];
                 tree_len = max(tree_len, a[i][1]);

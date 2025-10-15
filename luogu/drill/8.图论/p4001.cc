@@ -37,7 +37,7 @@ struct DINIC {
         };
 
         int n;
-        vector<vector<node> > e;
+        vector<vector<node>> e;
         vector<int> dep, iter;
 
         DINIC(int size) {

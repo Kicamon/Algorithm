@@ -22,29 +22,29 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    int m = n << 2;
-    vector<vector<char>> a(m, vector<char>(m, '.'));
-    for (int i = 0; i < n * 3; ++i) {
-        for (int j = 0; j < n; ++j) {
-            a[i][j] = a[i][m - 1 - j] = '*';
+        int n;
+        cin >> n;
+        int m = n << 2;
+        vector<vector<char>> a(m, vector<char>(m, '.'));
+        for (int i = 0; i < n * 3; ++i) {
+                for (int j = 0; j < n; ++j) {
+                        a[i][j] = a[i][m - 1 - j] = '*';
+                }
         }
-    }
-    for (int i = n * 3, r = 1; i < m; ++i, ++r) {
-        for (int j = 0, c = r; j < n; ++j) {
-            a[i][j + r] = a[i][m - 1 - j - r] = '*';
+        for (int i = n * 3, r = 1; i < m; ++i, ++r) {
+                for (int j = 0, c = r; j < n; ++j) {
+                        a[i][j + r] = a[i][m - 1 - j - r] = '*';
+                }
         }
-    }
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < m; ++j) {
-            cout << a[i][j];
+        for (int i = 0; i < m; ++i) {
+                for (int j = 0; j < m; ++j) {
+                        cout << a[i][j];
+                }
+                cout << endl;
         }
-        cout << endl;
-    }
 
-    return 0;
+        return 0;
 }

@@ -22,29 +22,29 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    int a, b, c;
-    cin >> a >> b >> c;
-    if (a > b) {
-        cout << "First" << endl;
-    } else if (a < b) {
-        cout << "Second" << endl;
-    } else {
-        if (c % 2) {
-            cout << "First" << endl;
+        int a, b, c;
+        cin >> a >> b >> c;
+        if (a > b) {
+                cout << "First" << endl;
+        } else if (a < b) {
+                cout << "Second" << endl;
         } else {
-            cout << "Second" << endl;
+                if (c % 2) {
+                        cout << "First" << endl;
+                } else {
+                        cout << "Second" << endl;
+                }
         }
-    }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int T;
-    cin >> T;
-    while (T--)
-        solve();
+        int T;
+        cin >> T;
+        while (T--)
+                solve();
 
-    return 0;
+        return 0;
 }

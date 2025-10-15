@@ -22,33 +22,33 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-    vector<ll> a(n), f(n), b(2);
-    for (int i = 0; i < n; ++i) {
-        cin >> b[i % 2];
-        if (i) {
-            f[i] = b[i % 2] - b[i % 2 ^ 1];
-            a[i] = f[i] + a[i - 1];
+        int n, m;
+        cin >> n >> m;
+        vector<ll> a(n), f(n), b(2);
+        for (int i = 0; i < n; ++i) {
+                cin >> b[i % 2];
+                if (i) {
+                        f[i] = b[i % 2] - b[i % 2 ^ 1];
+                        a[i] = f[i] + a[i - 1];
+                }
         }
-    }
-    int idx = m + 1;
-    for (int i = m + 1; i < n; ++i) {
-        if (a[i] - a[i - m - 1] > a[idx] - a[idx - m - 1]) {
-            idx = i;
+        int idx = m + 1;
+        for (int i = m + 1; i < n; ++i) {
+                if (a[i] - a[i - m - 1] > a[idx] - a[idx - m - 1]) {
+                        idx = i;
+                }
         }
-    }
-    ll res = (a[idx] - a[idx - m - 1]) * (a[idx] - a[idx - m - 1]);
-    for (int i = 1; i < idx - m; ++i) {
-        res += f[i] * f[i];
-    }
-    for (int i = idx + 1; i < n; ++i) {
-        res += f[i] * f[i];
-    }
-    cout << res << endl;
+        ll res = (a[idx] - a[idx - m - 1]) * (a[idx] - a[idx - m - 1]);
+        for (int i = 1; i < idx - m; ++i) {
+                res += f[i] * f[i];
+        }
+        for (int i = idx + 1; i < n; ++i) {
+                res += f[i] * f[i];
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

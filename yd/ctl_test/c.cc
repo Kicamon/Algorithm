@@ -39,7 +39,7 @@ signed main() {
                 }
         }
         int len = *max_element(all(num));
-        vector<vector<char> > ch(26, vector<char>(len, ' '));
+        vector<vector<char>> ch(26, vector<char>(len, ' '));
         for (int i = 0; i < 26; ++i) {
                 for (int j = 0; j < num[i]; ++j) {
                         ch[i][j] = '*';

@@ -31,7 +31,7 @@ void solve() {
         int n, k;
         cin >> n >> k;
         vector<int> w(n), c(n);
-        vector<vector<int> > g(n);
+        vector<vector<int>> g(n);
         for (int &x : w) {
                 cin >> x;
         }
@@ -45,7 +45,7 @@ void solve() {
         }
 
         ll ans = 0;
-        vector<set<int> > s(n);
+        vector<set<int>> s(n);
 
         function<void(int, int)> color = [&](int u, int p) {
                 c[u] = c[p];

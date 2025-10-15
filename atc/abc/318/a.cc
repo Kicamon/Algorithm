@@ -22,19 +22,19 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m, p;
-    cin >> n >> m >> p;
-    int res = 1;
-    n -= m;
-    if (n < 0) {
-        cout << 0 << endl;
-    } else {
-        res += n / p;
-        cout << res << endl;
-    }
+        int n, m, p;
+        cin >> n >> m >> p;
+        int res = 1;
+        n -= m;
+        if (n < 0) {
+                cout << 0 << endl;
+        } else {
+                res += n / p;
+                cout << res << endl;
+        }
 
-    return 0;
+        return 0;
 }

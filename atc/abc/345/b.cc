@@ -23,14 +23,14 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll a;
-    cin >> a;
-    int res = -a % 10;
-    res += res < 0 ? 10 : 0;
-    cout << (a + res) / 10 << endl;
+        ll a;
+        cin >> a;
+        int res = -a % 10;
+        res += res < 0 ? 10 : 0;
+        cout << (a + res) / 10 << endl;
 
-    return 0;
+        return 0;
 }

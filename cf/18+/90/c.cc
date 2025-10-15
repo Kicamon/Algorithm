@@ -23,22 +23,22 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    queue<int> ans;
-    stack<int> fr, ed;
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        queue<int> ans;
+        stack<int> fr, ed;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

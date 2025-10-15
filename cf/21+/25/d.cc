@@ -29,7 +29,7 @@ signed main() {
 
         int n, m;
         cin >> n >> m;
-        vector<vector<int> > a(m + 1);
+        vector<vector<int>> a(m + 1);
         int l, r, p, q;
         while (n--) {
                 cin >> l >> r >> p >> q;

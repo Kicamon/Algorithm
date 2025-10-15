@@ -30,7 +30,7 @@ void solve() {
         int n, k;
         ll ans = 0;
         cin >> n >> k;
-        vector<array<ll, 2> > a(n);
+        vector<array<ll, 2>> a(n);
         for (auto &x : a) {
                 cin >> x[0];
         }

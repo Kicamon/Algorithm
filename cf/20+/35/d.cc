@@ -26,13 +26,13 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 const int mod = 1e9 + 7;
 
-ll get(vector<array<ll, 2> > a) {
+ll get(vector<array<ll, 2>> a) {
         int n = a.size() - 1;
         if (n == 1) {
                 return a[1][0];
         }
         vector<ll> res(n + 1);
-        vector<array<ll, 2> > b = a;
+        vector<array<ll, 2>> b = a;
         ll ans = 0;
         int idx = 0;
 
@@ -43,7 +43,7 @@ ll get(vector<array<ll, 2> > a) {
                         idx = i;
                 } else {
                         res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans +
-                                  get(vector<array<ll, 2> >(b.begin() + idx, b.begin() + i))) %
+                                  get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i))) %
                                  mod;
                 }
                 while (a[i][0] % 2 == 0) {
@@ -61,7 +61,7 @@ ll get(vector<array<ll, 2> > a) {
 void solve() {
         int n;
         cin >> n;
-        vector<array<ll, 2> > a(n + 1), b(n + 1);
+        vector<array<ll, 2>> a(n + 1), b(n + 1);
         vector<ll> res(n + 1);
         ll ans = 0;
         int idx = 0;
@@ -76,7 +76,7 @@ void solve() {
                         idx = i;
                 } else {
                         res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans +
-                                  get(vector<array<ll, 2> >(b.begin() + idx, b.begin() + i))) %
+                                  get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i))) %
                                  mod;
                 }
                 while (a[i][0] % 2 == 0) {

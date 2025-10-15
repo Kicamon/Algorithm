@@ -35,72 +35,63 @@ int e[M], ne[M], h[N], idx;
 int f[N], dist[N];
 bool vis[N];
 
-void add(int a, int b)
-{
-    e[idx] = b, ne[idx] = h[a], h[a] = idx++;
+void add(int a, int b) {
+        e[idx] = b, ne[idx] = h[a], h[a] = idx++;
 }
 
-void spfa()
-{
-    memset(dist, 0x3f, sizeof dist);
-    queue<int> q;
-    q.push(1);
-    vis[1] = true;
-    dist[1] = 0;
-    f[1] = 1;
-    while (!q.empty())
-    {
-        int t = q.front();
-        q.pop();
+void spfa() {
+        memset(dist, 0x3f, sizeof dist);
+        queue<int> q;
+        q.push(1);
+        vis[1] = true;
+        dist[1] = 0;
+        f[1] = 1;
+        while (!q.empty()) {
+                int t = q.front();
+                q.pop();
 
-        for (int i = h[t]; ~i; i = ne[i])
-        {
-            int j = e[i];
-            if (dist[j] > dist[t] + 1)
-            {
-                dist[j] = dist[t] + 1;
-                f[j] = f[t];
-                q.push(j);
-            }
-            else if (dist[j] == dist[t] + 1)
-                f[j] = (f[j] + f[t]) % mod;
+                for (int i = h[t]; ~i; i = ne[i]) {
+                        int j = e[i];
+                        if (dist[j] > dist[t] + 1) {
+                                dist[j] = dist[t] + 1;
+                                f[j] = f[t];
+                                q.push(j);
+                        } else if (dist[j] == dist[t] + 1)
+                                f[j] = (f[j] + f[t]) % mod;
+                }
         }
-    }
 }
 
-void solve()
-{
-    memset(h, -1, sizeof h);
-    cin >> n >> m;
-    while (m--)
-    {
-        int a, b;
-        cin >> a >> b;
-        add(a, b), add(b, a);
-    }
+void solve() {
+        memset(h, -1, sizeof h);
+        cin >> n >> m;
+        while (m--) {
+                int a, b;
+                cin >> a >> b;
+                add(a, b), add(b, a);
+        }
 
-    spfa();
+        spfa();
 
-    for (int i = 1; i <= n; ++i)
-        cout << f[i] << endl;
+        for (int i = 1; i <= n; ++i)
+                cout << f[i] << endl;
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    // clock_t start, finish;
-    // start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-    int t = 1;
-    if (input)
-        cin >> t;
-    while (t--)
-        solve();
+        int t = 1;
+        if (input)
+                cin >> t;
+        while (t--)
+                solve();
 
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
 
-    return 0;
+        return 0;
 }

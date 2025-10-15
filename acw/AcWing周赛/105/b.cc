@@ -21,32 +21,29 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vector<int> a(n + 1), ans(n + 1);
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    for (int i = 1; i <= n; ++i)
-    {
-        vector<int> res(n + 1);
-        int t = 0;
-        for (int j = i; j <= n; ++j)
-        {
-            int x = a[j];
-            res[x]++;
-            if (res[x] > res[t] || (res[x] == res[t] && x < t))
-                t = x;
-            ans[t]++;
+        int n;
+        cin >> n;
+        vector<int> a(n + 1), ans(n + 1);
+        for (int i = 1; i <= n; ++i)
+                cin >> a[i];
+        for (int i = 1; i <= n; ++i) {
+                vector<int> res(n + 1);
+                int t = 0;
+                for (int j = i; j <= n; ++j) {
+                        int x = a[j];
+                        res[x]++;
+                        if (res[x] > res[t] || (res[x] == res[t] && x < t))
+                                t = x;
+                        ans[t]++;
+                }
         }
-    }
-    for (int i = 1; i <= n; ++i)
-        cout << ans[i] << ' ';
-    cout << endl;
+        for (int i = 1; i <= n; ++i)
+                cout << ans[i] << ' ';
+        cout << endl;
 
-    return 0;
+        return 0;
 }

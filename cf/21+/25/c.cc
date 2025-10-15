@@ -22,7 +22,7 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
-vector<vector<int> > vis(4, vector<int>());
+vector<vector<int>> vis(4, vector<int>());
 
 int check(ll t) {
         for (int i = 0; i < 4; ++i) {

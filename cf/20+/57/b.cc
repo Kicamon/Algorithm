@@ -33,7 +33,7 @@ void solve() {
                 cin >> x;
                 mp[x]++;
         }
-        priority_queue<int, vector<int>, greater<int> > q;
+        priority_queue<int, vector<int>, greater<int>> q;
         for (auto x : mp) {
                 q.push(x.second);
         }

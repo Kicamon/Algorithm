@@ -30,7 +30,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<vector<int> > mx(n, vector<int>(n));
+        vector<vector<int>> mx(n, vector<int>(n));
         mx[0][n >> 1] = 1;
         int m = n * n;
         array<int, 2> pl = { 0, n >> 1 };

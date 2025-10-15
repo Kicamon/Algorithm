@@ -32,8 +32,8 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<int, 2> > a(n);
-        set<array<int, 2> > st;
+        vector<array<int, 2>> a(n);
+        set<array<int, 2>> st;
         for (auto &x : a) {
                 cin >> x[0] >> x[1];
                 st.insert({ x[0], x[1] });

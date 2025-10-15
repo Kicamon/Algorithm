@@ -28,7 +28,7 @@ void solve() {
         int n, q;
         cin >> n >> q;
         vector<int> a(n + 1);
-        vector<array<int, 3> > b(n + 1);
+        vector<array<int, 3>> b(n + 1);
         for (int i = 1; i <= n; ++i) {
                 cin >> a[i];
                 int x = __lg(a[i]);
@@ -39,7 +39,7 @@ void solve() {
                 int l, r;
                 cin >> l >> r;
                 cout << (b[r][0] - b[l - 1][0]) + (b[r][1] - b[l - 1][1]) / 2 +
-                                (b[r][2] - b[l - 1][2])
+                            (b[r][2] - b[l - 1][2])
                      << endl;
         }
 }

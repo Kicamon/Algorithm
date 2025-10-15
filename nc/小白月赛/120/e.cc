@@ -28,14 +28,14 @@ using namespace std;
 void solve() {
         int n;
         cin >> n;
-        vector<pair<ll, int> > a(n);
+        vector<pair<ll, int>> a(n);
         for (int i = 0; i < n; ++i) {
                 cin >> a[i].first;
                 a[i].second = i;
         }
         sort(all(a));
         vector<int> ans(n, -1);
-        queue<pair<ll, int> > q;
+        queue<pair<ll, int>> q;
         for (int i = 0; i < n; ++i) {
                 while (!q.empty()) {
                         auto t = q.front();

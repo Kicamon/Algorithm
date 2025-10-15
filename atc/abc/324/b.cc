@@ -23,18 +23,18 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll n;
-    cin >> n;
-    while (n % 2 == 0) {
-        n /= 2;
-    }
-    while (n % 3 == 0) {
-        n /= 3;
-    }
-    cout << (n == 1 ? "Yes" : "No") << endl;
+        ll n;
+        cin >> n;
+        while (n % 2 == 0) {
+                n /= 2;
+        }
+        while (n % 3 == 0) {
+                n /= 3;
+        }
+        cout << (n == 1 ? "Yes" : "No") << endl;
 
-    return 0;
+        return 0;
 }

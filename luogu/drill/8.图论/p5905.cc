@@ -26,7 +26,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 const int inf = 1e9;
 
-vector<vector<array<int, 2> > > g;
+vector<vector<array<int, 2>>> g;
 vector<ll> h;
 
 bool spfa(int n) {
@@ -59,7 +59,7 @@ bool spfa(int n) {
 }
 
 void dijkstra(int root, int n) {
-        priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > q;
+        priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> q;
         vector<bool> vis(n + 1);
         vector<ll> dis(n + 1, inf);
         q.push({ 0, root });

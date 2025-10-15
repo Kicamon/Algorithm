@@ -39,7 +39,7 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        ans[1] =1;
+        ans[1] = 1;
         for (int i = 2; i < N; ++i) {
                 ans[i] = 1ll * ans[i - 1] * 2 % mod;
         }

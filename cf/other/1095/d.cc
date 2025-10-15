@@ -28,9 +28,9 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<vector<int> > g(n + 1);
+        vector<vector<int>> g(n + 1);
         vector<bool> vis(n + 1);
-        vector<array<int, 2> > a(n + 1);
+        vector<array<int, 2>> a(n + 1);
         for (int i = 1; i <= n; ++i) {
                 cin >> a[i][0] >> a[i][1];
                 g[a[i][0]].push_back(a[i][1]);

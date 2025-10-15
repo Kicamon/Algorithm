@@ -23,30 +23,30 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    int sum = 0;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        sum += a[i];
-    }
-    vector<int> res;
-    res.push_back(sum / n);
-    for (int i = 0; i < k; ++i) {
-        sum %= n;
-        sum *= 10;
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n);
+        int sum = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+                sum += a[i];
+        }
+        vector<int> res;
         res.push_back(sum / n);
-        sum %= n;
-    }
-    cout << res[0] << '.';
-    for (int i = 1; i < (int)res.size(); ++i) {
-        cout << res[i];
-    }
-    cout << endl;
+        for (int i = 0; i < k; ++i) {
+                sum %= n;
+                sum *= 10;
+                res.push_back(sum / n);
+                sum %= n;
+        }
+        cout << res[0] << '.';
+        for (int i = 1; i < (int)res.size(); ++i) {
+                cout << res[i];
+        }
+        cout << endl;
 
-    return 0;
+        return 0;
 }

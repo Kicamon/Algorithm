@@ -22,18 +22,18 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    vector<int> a(4);
-    for (int i = 0; i < 4; ++i) {
-        cin >> a[i];
-    }
-    if (a[0] == a[3] || a[1] == a[2]) {
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
+        vector<int> a(4);
+        for (int i = 0; i < 4; ++i) {
+                cin >> a[i];
+        }
+        if (a[0] == a[3] || a[1] == a[2]) {
+                cout << "YES" << endl;
+        } else {
+                cout << "NO" << endl;
+        }
 
-    return 0;
+        return 0;
 }

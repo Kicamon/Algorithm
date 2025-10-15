@@ -38,8 +38,8 @@ signed main() {
 
         int n, m, k;
         cin >> n >> m >> k;
-        vector<array<int, 3> > a(m);
-        vector<vector<array<int, 3> > > g(n);
+        vector<array<int, 3>> a(m);
+        vector<vector<array<int, 3>>> g(n);
         for (int i = 0, u, v, w; i < m; ++i) {
                 cin >> u >> v >> w;
                 u--, v--;
@@ -49,7 +49,7 @@ signed main() {
         }
 
         function<void(vector<ll> &, int)> dijkstra = [&](vector<ll> &dis, int start) {
-                priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > pq;
+                priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;
                 vector<bool> vis(n, false);
                 dis[start] = 0;
                 pq.push({ 0, start });
@@ -119,7 +119,7 @@ signed main() {
                 }
         }
 
-        vector<vector<ll> > add(t + 1), rem(t + 1);
+        vector<vector<ll>> add(t + 1), rem(t + 1);
         for (int i = 0; i < m; ++i) {
                 if (inp[i] != -1)
                         continue;

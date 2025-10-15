@@ -23,25 +23,25 @@ using namespace std;
 const int mod = 5000011;
 
 int C(int a, int b) {
-    int res = 1;
-    for (int i = a, j = 1; j <= b; --i, ++j) {
-        res = res * i / j;
-    }
-    return res;
+        int res = 1;
+        for (int i = a, j = 1; j <= b; --i, ++j) {
+                res = res * i / j;
+        }
+        return res;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, k;
-    cin >> n >> k;
-    int m = n / k;
-    int res = 0;
-    for (int i = 0; i <= m; ++i) {
-        res += C(n - i * k, i);
-    }
-    cout << res << endl;
+        int n, k;
+        cin >> n >> k;
+        int m = n / k;
+        int res = 0;
+        for (int i = 0; i <= m; ++i) {
+                res += C(n - i * k, i);
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

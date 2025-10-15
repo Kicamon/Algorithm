@@ -30,7 +30,7 @@ signed main() {
 
         int n, k;
         cin >> n >> k;
-        vector<vector<bool> > a(n, vector<bool>(n));
+        vector<vector<bool>> a(n, vector<bool>(n));
         if (k % 2) {
                 cout << -1 << endl;
         } else {

@@ -22,30 +22,30 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    sort(a.begin(), a.end());
-    int idx = 1;
-    for (int i = 0; i < n; ++i) {
-        if (a[i] == idx) {
-            idx++;
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
         }
-    }
-    cout << idx << endl;
+        sort(a.begin(), a.end());
+        int idx = 1;
+        for (int i = 0; i < n; ++i) {
+                if (a[i] == idx) {
+                        idx++;
+                }
+        }
+        cout << idx << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

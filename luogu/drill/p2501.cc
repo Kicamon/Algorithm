@@ -32,7 +32,7 @@ signed main() {
         int n, lul_lenth = 0;
         cin >> n;
         vector<int> a(n);
-        vector<vector<int> > lul(n + 1);
+        vector<vector<int>> lul(n + 1);
         for (int i = 0, x; i < n; ++i) {
                 cin >> x;
                 a[i] = x - i - 1;

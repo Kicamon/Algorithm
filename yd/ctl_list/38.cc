@@ -76,7 +76,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<int, 2> > a(n + 1);
+        vector<array<int, 2>> a(n + 1);
         for (auto &x : a) {
                 cin >> x[0] >> x[1];
         }

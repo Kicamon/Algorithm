@@ -25,7 +25,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 struct LCA {
-        vector<vector<int> > g, fa;
+        vector<vector<int>> g, fa;
         vector<int> dep;
         int mdep;
 
@@ -107,7 +107,7 @@ signed main() {
                 sort(all(t));
                 cout << (t[0] == t[1] ? t[2] : t[0]) << ' ';
                 cout << 1ll * lca.dep[x] + lca.dep[y] + lca.dep[z] - lca.dep[t[0]] - lca.dep[t[1]] -
-                                lca.dep[t[2]]
+                            lca.dep[t[2]]
                      << endl;
         }
 

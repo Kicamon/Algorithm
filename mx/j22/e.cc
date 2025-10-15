@@ -23,7 +23,7 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-vector<vector<int> > a;
+vector<vector<int>> a;
 
 void solve() {
         int x, r;

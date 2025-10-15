@@ -23,33 +23,33 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    string s;
-    cin >> s;
-    array<int, 2> time;
-    time[0] = (s[0] - '0') * 10 + (s[1] - '0');
-    time[1] = (s[3] - '0') * 10 + (s[4] - '0');
-    string val = "AM";
-    if (time[0] >= 12) {
-        val = "PM";
-        if (time[0] > 12) {
-            time[0] -= 12;
+        string s;
+        cin >> s;
+        array<int, 2> time;
+        time[0] = (s[0] - '0') * 10 + (s[1] - '0');
+        time[1] = (s[3] - '0') * 10 + (s[4] - '0');
+        string val = "AM";
+        if (time[0] >= 12) {
+                val = "PM";
+                if (time[0] > 12) {
+                        time[0] -= 12;
+                }
+        } else if (time[0] == 0) {
+                time[0] = 12;
         }
-    } else if (time[0] == 0) {
-        time[0] = 12;
-    }
-    cout << (time[0] < 10 ? "0" : "") << time[0] << ':' << (time[1] < 10 ? "0" : "") << time[1]
-         << ' ' << val << endl;
+        cout << (time[0] < 10 ? "0" : "") << time[0] << ':' << (time[1] < 10 ? "0" : "") << time[1]
+             << ' ' << val << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

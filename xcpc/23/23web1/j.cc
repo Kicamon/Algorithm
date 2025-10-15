@@ -23,23 +23,23 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    double x[4], y[4];
-    cin >> x[0] >> y[0] >> x[1] >> y[1];
-    cin >> x[2] >> y[2] >> x[3] >> y[3];
-    double len1 = fabs(((x[0] + x[1]) - (x[2] + x[3])) / 2);
-    double len2 = fabs(((y[0] + y[1]) - (y[2] + y[3])) / 2);
-    double len3 = sqrt(len1 * len1 + len2 * len2);
-    double len4 =
-        len3 - sqrt((x[3] - x[2]) * (x[3] - x[2]) / 4 + (y[3] - y[2]) * (y[3] - y[2]) / 4);
-    /* cout << len1 << ' ' << len2 << ' ' << len3 << ' ' << len4 << endl; */
-    printf("%.10lf\n", len4 * (len1 + len2) / len3);
+        double x[4], y[4];
+        cin >> x[0] >> y[0] >> x[1] >> y[1];
+        cin >> x[2] >> y[2] >> x[3] >> y[3];
+        double len1 = fabs(((x[0] + x[1]) - (x[2] + x[3])) / 2);
+        double len2 = fabs(((y[0] + y[1]) - (y[2] + y[3])) / 2);
+        double len3 = sqrt(len1 * len1 + len2 * len2);
+        double len4 =
+            len3 - sqrt((x[3] - x[2]) * (x[3] - x[2]) / 4 + (y[3] - y[2]) * (y[3] - y[2]) / 4);
+        /* cout << len1 << ' ' << len2 << ' ' << len3 << ' ' << len4 << endl; */
+        printf("%.10lf\n", len4 * (len1 + len2) / len3);
 }
 
 signed main() {
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

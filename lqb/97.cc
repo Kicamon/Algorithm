@@ -23,26 +23,26 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-    }
-    vector<int> num(k);
-    num[0]++;
-    for (int i = 1; i <= n; ++i) {
-        a[i] = (a[i - 1] + a[i]) % k;
-        num[a[i]]++;
-    }
-    ll res = 0;
-    for (int i = 0; i < k; ++i) {
-        res += 1ll * num[i] * (num[i] - 1) >> 1;
-    }
-    cout << res << endl;
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i];
+        }
+        vector<int> num(k);
+        num[0]++;
+        for (int i = 1; i <= n; ++i) {
+                a[i] = (a[i - 1] + a[i]) % k;
+                num[a[i]]++;
+        }
+        ll res = 0;
+        for (int i = 0; i < k; ++i) {
+                res += 1ll * num[i] * (num[i] - 1) >> 1;
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

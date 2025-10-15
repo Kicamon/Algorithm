@@ -27,7 +27,7 @@ using namespace std;
 const int N = 1e4 + 10, M = 5e5 + 10, inf = (1ll << 31) - 1;
 int n, m, s;
 array<int, N> val;
-vector<vector<array<int, 2> > > g(N);
+vector<vector<array<int, 2>>> g(N);
 
 void dijkstra() {
         queue<int> q;

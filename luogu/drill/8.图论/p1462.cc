@@ -29,13 +29,13 @@ using namespace std;
 const ll inf = 1e18;
 int n, m, b;
 vector<ll> f;
-vector<vector<array<int, 2> > > g;
+vector<vector<array<int, 2>>> g;
 
 bool dijkstra(int p) {
         if (f[0] > p) {
                 return false;
         }
-        priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > q;
+        priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> q;
         vector<ll> dis(n, inf);
         vector<bool> vis(n);
         dis[0] = 0;

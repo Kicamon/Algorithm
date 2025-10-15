@@ -23,32 +23,32 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    ll n, m;
-    cin >> n >> m;
-    if (n != 1 && m == 1) {
-        cout << -1 << endl;
-    } else {
-        ll res = 1;
-        n -= m;
-        if (n) {
-            if (n <= m - 1) {
-                res += 2;
-            } else {
-                res += (n / (m - 1) + (n % (m - 1) > 0)) * 2;
-            }
+        ll n, m;
+        cin >> n >> m;
+        if (n != 1 && m == 1) {
+                cout << -1 << endl;
+        } else {
+                ll res = 1;
+                n -= m;
+                if (n) {
+                        if (n <= m - 1) {
+                                res += 2;
+                        } else {
+                                res += (n / (m - 1) + (n % (m - 1) > 0)) * 2;
+                        }
+                }
+                cout << res << endl;
         }
-        cout << res << endl;
-    }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

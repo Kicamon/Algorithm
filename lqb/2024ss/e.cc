@@ -23,17 +23,17 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    sort(all(a));
-    cout << a[0] << ' ' << a[1] << ' ' << a[2] << endl;
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+        }
+        sort(all(a));
+        cout << a[0] << ' ' << a[1] << ' ' << a[2] << endl;
 
-    return 0;
+        return 0;
 }

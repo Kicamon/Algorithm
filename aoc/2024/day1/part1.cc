@@ -32,7 +32,7 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        priority_queue<int, vector<int>, greater<int> > a, b;
+        priority_queue<int, vector<int>, greater<int>> a, b;
         int x, y;
         ifstream fp("input.txt");
         string line;

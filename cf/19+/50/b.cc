@@ -25,41 +25,41 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<string> s(n << 1);
-    function<void(string, string, int, int)> add = [&](string a, string b, int i, int j) {
-        if (j & 1) {
-            s[i << 1] += a;
-            s[i << 1 | 1] += a;
-        } else {
-            s[i << 1] += b;
-            s[i << 1 | 1] += b;
+        int n;
+        cin >> n;
+        vector<string> s(n << 1);
+        function<void(string, string, int, int)> add = [&](string a, string b, int i, int j) {
+                if (j & 1) {
+                        s[i << 1] += a;
+                        s[i << 1 | 1] += a;
+                } else {
+                        s[i << 1] += b;
+                        s[i << 1 | 1] += b;
+                }
+        };
+        for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                        if (i & 1) {
+                                add("##", "..", i, j);
+                        } else {
+                                add("..", "##", i, j);
+                        }
+                }
         }
-    };
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (i & 1) {
-                add("##", "..", i, j);
-            } else {
-                add("..", "##", i, j);
-            }
+        for (int i = 0; i < n << 1; ++i) {
+                cout << s[i] << endl;
         }
-    }
-    for (int i = 0; i < n << 1; ++i) {
-        cout << s[i] << endl;
-    }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

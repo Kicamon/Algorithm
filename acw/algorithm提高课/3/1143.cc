@@ -28,66 +28,57 @@ const int N = 2010, M = 10010;
 
 int n, m;
 
-struct node
-{
-    int p, a, b, w;
+struct node {
+        int p, a, b, w;
 };
 
 int f[N];
 
-int find(int x)
-{
-    if (x != f[x])
-        f[x] = find(f[x]);
-    return f[x];
+int find(int x) {
+        if (x != f[x])
+                f[x] = find(f[x]);
+        return f[x];
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    // clock_t start, finish;
-    // start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-    cin >> n >> m;
-    vector<node> p(m);
-    for (int i = 0; i < n; ++i)
-        f[i] = i;
-    for (int i = 0, a, b, c, d; i < m; ++i)
-    {
-        cin >> a >> b >> c >> d;
-        p[i] = {a, b, c, d};
-    }
-    sort(all(p), [&](node a, node b) {
-        if (a.p != b.p)
-            return a.p < b.p;
-        return a.w < b.w;
-    });
-    int res = 0;
-    for (int i = 0; i < m; ++i)
-    {
-        int op = p[i].p, a = p[i].a, b = p[i].b, w = p[i].w;
-        a = find(a), b = find(b);
-        if (op == 1)
-        {
-            res += w;
-            if (a != b)
-                f[a] = b;
+        cin >> n >> m;
+        vector<node> p(m);
+        for (int i = 0; i < n; ++i)
+                f[i] = i;
+        for (int i = 0, a, b, c, d; i < m; ++i) {
+                cin >> a >> b >> c >> d;
+                p[i] = { a, b, c, d };
         }
-        else
-        {
-            if (a != b)
-            {
-                res += w;
-                f[a] = b;
-            }
+        sort(all(p), [&](node a, node b) {
+                if (a.p != b.p)
+                        return a.p < b.p;
+                return a.w < b.w;
+        });
+        int res = 0;
+        for (int i = 0; i < m; ++i) {
+                int op = p[i].p, a = p[i].a, b = p[i].b, w = p[i].w;
+                a = find(a), b = find(b);
+                if (op == 1) {
+                        res += w;
+                        if (a != b)
+                                f[a] = b;
+                } else {
+                        if (a != b) {
+                                res += w;
+                                f[a] = b;
+                        }
+                }
         }
-    }
-    cout << res << endl;
+        cout << res << endl;
 
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
 
-    return 0;
+        return 0;
 }

@@ -34,7 +34,7 @@ int get_num(int a, int b) {
 void solve() {
         string s;
         cin >> s;
-        vector<vector<ll> > dp(2, vector<ll>(10));
+        vector<vector<ll>> dp(2, vector<ll>(10));
         ll ans = 0;
         for (int i = 0, t; i < (int)s.size(); ++i) {
                 fill(all(dp[i % 2]), 0);

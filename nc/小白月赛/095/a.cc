@@ -23,18 +23,18 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int a, b;
-    cin >> a >> b;
-    if (abs(a - b) == 2) {
-        cout << (a > b ? 'a' : 'b') << endl;
-    } else if (a != b) {
-        cout << (a < b ? 'a' : 'b') << endl;
-    } else {
-        cout << 'p' << endl;
-    }
+        int a, b;
+        cin >> a >> b;
+        if (abs(a - b) == 2) {
+                cout << (a > b ? 'a' : 'b') << endl;
+        } else if (a != b) {
+                cout << (a < b ? 'a' : 'b') << endl;
+        } else {
+                cout << 'p' << endl;
+        }
 
-    return 0;
+        return 0;
 }

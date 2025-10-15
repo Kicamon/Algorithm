@@ -23,31 +23,31 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-    vector<vector<int>> a(n + 1, vector<int>(n + 1));
-    while (m--) {
-        int x1, y1, x2, y2;
-        cin >> x1 >> y1 >> x2 >> y2;
-        for (int i = x1; i <= x2; ++i) {
-            a[i][y1] ^= 1;
-            a[i][y2 + 1] ^= 1;
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> a(n + 1, vector<int>(n + 1));
+        while (m--) {
+                int x1, y1, x2, y2;
+                cin >> x1 >> y1 >> x2 >> y2;
+                for (int i = x1; i <= x2; ++i) {
+                        a[i][y1] ^= 1;
+                        a[i][y2 + 1] ^= 1;
+                }
         }
-    }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            a[i][j] ^= a[i][j - 1];
+        for (int i = 1; i <= n; ++i) {
+                for (int j = 1; j <= n; ++j) {
+                        a[i][j] ^= a[i][j - 1];
+                }
         }
-    }
-    for(int i = 1;i <= n;++i){
-        for(int j = 1;j <= n;++j){
-            cout << a[i][j];
+        for (int i = 1; i <= n; ++i) {
+                for (int j = 1; j <= n; ++j) {
+                        cout << a[i][j];
+                }
+                cout << endl;
         }
-        cout << endl;
-    }
 
-    return 0;
+        return 0;
 }

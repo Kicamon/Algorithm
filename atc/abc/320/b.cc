@@ -23,14 +23,14 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    string s;
-    cin >> s;
-    int res = 1;
-    for (int i = 1; i < s.size(); ++i) {
-    }
+        string s;
+        cin >> s;
+        int res = 1;
+        for (int i = 1; i < s.size(); ++i) {
+        }
 
-    return 0;
+        return 0;
 }

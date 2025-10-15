@@ -21,31 +21,26 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-void solve()
-{
-    int x, k;
-    cin >> x >> k;
-    if (x % k)
-    {
-        cout << 1 << endl;
-        cout << x << endl;
-    }
-    else
-    {
-        cout << 2 << endl;
-        cout << x - 1 << ' ' << 1 << endl;
-    }
+void solve() {
+        int x, k;
+        cin >> x >> k;
+        if (x % k) {
+                cout << 1 << endl;
+                cout << x << endl;
+        } else {
+                cout << 2 << endl;
+                cout << x - 1 << ' ' << 1 << endl;
+        }
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

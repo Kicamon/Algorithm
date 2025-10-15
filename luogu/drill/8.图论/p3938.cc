@@ -25,8 +25,8 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 int n, idx, mdep;
-vector<array<int, 2> > a;
-vector<vector<int> > g, fa;
+vector<array<int, 2>> a;
+vector<vector<int>> g, fa;
 vector<int> dep;
 
 void build() {

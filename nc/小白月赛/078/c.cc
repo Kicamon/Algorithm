@@ -23,24 +23,24 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll k, a, b;
-    cin >> k >> a >> b;
-    set<ll> s;
-    s.insert(a), s.insert(b);
-    auto t = s.begin();
-    for (int i = 1; i <= k; ++i, ++t) {
-        ll x = *t;
-        s.insert(x + a);
-        s.insert(x + b);
-    }
-    t = s.begin();
-    for (int i = 1; i < k; ++i) {
-        t++;
-    }
-    cout << *t << endl;
+        ll k, a, b;
+        cin >> k >> a >> b;
+        set<ll> s;
+        s.insert(a), s.insert(b);
+        auto t = s.begin();
+        for (int i = 1; i <= k; ++i, ++t) {
+                ll x = *t;
+                s.insert(x + a);
+                s.insert(x + b);
+        }
+        t = s.begin();
+        for (int i = 1; i < k; ++i) {
+                t++;
+        }
+        cout << *t << endl;
 
-    return 0;
+        return 0;
 }

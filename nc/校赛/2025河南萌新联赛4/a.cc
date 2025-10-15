@@ -39,7 +39,7 @@ signed main() {
                 cin >> x;
                 a[x]++;
         }
-        vector<array<int, 2> > d;
+        vector<array<int, 2>> d;
         for (auto [x, y] : a) {
                 ans[x << 1] += y >> 1 << 1;
                 for (auto [u, v] : d) {

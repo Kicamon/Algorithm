@@ -22,24 +22,24 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    sort(a.rbegin(), a.rend());
-    if (a.back() == 0) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
         for (int i = 0; i < n; ++i) {
-            cout << a[i];
+                cin >> a[i];
         }
-        cout << endl;
-    } else {
-        cout << -1 << endl;
-    }
+        sort(a.rbegin(), a.rend());
+        if (a.back() == 0) {
+                for (int i = 0; i < n; ++i) {
+                        cout << a[i];
+                }
+                cout << endl;
+        } else {
+                cout << -1 << endl;
+        }
 
-    return 0;
+        return 0;
 }

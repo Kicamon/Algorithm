@@ -69,8 +69,8 @@ void solve() {
                                 btime += x.second.btime[i];
                         }
                 }
-                tt.push_back({ x.first, (int)x.second.bf.count(), (int)x.second.af.count(), atime,
-                               btime });
+                tt.push_back(
+                    { x.first, (int)x.second.bf.count(), (int)x.second.af.count(), atime, btime });
         }
         sort(tt.begin(), tt.end());
         int sv = tt[0].bs, tm = tt[0].btime;

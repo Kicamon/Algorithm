@@ -24,16 +24,16 @@ using namespace std;
 const int mod = 1e9 + 7;
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    ll res = 0;
-    for (ll i = 1; i <= n; ++i) {
-        res = (res + i * i * (n / i) % mod) % mod;
-    }
-    cout << res << endl;
+        int n;
+        cin >> n;
+        ll res = 0;
+        for (ll i = 1; i <= n; ++i) {
+                res = (res + i * i * (n / i) % mod) % mod;
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

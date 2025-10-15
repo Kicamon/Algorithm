@@ -21,50 +21,40 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    int len = 1;
-    vector<int> ans(n);
-    ans[0] = 1;
-    for (int i = 1; i < n; ++i)
-    {
-        if (a[i] < a[i - 1])
-        {
-            if (len == -1)
-            {
-                len = 0;
-                a[i] = 0;
-            }
-            else
-            {
-                len = -1;
-                ans[i] = 1;
-            }
+void solve() {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i)
+                cin >> a[i];
+        int len = 1;
+        vector<int> ans(n);
+        ans[0] = 1;
+        for (int i = 1; i < n; ++i) {
+                if (a[i] < a[i - 1]) {
+                        if (len == -1) {
+                                len = 0;
+                                a[i] = 0;
+                        } else {
+                                len = -1;
+                                ans[i] = 1;
+                        }
+                } else {
+                        if (len < i && a[i] > a[i - 1]) {
+                                ans[i] = 0;
+                        }
+                }
         }
-        else
-        {
-            if (len < i && a[i] > a[i - 1])
-            {
-                ans[i] = 0;
-            }
-        }
-    }
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

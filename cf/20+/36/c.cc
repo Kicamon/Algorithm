@@ -47,7 +47,7 @@ void solve() {
         s = " " + s;
         string prex = " 1100";
         auto jp = get_jp(prex);
-        set<array<int, 2> > st;
+        set<array<int, 2>> st;
         for (int i = 1, j = 0; i <= s.size(); i++) {
                 while (j && s[i] != prex[j + 1]) {
                         j = jp[j];

@@ -30,8 +30,8 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<vector<char> > ms(n, vector<char>(n));
-        vector<vector<char> > me(n, vector<char>(n));
+        vector<vector<char>> ms(n, vector<char>(n));
+        vector<vector<char>> me(n, vector<char>(n));
         string s;
         for (int i = 0; i < n; ++i) {
                 cin >> s;
@@ -57,8 +57,8 @@ signed main() {
                 return true;
         };
 
-        function<void(vector<vector<char> > &)> change = [&](vector<vector<char> > &t) {
-                vector<vector<char> > temp = t;
+        function<void(vector<vector<char>> &)> change = [&](vector<vector<char>> &t) {
+                vector<vector<char>> temp = t;
                 for (int i = 0; i < n; ++i) {
                         for (int j = 0; j < n; ++j) {
                                 t[i][j] = temp[n - 1 - j][i];
@@ -66,8 +66,8 @@ signed main() {
                 }
         };
 
-        function<void(vector<vector<char> > &)> change2 = [&](vector<vector<char> > &t) {
-                vector<vector<char> > temp = t;
+        function<void(vector<vector<char>> &)> change2 = [&](vector<vector<char>> &t) {
+                vector<vector<char>> temp = t;
                 for (int i = 0; i < n; ++i) {
                         for (int j = 0; j < n; ++j) {
                                 t[i][j] = temp[i][n - 1 - j];

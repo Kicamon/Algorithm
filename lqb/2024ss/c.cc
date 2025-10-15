@@ -23,32 +23,32 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    int res = 0;
-    for (int i = 1; i <= n; ++i) {
-        bool flag = true;
-        int k = i;
-        for (int j = 1; j <= 7 && k; ++j) {
-            if (j % 2) {
-                if (k % 10 % 2 == 0) {
-                    flag = false;
-                    break;
+        int n;
+        cin >> n;
+        int res = 0;
+        for (int i = 1; i <= n; ++i) {
+                bool flag = true;
+                int k = i;
+                for (int j = 1; j <= 7 && k; ++j) {
+                        if (j % 2) {
+                                if (k % 10 % 2 == 0) {
+                                        flag = false;
+                                        break;
+                                }
+                        } else {
+                                if (k % 10 % 2) {
+                                        flag = false;
+                                        break;
+                                }
+                        }
+                        k /= 10;
                 }
-            } else {
-                if (k % 10 % 2) {
-                    flag = false;
-                    break;
-                }
-            }
-            k /= 10;
+                res += flag;
         }
-        res += flag;
-    }
-    cout << res << endl;
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

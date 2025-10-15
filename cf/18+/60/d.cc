@@ -22,25 +22,25 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    string s;
-    cin >> s;
-    int res = 0, n = s.size();
-    for (int i = 0; i < n; ++i) {
-        if (s[i] == '0') {
-            res *= 2;
-            res += 1;
+        string s;
+        cin >> s;
+        int res = 0, n = s.size();
+        for (int i = 0; i < n; ++i) {
+                if (s[i] == '0') {
+                        res *= 2;
+                        res += 1;
+                }
         }
-    }
-    int cnt = 0;
-    for (int i = n - 1; ~i; --i) {
-        if (s[i] == '0') {
-            cnt *= 2;
-            cnt += 1;
+        int cnt = 0;
+        for (int i = n - 1; ~i; --i) {
+                if (s[i] == '0') {
+                        cnt *= 2;
+                        cnt += 1;
+                }
         }
-    }
 
-    return 0;
+        return 0;
 }

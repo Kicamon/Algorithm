@@ -25,7 +25,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 const int N = 3e6 + 10;
 
-vector<vector<int> > a(N);
+vector<vector<int>> a(N);
 
 signed main() {
         ios::sync_with_stdio(false);

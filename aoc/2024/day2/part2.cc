@@ -42,7 +42,7 @@ bool check(vector<int> &v) {
 }
 
 bool get_ans(vector<int> &v) {
-        vector<vector<int> > res(3, v);
+        vector<vector<int>> res(3, v);
         for (size_t i = 1; i < v.size(); i++) {
                 if (abs(v[i] - v[i - 1]) < 1 || abs(v[i] - v[i - 1]) > 3) {
                         res[0].erase(res[0].begin() + i - 1, res[0].begin() + i);

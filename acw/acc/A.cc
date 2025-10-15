@@ -25,30 +25,27 @@ using namespace std;
 #define pb push_back
 #define Debug(x) cout << #x << ':' << x << endl
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    // clock_t start, finish;
-    // start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-    int x;
-    cin >> x;
-    int res = 0;
-    while (x)
-    {
-        if (x & 1)
-        {
-            res++;
-            x--;
+        int x;
+        cin >> x;
+        int res = 0;
+        while (x) {
+                if (x & 1) {
+                        res++;
+                        x--;
+                }
+                x /= 2;
         }
-        x /= 2;
-    }
-    cout << res << endl;
+        cout << res << endl;
 
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
 
-    return 0;
+        return 0;
 }

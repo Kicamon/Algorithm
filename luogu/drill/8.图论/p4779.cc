@@ -28,10 +28,10 @@ const int N = 1e5 + 10, M = 2e5 + 10, inf = (1ll << 31) - 1;
 int n, m, s;
 array<int, N> val;
 array<bool, N> vis;
-vector<vector<array<int, 2> > > g(N);
+vector<vector<array<int, 2>>> g(N);
 
 void dijkstra() {
-        priority_queue<array<int, 2>, vector<array<int, 2> >, greater<array<int, 2> > > q;
+        priority_queue<array<int, 2>, vector<array<int, 2>>, greater<array<int, 2>>> q;
         q.push({ 0, s });
         val[s] = 0;
         while (!q.empty()) {

@@ -37,7 +37,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<int, 3> > a(n);
+        vector<array<int, 3>> a(n);
         for (auto &x : a) {
                 cin >> x[0] >> x[1] >> x[2];
         }

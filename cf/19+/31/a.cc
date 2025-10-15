@@ -23,37 +23,37 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    string ans = "aaa";
-    int idx = 2;
-    while (~idx && n >= 28) {
-        ans[idx--] = 'z';
-        n -= 26;
-    }
-    if (idx == 2) {
-        ans[idx--] = char('a' + n - 3);
-        n = 2;
-    }
-    if (idx == 1) {
-        ans[idx--] = char('a' + n - 2);
-        n = 1;
-    }
-    if (idx == 0) {
-        ans[idx] = char('a' + n - 1);
-    }
-    cout << ans << endl;
+        int n;
+        cin >> n;
+        string ans = "aaa";
+        int idx = 2;
+        while (~idx && n >= 28) {
+                ans[idx--] = 'z';
+                n -= 26;
+        }
+        if (idx == 2) {
+                ans[idx--] = char('a' + n - 3);
+                n = 2;
+        }
+        if (idx == 1) {
+                ans[idx--] = char('a' + n - 2);
+                n = 1;
+        }
+        if (idx == 0) {
+                ans[idx] = char('a' + n - 1);
+        }
+        cout << ans << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

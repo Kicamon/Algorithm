@@ -22,42 +22,42 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    vector<string> s(n);
-    string res = "vika";
-    int idx = 0;
-    for (int i = 0; i < n; ++i) {
-        cin >> s[i];
-    }
-    for (int i = 0; i < m; ++i) {
-        bool f = false;
-        for (int j = 0; j < n; ++j) {
-            if (s[j][i] == res[idx]) {
-                idx++;
-                if (idx == 4) {
-                    cout << "YES\n";
-                    return;
+        int n, m;
+        cin >> n >> m;
+        vector<string> s(n);
+        string res = "vika";
+        int idx = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> s[i];
+        }
+        for (int i = 0; i < m; ++i) {
+                bool f = false;
+                for (int j = 0; j < n; ++j) {
+                        if (s[j][i] == res[idx]) {
+                                idx++;
+                                if (idx == 4) {
+                                        cout << "YES\n";
+                                        return;
+                                }
+                                f = true;
+                                break;
+                        }
                 }
-                f = true;
-                break;
-            }
+                if (f) {
+                        continue;
+                }
         }
-        if (f) {
-            continue;
-        }
-    }
-    cout << "NO\n";
+        cout << "NO\n";
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

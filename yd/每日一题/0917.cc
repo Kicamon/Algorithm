@@ -37,9 +37,9 @@ signed main() {
         for (int i = 0, q; i < m; ++i) {
                 cin >> q;
                 int idx = lower_bound(all(a), q) - a.begin();
-                if(a[idx] != q){
+                if (a[idx] != q) {
                         cout << -1;
-                }else {
+                } else {
                         cout << idx + 1;
                 }
                 cout << " \n"[i == m - 1];

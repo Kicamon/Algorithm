@@ -23,30 +23,30 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
-    int res = 0;
-    for (int i = min(a, b); i <= max(a, b); ++i) {
-        if (i == c || i == d) {
-            res ^= 1;
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+        int res = 0;
+        for (int i = min(a, b); i <= max(a, b); ++i) {
+                if (i == c || i == d) {
+                        res ^= 1;
+                }
         }
-    }
-    if (res) {
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
+        if (res) {
+                cout << "YES" << endl;
+        } else {
+                cout << "NO" << endl;
+        }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

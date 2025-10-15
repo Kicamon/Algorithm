@@ -26,41 +26,39 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vint a(n + 1);
-    for (int i = 1; i <= n; ++i)
-        cin >> a[i];
-    for (int i = n; i; --i)
-        a[i] -= a[i - 1];
-    ll pos = 0, neg = 0;
-    for (int i = 2; i <= n; ++i)
-        if (a[i] > 0)
-            pos += a[i];
-        else
-            neg -= a[i];
-	cout << max(pos,neg) << endl;
-	cout << abs(pos - neg) + 1 << endl; 
+void solve() {
+        int n;
+        cin >> n;
+        vint a(n + 1);
+        for (int i = 1; i <= n; ++i)
+                cin >> a[i];
+        for (int i = n; i; --i)
+                a[i] -= a[i - 1];
+        ll pos = 0, neg = 0;
+        for (int i = 2; i <= n; ++i)
+                if (a[i] > 0)
+                        pos += a[i];
+                else
+                        neg -= a[i];
+        cout << max(pos, neg) << endl;
+        cout << abs(pos - neg) + 1 << endl;
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    // clock_t start, finish;
-    // start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-    int t = 1;
-    if (input)
-        cin >> t;
-    while (t--)
-        solve();
+        int t = 1;
+        if (input)
+                cin >> t;
+        while (t--)
+                solve();
 
-    // finish = clock();
-    // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
 
-    return 0;
+        return 0;
 }

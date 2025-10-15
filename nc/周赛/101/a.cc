@@ -32,7 +32,7 @@ signed main() {
         int sorce;
         cin >> sorce;
         double res = 150 * log(sorce);
-        printf("%.6lf",res);
+        printf("%.6lf", res);
 
         return 0;
 }

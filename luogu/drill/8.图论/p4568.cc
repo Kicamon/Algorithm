@@ -26,12 +26,12 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 const int inf = 0x3f3f3f3f;
 
-vector<vector<array<int, 2> > > g;
-vector<vector<int> > dis;
+vector<vector<array<int, 2>>> g;
+vector<vector<int>> dis;
 
 void dijkstra(int n, int k, int s) {
-        priority_queue<array<int, 3>, vector<array<int, 3> >, greater<array<int, 3> > > q;
-        vector<vector<bool> > vis(n, vector<bool>(k + 1));
+        priority_queue<array<int, 3>, vector<array<int, 3>>, greater<array<int, 3>>> q;
+        vector<vector<bool>> vis(n, vector<bool>(k + 1));
         q.push({ 0, s, 0 });
         dis[s][0] = 0;
         while (!q.empty()) {

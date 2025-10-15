@@ -27,19 +27,19 @@ using namespace std;
 // const int N =
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vint a(n);
-    ll res = 0, cnt = 0;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        res += cnt * a[i];
-        cnt += a[i];
-    }
-    cout << res << endl;
+        int n;
+        cin >> n;
+        vint a(n);
+        ll res = 0, cnt = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+                res += cnt * a[i];
+                cnt += a[i];
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

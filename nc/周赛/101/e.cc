@@ -30,7 +30,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<double, 2> > a(n);
+        vector<array<double, 2>> a(n);
         for (int i = 0; i < n; ++i) {
                 cin >> a[i][0] >> a[i][1];
         }

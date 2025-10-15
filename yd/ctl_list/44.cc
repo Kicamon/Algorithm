@@ -35,7 +35,7 @@ signed main() {
         int n, p;
         cin >> n >> p;
         double use = 0, have = 0;
-        vector<array<double, 2> > a(n);
+        vector<array<double, 2>> a(n);
         for (auto &x : a) {
                 cin >> x[0] >> x[1];
                 use += x[0];

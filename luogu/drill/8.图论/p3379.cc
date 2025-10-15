@@ -24,8 +24,8 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 int n, m, s, mdep;
-vector<vector<int> > g;
-vector<vector<int> > fa;
+vector<vector<int>> g;
+vector<vector<int>> fa;
 vector<int> dep;
 
 void dfs(int u, int f) {

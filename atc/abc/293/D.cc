@@ -26,30 +26,27 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 int input = 0;
 
-void solve()
-{
-	int n,m;
-	cin >> n >> m;
-	while(m--)
-
+void solve() {
+        int n, m;
+        cin >> n >> m;
+        while (m--)
 }
 
-signed main()
-{
-	ios::sync_with_stdio(false);
-	cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-	// clock_t start, finish;
-	// start = clock();
+        // clock_t start, finish;
+        // start = clock();
 
-	int t = 1;
-	if (input)
-		cin >> t;
-	while (t--)
-		solve();
+        int t = 1;
+        if (input)
+                cin >> t;
+        while (t--)
+                solve();
 
-	// finish = clock();
-	// cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        // finish = clock();
+        // cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
 
-	return 0;
+        return 0;
 }

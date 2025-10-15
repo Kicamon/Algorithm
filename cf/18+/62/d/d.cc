@@ -22,33 +22,33 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    ll n;
-    cin >> n;
-    ll x = sqrt(n << 1) + 1;
-    ll l = 1, r = x;
-    while (l < r) {
-        ll mid = (l + r + 1) >> 1;
-        if (mid * (mid + 1) > n * 2) {
-            r = mid - 1;
-            // Debug(l);
-        } else {
-            l = mid;
-            // Debug(r);
+        ll n;
+        cin >> n;
+        ll x = sqrt(n << 1) + 1;
+        ll l = 1, r = x;
+        while (l < r) {
+                ll mid = (l + r + 1) >> 1;
+                if (mid * (mid + 1) > n * 2) {
+                        r = mid - 1;
+                        // Debug(l);
+                } else {
+                        l = mid;
+                        // Debug(r);
+                }
         }
-    }
-    ll cnt = l * (l + 1) >> 1;
-    cnt = n - cnt;
-    cout << l + 1 + cnt << endl;
+        ll cnt = l * (l + 1) >> 1;
+        cnt = n - cnt;
+        cout << l + 1 + cnt << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

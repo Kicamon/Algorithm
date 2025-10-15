@@ -23,31 +23,31 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int x, k;
-    cin >> x >> k;
-    int res = 0, y = x;
-    while (x) {
-        res += x % 10;
-        x /= 10;
-    }
-    int cnt = 0;
-    while (true) {
-        if (cnt + res % k == 0) {
-            cout << y + cnt << endl;
-            return;
+        int x, k;
+        cin >> x >> k;
+        int res = 0, y = x;
+        while (x) {
+                res += x % 10;
+                x /= 10;
         }
-        cnt++;
-    }
+        int cnt = 0;
+        while (true) {
+                if (cnt + res % k == 0) {
+                        cout << y + cnt << endl;
+                        return;
+                }
+                cnt++;
+        }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

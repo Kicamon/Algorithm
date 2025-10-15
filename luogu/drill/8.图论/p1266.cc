@@ -28,10 +28,10 @@ using namespace std;
 const int N = 510;
 const ll inf = 1e18;
 int n, m, d;
-vector<vector<bool> > vis(N, vector<bool>(N));
-vector<vector<array<int, 3> > > g(N);
-vector<vector<double> > dis(N, vector<double>(N, inf));
-vector<vector<array<int, 2> > > path(N, vector<array<int, 2> >(N, { -1, -1 }));
+vector<vector<bool>> vis(N, vector<bool>(N));
+vector<vector<array<int, 3>>> g(N);
+vector<vector<double>> dis(N, vector<double>(N, inf));
+vector<vector<array<int, 2>>> path(N, vector<array<int, 2>>(N, { -1, -1 }));
 
 struct node {
         double t;
@@ -47,7 +47,7 @@ double get(int v, int w) {
 }
 
 void dijkstra() {
-        priority_queue<node, vector<node>, greater<node> > q;
+        priority_queue<node, vector<node>, greater<node>> q;
         dis[0][70] = 0;
         q.push({ 0, 70, 0 });
         while (!q.empty()) {

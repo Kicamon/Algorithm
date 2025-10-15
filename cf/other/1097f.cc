@@ -31,7 +31,7 @@ signed main() {
 
         int n, q;
         cin >> n >> q;
-        vector<bitset<N> > a(n + 1), pr(N), pre(N);
+        vector<bitset<N>> a(n + 1), pr(N), pre(N);
         bitset<N> mu;
 
         mu.set();

@@ -22,31 +22,31 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> p(n);
-    int a = n + 1, b = n + 1;
-    int res = 0;
-    for (int i = 0; i < n; ++i) {
-        cin >> p[i];
-        if (p[i] < a) {
-            a = p[i];
-        } else if (p[i] < b) {
-            res++;
-            b = p[i];
+        int n;
+        cin >> n;
+        vector<int> p(n);
+        int a = n + 1, b = n + 1;
+        int res = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> p[i];
+                if (p[i] < a) {
+                        a = p[i];
+                } else if (p[i] < b) {
+                        res++;
+                        b = p[i];
+                }
         }
-    }
-    cout << res << endl;
+        cout << res << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

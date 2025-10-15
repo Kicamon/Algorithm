@@ -23,13 +23,13 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    double f;
-    int n;
-    cin >> f >> n;
-    vector<int> intr,flt;
+        double f;
+        int n;
+        cin >> f >> n;
+        vector<int> intr, flt;
 
-    return 0;
+        return 0;
 }

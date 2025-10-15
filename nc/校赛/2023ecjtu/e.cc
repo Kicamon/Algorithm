@@ -23,18 +23,18 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m, p;
-    cin >> n >> m >> p;
-    int res = 0;
-    if (n >= m) {
-        n -= m;
-        res++;
-        res += n / p;
-    }
-    cout << res << endl;
+        int n, m, p;
+        cin >> n >> m >> p;
+        int res = 0;
+        if (n >= m) {
+                n -= m;
+                res++;
+                res += n / p;
+        }
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

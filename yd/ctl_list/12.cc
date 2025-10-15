@@ -30,7 +30,7 @@ int my[4] = { 1, 0, -1, 0 };
 signed main() {
         int n;
         cin >> n;
-        vector<vector<int> > m(n, vector<int>(n));
+        vector<vector<int>> m(n, vector<int>(n));
         m[0][0] = 1;
         for (int i = 2, x = 0, y = 0, idx = 0; i <= n * n; ++i) {
                 int X = x + mx[idx], Y = y + my[idx];

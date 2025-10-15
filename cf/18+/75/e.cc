@@ -23,19 +23,18 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int a, b, c, d, m;
-    cin >> a >> b >> c >> d >> m;
-
+        int a, b, c, d, m;
+        cin >> a >> b >> c >> d >> m;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

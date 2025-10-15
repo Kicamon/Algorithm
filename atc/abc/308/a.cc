@@ -22,27 +22,27 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    vector<int> a(8);
-    bool f = false;
-    for (int i = 0; i < 8; ++i) {
-        cin >> a[i];
-        if (a[i] < 100 || a[i] > 675 || a[i] % 25) {
-            f = true;
+        vector<int> a(8);
+        bool f = false;
+        for (int i = 0; i < 8; ++i) {
+                cin >> a[i];
+                if (a[i] < 100 || a[i] > 675 || a[i] % 25) {
+                        f = true;
+                }
         }
-    }
-    if (f) {
-        cout << "No\n";
-    } else {
-        for (int i = 1; i < 8; ++i) {
-            if (a[i] < a[i - 1]) {
+        if (f) {
                 cout << "No\n";
-                return 0;
-            }
+        } else {
+                for (int i = 1; i < 8; ++i) {
+                        if (a[i] < a[i - 1]) {
+                                cout << "No\n";
+                                return 0;
+                        }
+                }
+                cout << "Yes\n";
         }
-        cout << "Yes\n";
-    }
-    return 0;
+        return 0;
 }

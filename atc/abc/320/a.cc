@@ -23,12 +23,12 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll a, b;
-    cin >> a >> b;
-    cout << (ll)pow(a, b) + (ll)pow(b, a) << endl;
+        ll a, b;
+        cin >> a >> b;
+        cout << (ll)pow(a, b) + (ll)pow(b, a) << endl;
 
-    return 0;
+        return 0;
 }

@@ -23,26 +23,26 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    string s;
-    vector<int> num(26);
-    cin >> s;
-    int len = 0;
-    for (char c : s) {
-        int idx = c - 'a';
-        num[idx]++;
-        if (num[idx] > len) {
-            len = num[idx];
+        string s;
+        vector<int> num(26);
+        cin >> s;
+        int len = 0;
+        for (char c : s) {
+                int idx = c - 'a';
+                num[idx]++;
+                if (num[idx] > len) {
+                        len = num[idx];
+                }
         }
-    }
-    for (int i = 0; i < 26; ++i) {
-        if (num[i] == len) {
-            cout << char(i + 'a') << endl;
-            break;
+        for (int i = 0; i < 26; ++i) {
+                if (num[i] == len) {
+                        cout << char(i + 'a') << endl;
+                        break;
+                }
         }
-    }
 
-    return 0;
+        return 0;
 }

@@ -26,56 +26,56 @@ int n;
 double a[N][N];
 
 bool gauss() {
-    int cnt = 0;
-    for (int r = 1; r <= n; ++r) {
-        int t = r;
-        for (int i = r + 1; i <= n; ++i) {
-            if (fabs(a[i][r]) > fabs(a[t][r])) {
-                t = i;
-            }
+        int cnt = 0;
+        for (int r = 1; r <= n; ++r) {
+                int t = r;
+                for (int i = r + 1; i <= n; ++i) {
+                        if (fabs(a[i][r]) > fabs(a[t][r])) {
+                                t = i;
+                        }
+                }
+                if (!a[r][r]) {
+                        return false;
+                }
+                for (int i = r; i <= n + 1; ++i) {
+                        swap(a[t][i], a[r][i]);
+                }
+                for (int i = n + 1; i >= r; --i) {
+                        a[r][i] /= a[r][r];
+                }
+                for (int i = r + 1; i <= n; ++i) {
+                        for (int j = n + 1; j >= r; --j) {
+                                a[i][j] -= a[r][j] * a[i][r];
+                        }
+                }
+                cnt++;
         }
-        if (!a[r][r]) {
-            return false;
+        for (int i = n; i > 1; --i) {
+                for (int j = i - 1; j; --j) {
+                        a[j][n + 1] -= a[i][n + 1] * a[j][i];
+                        a[i][j] = 0;
+                }
         }
-        for (int i = r; i <= n + 1; ++i) {
-            swap(a[t][i], a[r][i]);
-        }
-        for (int i = n + 1; i >= r; --i) {
-            a[r][i] /= a[r][r];
-        }
-        for (int i = r + 1; i <= n; ++i) {
-            for (int j = n + 1; j >= r; --j) {
-                a[i][j] -= a[r][j] * a[i][r];
-            }
-        }
-        cnt++;
-    }
-    for (int i = n; i > 1; --i) {
-        for (int j = i - 1; j; --j) {
-            a[j][n + 1] -= a[i][n + 1] * a[j][i];
-            a[i][j] = 0;
-        }
-    }
-    return true;
+        return true;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    scanf("%d", &n);
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= n + 1; ++j) {
-            scanf("%lf", &a[i][j]);
-        }
-    }
-    if (gauss()) {
+        scanf("%d", &n);
         for (int i = 1; i <= n; ++i) {
-            printf("%.2lf\n", a[i][n + 1]);
+                for (int j = 1; j <= n + 1; ++j) {
+                        scanf("%lf", &a[i][j]);
+                }
         }
-    } else {
-        printf("No Solution");
-    }
+        if (gauss()) {
+                for (int i = 1; i <= n; ++i) {
+                        printf("%.2lf\n", a[i][n + 1]);
+                }
+        } else {
+                printf("No Solution");
+        }
 
-    return 0;
+        return 0;
 }

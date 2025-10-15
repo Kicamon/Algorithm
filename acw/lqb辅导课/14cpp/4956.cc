@@ -24,45 +24,45 @@ using namespace std;
 const int INF = 1e9;
 
 pair<int, int> solve() {
-    int mi, ma;
-    int a, b;
-    cin >> a >> b;
-    int l = 1, r = INF;
-    while (l < r) {
-        int mid = (l + r + 1) >> 1;
-        if (a / mid < b) {
-            r = mid - 1;
-        } else {
-            l = mid;
+        int mi, ma;
+        int a, b;
+        cin >> a >> b;
+        int l = 1, r = INF;
+        while (l < r) {
+                int mid = (l + r + 1) >> 1;
+                if (a / mid < b) {
+                        r = mid - 1;
+                } else {
+                        l = mid;
+                }
         }
-    }
-    ma = r;
-    l = 1, r = ma;
-    while (l < r) {
-        int mid = (l + r) >> 1;
-        if (a / mid > b) {
-            l = mid + 1;
-        } else {
-            r = mid;
+        ma = r;
+        l = 1, r = ma;
+        while (l < r) {
+                int mid = (l + r) >> 1;
+                if (a / mid > b) {
+                        l = mid + 1;
+                } else {
+                        r = mid;
+                }
         }
-    }
-    mi = r;
+        mi = r;
 
-    return pair<int, int>{mi, ma};
+        return pair<int, int>{ mi, ma };
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    int mi = 0, ma = INF;
-    while (t--) {
-        pair<int, int> res = solve();
-        mi = max(mi, res.first), ma = min(ma, res.second);
-    }
-    cout << mi << ' ' << ma << endl;
+        int t;
+        cin >> t;
+        int mi = 0, ma = INF;
+        while (t--) {
+                pair<int, int> res = solve();
+                mi = max(mi, res.first), ma = min(ma, res.second);
+        }
+        cout << mi << ' ' << ma << endl;
 
-    return 0;
+        return 0;
 }

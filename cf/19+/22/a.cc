@@ -23,27 +23,27 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    string a, b, c;
-    cin >> a >> b >> c;
-    for (int i = 0; i < n; ++i) {
-        if (a[i] != c[i] && b[i] != c[i]) {
-            cout << "YES" << endl;
-            return;
+        int n;
+        cin >> n;
+        string a, b, c;
+        cin >> a >> b >> c;
+        for (int i = 0; i < n; ++i) {
+                if (a[i] != c[i] && b[i] != c[i]) {
+                        cout << "YES" << endl;
+                        return;
+                }
         }
-    }
-    cout << "NO" << endl;
+        cout << "NO" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

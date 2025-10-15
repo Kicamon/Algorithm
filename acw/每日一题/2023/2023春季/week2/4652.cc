@@ -27,18 +27,18 @@ using namespace std;
 // const int N =
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int l = 1189, w = 841;
-    string s;
-    cin >> s;
-    int x = s[1] - '0';
-    while (x--) {
-        l /= 2;
-        swap(l, w);
-    }
-    cout << l << endl << w << endl;
+        int l = 1189, w = 841;
+        string s;
+        cin >> s;
+        int x = s[1] - '0';
+        while (x--) {
+                l /= 2;
+                swap(l, w);
+        }
+        cout << l << endl << w << endl;
 
-    return 0;
+        return 0;
 }

@@ -24,38 +24,38 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<string> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    int idx = -1;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (a[i][j] == '1') {
-                if (idx != -1 && idx != j) {
-                    cout << "TRIANGLE" << endl;
-                    return;
-                } else {
-                    idx = j;
-                    break;
-                }
-            }
+        int n;
+        cin >> n;
+        vector<string> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
         }
-    }
-    cout << "SQUARE" << endl;
+        int idx = -1;
+        for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                        if (a[i][j] == '1') {
+                                if (idx != -1 && idx != j) {
+                                        cout << "TRIANGLE" << endl;
+                                        return;
+                                } else {
+                                        idx = j;
+                                        break;
+                                }
+                        }
+                }
+        }
+        cout << "SQUARE" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

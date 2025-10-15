@@ -24,22 +24,22 @@ using namespace std;
 const double mop = 1e-8;
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    double a;
-    cin >> a;
-    double l = -100, r = 100;
-    while (fabs(l - r) > mop) {
-        double mid = (l + r) / 2;
-        double val = mid * mid * mid;
-        if (val < a) {
-            l = mid;
-        } else {
-            r = mid;
+        double a;
+        cin >> a;
+        double l = -100, r = 100;
+        while (fabs(l - r) > mop) {
+                double mid = (l + r) / 2;
+                double val = mid * mid * mid;
+                if (val < a) {
+                        l = mid;
+                } else {
+                        r = mid;
+                }
         }
-    }
-    printf("%.6lf\n", l);
+        printf("%.6lf\n", l);
 
-    return 0;
+        return 0;
 }

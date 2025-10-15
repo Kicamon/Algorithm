@@ -27,7 +27,7 @@ using namespace std;
 void solve() {
         int n, k;
         cin >> n >> k;
-        vector<vector<int> > g(n);
+        vector<vector<int>> g(n);
         vector<int> dep(n), dep_num(n);
         for (int i = 1, x; i < n; ++i) {
                 cin >> x;

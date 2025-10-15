@@ -23,23 +23,23 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int a, b;
-    cin >> a >> b;
-    if (a % 2 == b % 2) {
-        cout << "Bob" << endl;
-    } else {
-        cout << "Alice" << endl;
-    }
+        int a, b;
+        cin >> a >> b;
+        if (a % 2 == b % 2) {
+                cout << "Bob" << endl;
+        } else {
+                cout << "Alice" << endl;
+        }
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

@@ -19,24 +19,24 @@ using namespace std;
 // const int N =
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n;
-    cin >> n;
-    vector<ll> a(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    sort(all(a));
+        int n;
+        cin >> n;
+        vector<ll> a(n);
+        for (int i = 0; i < n; ++i)
+                cin >> a[i];
+        sort(all(a));
 
-    ll res = 0;
-    int num;
-    for (int i = 0; i < n; ++i) {
-        ll t = a[i] * (n - i);
-        if (t > res)
-            res = t, num = a[i];
-    }
-    cout << res << ' ' << num << endl;
+        ll res = 0;
+        int num;
+        for (int i = 0; i < n; ++i) {
+                ll t = a[i] * (n - i);
+                if (t > res)
+                        res = t, num = a[i];
+        }
+        cout << res << ' ' << num << endl;
 
-    return 0;
+        return 0;
 }

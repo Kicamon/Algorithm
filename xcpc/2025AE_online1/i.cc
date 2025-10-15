@@ -11,11 +11,11 @@ using namespace std;
 const int N = 1e5 + 10, inf = 1e9;
 
 int n, m, V, t;
-vector<vector<array<int, 2> > > g;
-vector<array<int, 2> > dis;
+vector<vector<array<int, 2>>> g;
+vector<array<int, 2>> dis;
 
 void dijkstra() {
-        priority_queue<array<int, 3>, vector<array<int, 3> >, greater<array<int, 3> > > q;
+        priority_queue<array<int, 3>, vector<array<int, 3>>, greater<array<int, 3>>> q;
         vector<bool> vis(n + 1);
         dis[t] = { 1, 0 };
         q.push({ 1, 0, t });

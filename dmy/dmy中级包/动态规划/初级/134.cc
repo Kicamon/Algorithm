@@ -30,7 +30,7 @@ signed main() {
 
         int n, m;
         cin >> n >> m;
-        vector<vector<array<int, 2> > > p(n + 1);
+        vector<vector<array<int, 2>>> p(n + 1);
         vector<int> dp(n + 1, 1e9);
         for (int i = 0, a, b, c; i < m; ++i) {
                 cin >> a >> b >> c;

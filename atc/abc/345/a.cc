@@ -23,28 +23,28 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    string s;
-    cin >> s;
-    for (int i = 0; i < s.size(); ++i) {
-        if (!i) {
-            if (s[i] != '<') {
-                cout << "No" << endl;
-                return 0;
-            }
-        } else if (i == s.size() - 1) {
-            if (s[i] != '>') {
-                cout << "No" << endl;
-                return 0;
-            }
-        } else if (s[i] != '=') {
-            cout << "No" << endl;
-            return 0;
+        string s;
+        cin >> s;
+        for (int i = 0; i < s.size(); ++i) {
+                if (!i) {
+                        if (s[i] != '<') {
+                                cout << "No" << endl;
+                                return 0;
+                        }
+                } else if (i == s.size() - 1) {
+                        if (s[i] != '>') {
+                                cout << "No" << endl;
+                                return 0;
+                        }
+                } else if (s[i] != '=') {
+                        cout << "No" << endl;
+                        return 0;
+                }
         }
-    }
-    cout << "Yes" << endl;
+        cout << "Yes" << endl;
 
-    return 0;
+        return 0;
 }

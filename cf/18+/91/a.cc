@@ -23,37 +23,37 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-    }
-    int m = 1, i = 1;
-    while (true) {
-        for (; i <= min(n, m); ++i) {
-            if (a[i] < a[i - 1]) {
-                cout << "NO" << endl;
-                return;
-            }
+        int n;
+        cin >> n;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i];
         }
-        if (m > n) {
-            break;
+        int m = 1, i = 1;
+        while (true) {
+                for (; i <= min(n, m); ++i) {
+                        if (a[i] < a[i - 1]) {
+                                cout << "NO" << endl;
+                                return;
+                        }
+                }
+                if (m > n) {
+                        break;
+                }
+                a[i - 1] = -a[i - 1];
+                m <<= 1;
         }
-        a[i - 1] = -a[i - 1];
-        m <<= 1;
-    }
-    cout << "YES" << endl;
+        cout << "YES" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

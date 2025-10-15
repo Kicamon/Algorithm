@@ -24,15 +24,15 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll x, y, n, m, l;
-    cin >> x >> y >> n >> m >> l;
-    if (n == m) {
-        cout << "Impossible" << endl;
-    } else {
-    }
+        ll x, y, n, m, l;
+        cin >> x >> y >> n >> m >> l;
+        if (n == m) {
+                cout << "Impossible" << endl;
+        } else {
+        }
 
-    return 0;
+        return 0;
 }

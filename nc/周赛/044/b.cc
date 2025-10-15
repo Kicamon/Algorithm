@@ -23,20 +23,20 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 ll lcm(ll a, ll b) {
-    return a * b / gcd(a, b);
+        return a * b / gcd(a, b);
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    ll n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    sort(all(a));
+        ll n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+        }
+        sort(all(a));
 
-    return 0;
+        return 0;
 }

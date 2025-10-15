@@ -26,22 +26,22 @@ using namespace std;
 // const int mod =
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-    vector<bool> vis(n + 1, 0);
-    vis[0] = true;
-    int res = 0, a, b;
-    while (m--) {
-        cin >> a >> b;
-        if (!vis[b])
-            res++;
-        vis[a] = true;
-    }
+        int n, m;
+        cin >> n >> m;
+        vector<bool> vis(n + 1, 0);
+        vis[0] = true;
+        int res = 0, a, b;
+        while (m--) {
+                cin >> a >> b;
+                if (!vis[b])
+                        res++;
+                vis[a] = true;
+        }
 
-    cout << res << endl;
+        cout << res << endl;
 
-    return 0;
+        return 0;
 }

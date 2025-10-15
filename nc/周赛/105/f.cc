@@ -25,7 +25,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 
-vector<vector<int> > num(51);
+vector<vector<int>> num(51);
 
 void solve() {
         int n, m, x;
@@ -36,7 +36,7 @@ void solve() {
         }
         m = min(m, x);
         vector<int> ans(n);
-        vector<vector<int> > dp(x + 1, vector<int>(n + 1));
+        vector<vector<int>> dp(x + 1, vector<int>(n + 1));
         for (int i = 1; i <= m; ++i) {
                 dp[i][1] = i;
         }

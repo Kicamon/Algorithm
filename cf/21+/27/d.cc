@@ -32,7 +32,7 @@ ll fac[N];
 void solve() {
         int n, m;
         cin >> n >> m;
-        vector<vector<int> > g(n + 1);
+        vector<vector<int>> g(n + 1);
         vector<bool> vis(n + 1, 1);
         for (int i = 0, a, b; i < m; ++i) {
                 cin >> a >> b;

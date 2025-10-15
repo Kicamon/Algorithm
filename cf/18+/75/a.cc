@@ -23,25 +23,25 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    ll res = b;
-    int x;
-    for (int i = 0; i < n; ++i) {
-        cin >> x;
-        res += min(x, a - 1);
-    }
-    cout << res << endl;
+        int a, b, n;
+        cin >> a >> b >> n;
+        ll res = b;
+        int x;
+        for (int i = 0; i < n; ++i) {
+                cin >> x;
+                res += min(x, a - 1);
+        }
+        cout << res << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

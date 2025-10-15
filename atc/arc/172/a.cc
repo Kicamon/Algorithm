@@ -23,29 +23,29 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int h, w, n;
-    cin >> h >> w >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    for (int k = 0; k <= 25; ++k) {
-        ll cnt = 0;
+        int h, w, n;
+        cin >> h >> w >> n;
+        vector<int> a(n);
         for (int i = 0; i < n; ++i) {
-            if (a[i] >= k) {
-                cnt += 1ll << (2 * (a[i] - k));
-            }
+                cin >> a[i];
         }
-        ll have = (ll)(h >> k) * (w >> k);
-        if (cnt > have) {
-            cout << "No" << endl;
-            return 0;
+        for (int k = 0; k <= 25; ++k) {
+                ll cnt = 0;
+                for (int i = 0; i < n; ++i) {
+                        if (a[i] >= k) {
+                                cnt += 1ll << (2 * (a[i] - k));
+                        }
+                }
+                ll have = (ll)(h >> k) * (w >> k);
+                if (cnt > have) {
+                        cout << "No" << endl;
+                        return 0;
+                }
         }
-    }
-    cout << "Yes" << endl;
+        cout << "Yes" << endl;
 
-    return 0;
+        return 0;
 }

@@ -43,7 +43,7 @@ signed main() {
 
         int n;
         cin >> n;
-        vector<array<bool, 31> > a(n);
+        vector<array<bool, 31>> a(n);
         vector<int> x(n);
         array<int, 32> vis;
         fill(all(vis), 0);

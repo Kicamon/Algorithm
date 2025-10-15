@@ -24,32 +24,32 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<ll> a(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-    }
-    ll res = accumulate(all(a), 0) / n;
-    for (int i = 1; i <= n; ++i) {
-        a[i] += a[i - 1];
-        if (a[i] < res * i) {
-            cout << "NO" << endl;
-            return;
+        int n;
+        cin >> n;
+        vector<ll> a(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i];
         }
-    }
-    cout << "YES" << endl;
+        ll res = accumulate(all(a), 0) / n;
+        for (int i = 1; i <= n; ++i) {
+                a[i] += a[i - 1];
+                if (a[i] < res * i) {
+                        cout << "NO" << endl;
+                        return;
+                }
+        }
+        cout << "YES" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

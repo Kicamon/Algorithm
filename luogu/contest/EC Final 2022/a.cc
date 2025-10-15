@@ -23,22 +23,22 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, s;
-    cin >> n >> s;
-    vector<int> w(n + 1), p(n + 1), a(n + 1), c(n + 1);
-    c[s] = 1;
-    for (int i = 1; i <= n; ++i) {
-        cin >> w[i];
-    }
-    for (int i = 1; i <= n; ++i) {
-        cin >> p[i];
-    }
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-    }
+        int n, s;
+        cin >> n >> s;
+        vector<int> w(n + 1), p(n + 1), a(n + 1), c(n + 1);
+        c[s] = 1;
+        for (int i = 1; i <= n; ++i) {
+                cin >> w[i];
+        }
+        for (int i = 1; i <= n; ++i) {
+                cin >> p[i];
+        }
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i];
+        }
 
-    return 0;
+        return 0;
 }

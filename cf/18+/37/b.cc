@@ -21,36 +21,32 @@ using namespace std;
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 
-void solve()
-{
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    int len = 1, res = 0;
-    for (int i = 1; i < n; ++i)
-    {
-        if (s[i] == s[i - 1])
-            len++;
-        else
-        {
-            res = max(res, len);
-            len = 1;
+void solve() {
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        int len = 1, res = 0;
+        for (int i = 1; i < n; ++i) {
+                if (s[i] == s[i - 1])
+                        len++;
+                else {
+                        res = max(res, len);
+                        len = 1;
+                }
         }
-    }
-    res = max(res, len);
-    cout << res + 1 << endl;
+        res = max(res, len);
+        cout << res + 1 << endl;
 }
 
-signed main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+signed main() {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

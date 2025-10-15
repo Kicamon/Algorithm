@@ -32,7 +32,7 @@ signed main() {
         int n, m, k;
         cin >> n >> m >> k;
         vector<bool> vis(n + 1);
-        vector<array<int, 2> > ans;
+        vector<array<int, 2>> ans;
         for (int i = 0, x; i < m; ++i) {
                 cin >> x;
                 vis[x] = 1;

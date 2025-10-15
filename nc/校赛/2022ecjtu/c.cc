@@ -23,28 +23,28 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, m;
-    cin >> n >> m;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; ++i) {
-        cin >> a[i];
-    }
-    vector<int> dp(n + 2);
-    for (int i = n; i; --i) {
-        dp[i] = max(dp[i + 1] - 1, a[i] + 1);
-    }
-    while (m--) {
-        int b, s;
-        cin >> b >> s;
-        int res = n - s + 1;
-        if (dp[s] > b) {
-            res += dp[s] - b;
+        int n, m;
+        cin >> n >> m;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; ++i) {
+                cin >> a[i];
         }
-        cout << res << endl;
-    }
+        vector<int> dp(n + 2);
+        for (int i = n; i; --i) {
+                dp[i] = max(dp[i + 1] - 1, a[i] + 1);
+        }
+        while (m--) {
+                int b, s;
+                cin >> b >> s;
+                int res = n - s + 1;
+                if (dp[s] > b) {
+                        res += dp[s] - b;
+                }
+                cout << res << endl;
+        }
 
-    return 0;
+        return 0;
 }

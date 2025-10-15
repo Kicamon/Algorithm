@@ -22,28 +22,28 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, d, p;
-    cin >> n >> d >> p;
-    vector<int> a(n);
-    ll sum = 0;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        sum += a[i];
-    }
-    sort(a.begin(), a.end(), greater<int>());
-    for (int i = 0; i < n; i += d) {
-        ll cnt = 0;
-        for (int j = i; j < d + i && j < n; ++j) {
-            cnt += a[j];
+        int n, d, p;
+        cin >> n >> d >> p;
+        vector<int> a(n);
+        ll sum = 0;
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
+                sum += a[i];
         }
-        if (cnt > p) {
-            sum = sum - cnt + p;
+        sort(a.begin(), a.end(), greater<int>());
+        for (int i = 0; i < n; i += d) {
+                ll cnt = 0;
+                for (int j = i; j < d + i && j < n; ++j) {
+                        cnt += a[j];
+                }
+                if (cnt > p) {
+                        sum = sum - cnt + p;
+                }
         }
-    }
-    cout << sum << endl;
+        cout << sum << endl;
 
-    return 0;
+        return 0;
 }

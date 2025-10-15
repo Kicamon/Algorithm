@@ -23,29 +23,29 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    string s;
-    cin >> s;
-    char c = s[0];
-    for (int i = 1; i < s.size(); ++i) {
-        if(s[i] != c){
-            swap(s[0],s[i]);
-            cout << "YES" << endl;
-            cout << s << endl;
-            return;
+        string s;
+        cin >> s;
+        char c = s[0];
+        for (int i = 1; i < s.size(); ++i) {
+                if (s[i] != c) {
+                        swap(s[0], s[i]);
+                        cout << "YES" << endl;
+                        cout << s << endl;
+                        return;
+                }
         }
-    }
-    cout << "NO" << endl;
+        cout << "NO" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
+        }
 
-    return 0;
+        return 0;
 }

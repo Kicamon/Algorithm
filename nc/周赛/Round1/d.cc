@@ -23,25 +23,25 @@ using namespace std;
 const int mod = 1e9 + 7;
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    vector<vector<ll>> f(2, vector<ll>(9));
-    string s;
-    cin >> s;
-    f[0][0] = 1;
-    int idx = 0;
-    for (int r = 0; r < (int)s.size(); ++r) {
-        idx ^= 1;
-        char c = s[r];
-        f[idx] = f[idx ^ 1];
-        int x = c - '0';
-        for (int i = 0; i < 9; ++i) {
-            int y = (x + i) % 9;
-            f[idx][y] = (f[idx][y] + f[idx ^ 1][i]) % mod;
+        vector<vector<ll>> f(2, vector<ll>(9));
+        string s;
+        cin >> s;
+        f[0][0] = 1;
+        int idx = 0;
+        for (int r = 0; r < (int)s.size(); ++r) {
+                idx ^= 1;
+                char c = s[r];
+                f[idx] = f[idx ^ 1];
+                int x = c - '0';
+                for (int i = 0; i < 9; ++i) {
+                        int y = (x + i) % 9;
+                        f[idx][y] = (f[idx][y] + f[idx ^ 1][i]) % mod;
+                }
         }
-    }
-    cout << f[idx][0] - 1 << endl;
+        cout << f[idx][0] - 1 << endl;
 
-    return 0;
+        return 0;
 }

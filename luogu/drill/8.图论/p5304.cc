@@ -40,7 +40,7 @@ int bl(int x) {
 void solve() {
         int n, m, k;
         cin >> n >> m >> k;
-        vector<vector<array<int, 2> > > g(n + 2), G;
+        vector<vector<array<int, 2>>> g(n + 2), G;
         vector<int> nk(k);
         vector<ll> dis(n + 2);
         vector<bool> vis(n + 2);
@@ -61,7 +61,7 @@ void solve() {
         ll ans = inf;
         function<void(int)> dijkstra = [&](int p) {
                 fill(all(dis), inf), fill(all(vis), false);
-                priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > q;
+                priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> q;
                 q.push({ 0, p });
                 dis[p] = 0;
                 while (!q.empty()) {

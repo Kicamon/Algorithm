@@ -23,16 +23,16 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n), b(n);
-    for (int i = 0; i < n; ++i)
-        cin >> a[i];
-    for (int i = 0; i < n; ++i)
-        cin >> b[i];
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n), b(n);
+        for (int i = 0; i < n; ++i)
+                cin >> a[i];
+        for (int i = 0; i < n; ++i)
+                cin >> b[i];
 
-    return 0;
+        return 0;
 }

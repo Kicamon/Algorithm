@@ -27,19 +27,19 @@ int n, k;
 vector<array<int, 2>> e[N];
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    cin >> n >> k;
-    int u, v, t;
-    for (int i = 1; i < n; ++i) {
-        cin >> u >> v >> t;
-        e[u].push_back({v, t}), e[v].push_back({u, t});
-    }
-    vector<int> a(k);
-    for (int i = 0; i < k; ++i) {
-        cin >> a[i];
-    }
+        cin >> n >> k;
+        int u, v, t;
+        for (int i = 1; i < n; ++i) {
+                cin >> u >> v >> t;
+                e[u].push_back({ v, t }), e[v].push_back({ u, t });
+        }
+        vector<int> a(k);
+        for (int i = 0; i < k; ++i) {
+                cin >> a[i];
+        }
 
-    return 0;
+        return 0;
 }

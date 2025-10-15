@@ -27,12 +27,12 @@ using namespace std;
 const int mod = 100003;
 int n, m;
 
-vector<vector<int> > g;
+vector<vector<int>> g;
 
 void dijkstra() {
         vector<int> dis(n, n), cnt(n);
         vector<bool> vis(n);
-        priority_queue<array<int, 2>, vector<array<int, 2> >, greater<array<int, 2> > > q;
+        priority_queue<array<int, 2>, vector<array<int, 2>>, greater<array<int, 2>>> q;
         q.push({ 0, 0 });
         dis[0] = 0, cnt[0] = 1;
         while (!q.empty()) {

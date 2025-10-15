@@ -23,32 +23,32 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> b(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> b[i];
-    }
-    k = min(k, n);
-    for (int i = 0, x = n - 1; i < k; ++i) {
-        if (b[x] > n) {
-            cout << "No" << endl;
-            return;
+        int n, k;
+        cin >> n >> k;
+        vector<int> b(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> b[i];
         }
-        x += n - b[x];
-        x %= n;
-    }
-    cout << "Yes" << endl;
+        k = min(k, n);
+        for (int i = 0, x = n - 1; i < k; ++i) {
+                if (b[x] > n) {
+                        cout << "No" << endl;
+                        return;
+                }
+                x += n - b[x];
+                x %= n;
+        }
+        cout << "Yes" << endl;
 }
 
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+        ios::sync_with_stdio(false);
+        cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
+        int t;
+        cin >> t;
+        while (t--)
+                solve();
 
-    return 0;
+        return 0;
 }

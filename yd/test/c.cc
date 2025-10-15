@@ -30,7 +30,7 @@ signed main() {
 
         ll n, m, p;
         cin >> n >> m >> p;
-        vector<array<int, 2> > a(n);
+        vector<array<int, 2>> a(n);
         vector<int> b(n);
         ll sum = 0;
         for (int i = 0; i < n; ++i) {

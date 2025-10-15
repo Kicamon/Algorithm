@@ -32,8 +32,8 @@ signed main() {
 
         int n, m, x, y;
         cin >> n >> m >> x >> y;
-        vector<vector<ll> > g(n + 1, vector<ll>(m + 1));
-        vector<vector<ll> > vis(n + 1, vector<ll>(m + 1));
+        vector<vector<ll>> g(n + 1, vector<ll>(m + 1));
+        vector<vector<ll>> vis(n + 1, vector<ll>(m + 1));
         vis[x][y] = true;
         g[0][0] = 1;
         for (int i = 0; i < 8; ++i) {
