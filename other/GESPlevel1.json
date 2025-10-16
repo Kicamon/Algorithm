@@ -1,0 +1,90 @@
+[
+  {
+    "name": "商店折扣",
+    "tag": "测试",
+    "difficulty": 3,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4409",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "小杨买书",
+    "tag": "测试",
+    "difficulty": 1,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B3952",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "小杨购物",
+    "tag": "测试",
+    "difficulty": 1,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4034",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "买文具",
+    "tag": "测试",
+    "difficulty": 1,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B3863",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "美丽数字",
+    "tag": "测试",
+    "difficulty": 2,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4035",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "小明的幸运数",
+    "tag": "测试",
+    "difficulty": 3,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B3864",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "四舍五入",
+    "tag": "测试",
+    "difficulty": 2,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4258",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "图书馆里的老鼠",
+    "tag": "测试",
+    "difficulty": 2,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4257",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "假期阅读",
+    "tag": "测试",
+    "difficulty": 1,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/B4354",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "小玉买文具",
+    "tag": "测试",
+    "difficulty": 2,
+    "attribute": 0,
+    "plink": "https://www.luogu.com.cn/problem/P1421",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  },
+  {
+    "name": "成绩分化",
+    "tag": "测试",
+    "difficulty": 1,
+    "attribute": 1,
+    "plink": "https://www.luogu.com.cn/problem/B4151",
+    "tlink": "https://www.bilibili.com/video/BV1YMe8eUEVA/?spm_id_from=333.1387.upload.video_card.click&vd_source=54c7f15515681874f0bdf2982482d588"
+  }
+]
