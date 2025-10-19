@@ -58,8 +58,8 @@ void spfa(int *h, int *dist, int type) {
                 vis[t] = false;
                 for (int i = h[t]; ~i; i = ne[i]) {
                         int j = e[i];
-                        if ((type == 0 && dist[j] > min(dist[t], w[j])) ||
-                            (type == 1 && dist[j] < max(dist[t], w[j]))) {
+                        if ((type == 0 && dist[j] > min(dist[t], w[j]))
+                            || (type == 1 && dist[j] < max(dist[t], w[j]))) {
                                 if (type == 0)
                                         dist[j] = min(dist[t], w[j]);
                                 else

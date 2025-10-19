@@ -50,8 +50,8 @@ signed main() {
                 vis[x][y] = true;
         }
         auto len = [&](int x, int y) {
-                return (point[y][0] - point[y][0]) * (point[y][0] - point[y][0]) +
-                       (point[x][1] - point[y][1]) * (point[x][1] - point[y][1]);
+                return (point[y][0] - point[y][0]) * (point[y][0] - point[y][0])
+                       + (point[x][1] - point[y][1]) * (point[x][1] - point[y][1]);
         };
         int ans = 0, line = 0;
         for (int i = 0; i < n; ++i) {

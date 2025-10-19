@@ -24,8 +24,8 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 bool check(char c) {
-        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-            c == '.') {
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+            || c == '.') {
                 return true;
         }
         return false;

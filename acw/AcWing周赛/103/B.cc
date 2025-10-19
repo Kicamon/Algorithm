@@ -53,8 +53,8 @@ signed main() {
                                         continue;
                                 int k = lower_bound(e[i].begin(), e[i].end(), y) - e[i].begin();
                                 if (k < num)
-                                        res =
-                                            min(res, num + (int)e[x].size() + (int)e[y].size() - 6);
+                                        res = min(res,
+                                                  num + (int)e[x].size() + (int)e[y].size() - 6);
                         }
                 }
         }

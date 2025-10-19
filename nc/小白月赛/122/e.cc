@@ -13,60 +13,66 @@
 [[ ⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠ ]],
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
- */
-//#pragma GCC optimize(2)
-#include <algorithm>
-#include <bits/stdc++.h>
+*/
+/* #pragma GCC optimize(2) */
+#include <functional>
+#include <ios>
+#include <iostream>
+#include <vector>
 using namespace std;
 #define endl '\n'
-#define all(a) a.begin(), a.end()
-#define rall(a) a.rbegin(), a.rend()
 #define ll long long
-#define vint vector<int>
-#define pb push_back
-const int N = 2e5 + 10;
-
-vint num[N];
+#define Debug(x) cout << #x << ':' << x << endl
+#define all(x) (x).begin(), (x).end()
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(0);
 
-        //clock_t start, finish;
-        //start = clock();
-
-        int n, m;
-        cin >> n >> m;
-        vint a(n);
-        int vmax = 0;
-        for (int i = 0; i < n; ++i) {
+        int n;
+        cin >> n;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; ++i) {
                 cin >> a[i];
-                num[a[i]].pb(i);
-                vmax = max(vmax, a[i]);
         }
-        while (m--) {
-                int op, x;
-                cin >> op >> x;
-                if (op == 1) {
-                        a.pb(x);
-                        num[x].pb(n++);
-                        if (x > vmax)
-                                vmax = x;
-                } else {
-                        int res = 0;
-                        for (int i = 1; (ll)a[x - 1] * i <= vmax; ++i) {
-                                if (!num[a[x - 1] * i].empty()) {
-                                        int t = upper_bound(all(num[a[x - 1] * i]), x - 1)
-                                                - num[a[x - 1] * i].begin();
-                                        res += num[a[x - 1] * i].size() - t;
-                                }
+
+        function<bool(int, int)> check = [&](int l, int r) {
+                int idx = l;
+                for (int i = 1; i < l; ++i) {
+                        if (a[i] == a[idx]) {
+                                idx++;
                         }
-                        cout << res << endl;
+                        if (idx > r) {
+                                return true;
+                        }
+                }
+                for (int i = r + 1; i <= n; ++i) {
+                        if (a[i] == a[idx]) {
+                                idx++;
+                        }
+                        if (idx > r) {
+                                return true;
+                        }
+                }
+                return false;
+        };
+
+        int ans = 0;
+        for (int i = 2; i < n; ++i) {
+                int l = i - 1, r = n - 1;
+                while (l < r) {
+                        int mid = (l + r + 1) >> 1;
+                        if (check(i, mid)) {
+                                l = mid;
+                        } else {
+                                r = mid - 1;
+                        }
+                }
+                if (i <= l && l < n) {
+                        ans += l - i + 1;
                 }
         }
-
-        //finish = clock();
-        //cout <<endl<<"the time cost is:" << double(finish - start) / CLOCKS_PER_SEC<<endl;
+        cout << ans << endl;
 
         return 0;
 }

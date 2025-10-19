@@ -42,9 +42,9 @@ signed main() {
                                         if (c & (a << 1) || a & (c << 1))
                                                 continue;
                                         for (int t = num[c]; t <= k; ++t)
-                                                f[i][b][c][t] =
-                                                    (f[i][b][c][t] + f[i - 1][a][b][t - num[c]]) %
-                                                    mod;
+                                                f[i][b][c][t]
+                                                    = (f[i][b][c][t] + f[i - 1][a][b][t - num[c]])
+                                                      % mod;
                                 }
                         }
                 }

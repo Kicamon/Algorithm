@@ -44,8 +44,8 @@ signed main() {
         sort(all(a), [&](auto x, auto y) { return x[2] < y[2]; });
         double ans = 0;
         for (int i = 1; i < n; ++i) {
-                ans += sqrt(get(a[i - 1][0], a[i][0]) + get(a[i - 1][1], a[i][1]) +
-                            get(a[i - 1][2], a[i][2]));
+                ans += sqrt(get(a[i - 1][0], a[i][0]) + get(a[i - 1][1], a[i][1])
+                            + get(a[i - 1][2], a[i][2]));
         }
         printf("%.3lf\n", ans);
 

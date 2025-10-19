@@ -42,9 +42,9 @@ ll get(vector<array<ll, 2>> a) {
                         res[i] = ((1 << a[i][1]) % mod * a[i][0] % mod + ans) % mod;
                         idx = i;
                 } else {
-                        res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans +
-                                  get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i))) %
-                                 mod;
+                        res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans
+                                  + get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i)))
+                                 % mod;
                 }
                 while (a[i][0] % 2 == 0) {
                         a[i][1]++;
@@ -75,9 +75,9 @@ void solve() {
                         res[i] = ((1 << a[i][1]) % mod * a[i][0] % mod + ans) % mod;
                         idx = i;
                 } else {
-                        res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans +
-                                  get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i))) %
-                                 mod;
+                        res[i] = (((1 << a[idx][1]) - 1) % mod * a[idx][0] % mod + ans
+                                  + get(vector<array<ll, 2>>(b.begin() + idx, b.begin() + i)))
+                                 % mod;
                 }
                 while (a[i][0] % 2 == 0) {
                         a[i][1]++;

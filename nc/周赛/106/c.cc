@@ -45,8 +45,8 @@ void solve() {
         } else {
                 for (int i = l1; i <= r1; ++i) {
                         for (int j = l2; j <= r2; ++j) {
-                                if (((i % 10) * (j % 10)) % 10 == temp[0] &&
-                                    (j % 10 * temp[0]) % 10 == temp[1]) {
+                                if (((i % 10) * (j % 10)) % 10 == temp[0]
+                                    && (j % 10 * temp[0]) % 10 == temp[1]) {
                                         cout << i << ' ' << j << endl;
                                         return;
                                 }

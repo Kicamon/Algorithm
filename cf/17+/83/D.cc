@@ -40,13 +40,13 @@ void solve() {
                 for (int j = 0; j <= (M << 1); ++j) {
                         if (f[i][j]) {
                                 if (j != M) {
-                                        f[i + 1][a[i + 1] + j] =
-                                            (f[i + 1][a[i + 1] + j] + f[i][j]) % mod;
-                                        f[i + 1][a[i + 1] - j + (M << 1)] =
-                                            (f[i + 1][a[i + 1] - j + (M << 1)] + f[i][j]) % mod;
+                                        f[i + 1][a[i + 1] + j]
+                                            = (f[i + 1][a[i + 1] + j] + f[i][j]) % mod;
+                                        f[i + 1][a[i + 1] - j + (M << 1)]
+                                            = (f[i + 1][a[i + 1] - j + (M << 1)] + f[i][j]) % mod;
                                 } else
-                                        f[i + 1][a[i + 1] + j] =
-                                            (f[i + 1][a[i + 1] + j] + f[i][j]) % mod;
+                                        f[i + 1][a[i + 1] + j]
+                                            = (f[i + 1][a[i + 1] + j] + f[i][j]) % mod;
                         }
                 }
         }

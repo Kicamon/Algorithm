@@ -49,9 +49,9 @@ void solve() {
                         alive.erase(x);
                 }
                 auto check = [&](auto it) {
-                        if ((it != alive.begin() ? a[*prev(it)] : 0) +
-                                (next(it) != alive.end() ? a[*next(it)] : 0) >
-                            d[*it]) {
+                        if ((it != alive.begin() ? a[*prev(it)] : 0)
+                                + (next(it) != alive.end() ? a[*next(it)] : 0)
+                            > d[*it]) {
                                 to_die.insert(*it);
                         }
                 };

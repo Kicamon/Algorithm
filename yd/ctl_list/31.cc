@@ -23,8 +23,8 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-int mg[][2] = { { -2, -1 }, { -2, 1 }, { -1, 2 }, { 1, 2 },
-                { 2, 1 },   { 2, -1 }, { 1, -2 }, { -1, -2 } };
+int mg[][2]
+    = { { -2, -1 }, { -2, 1 }, { -1, 2 }, { 1, 2 }, { 2, 1 }, { 2, -1 }, { 1, -2 }, { -1, -2 } };
 
 signed main() {
         ios::sync_with_stdio(false);

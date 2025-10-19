@@ -29,10 +29,10 @@ int main() {
         for (int i = 0; i < n; ++i) {
                 int len = get_int_len(a[i]);
                 ll t = a[i] % m;
-                res +=
-                    num[len]
-                       [(m - t) %
-                        m]; //(m - t) % m而不是m - t的原因是防止t=0的时候，y是余数不会取到m，下面的同理
+                res += num
+                    [len]
+                    [(m - t)
+                     % m]; //(m - t) % m而不是m - t的原因是防止t=0的时候，y是余数不会取到m，下面的同理
                 ll r = t;
                 while (len--)
                         r = r * 10 % m;

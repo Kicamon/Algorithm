@@ -46,8 +46,8 @@ template <class T> struct Splay {
                 while (tr[x].p != k) {
                         int y = tr[x].p, z = tr[y].p;
                         if (z != k) {
-                                if ((tr[y].s[1] == x) ^
-                                    (tr[z].s[1] == y)) { // xyz呈折线关系，转两次x
+                                if ((tr[y].s[1] == x)
+                                    ^ (tr[z].s[1] == y)) { // xyz呈折线关系，转两次x
                                         rotate(x);
                                 } else {
                                         rotate(y); // xyz呈直线关系，先转y在转x

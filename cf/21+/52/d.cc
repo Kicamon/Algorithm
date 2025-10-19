@@ -38,8 +38,8 @@ void solve() {
         while (q--) {
                 int l, r;
                 cin >> l >> r;
-                cout << (b[r][0] - b[l - 1][0]) + (b[r][1] - b[l - 1][1]) / 2 +
-                            (b[r][2] - b[l - 1][2])
+                cout << (b[r][0] - b[l - 1][0]) + (b[r][1] - b[l - 1][1]) / 2
+                            + (b[r][2] - b[l - 1][2])
                      << endl;
         }
 }

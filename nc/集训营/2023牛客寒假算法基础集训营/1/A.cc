@@ -26,15 +26,15 @@ signed main() {
                         if (s[i] == '1')
                                 num[i % 2]++;
                         if (i & 1) {
-                                if (num[1] - num[0] > 10 - i >> 1 ||
-                                    num[0] - num[1] > 10 - i - 1 >> 1) {
+                                if (num[1] - num[0] > 10 - i >> 1
+                                    || num[0] - num[1] > 10 - i - 1 >> 1) {
                                         cout << i + 1 << endl;
                                         f = false;
                                         break;
                                 }
                         } else {
-                                if (num[0] - num[1] > 10 - i >> 1 ||
-                                    num[1] - num[0] > 10 - i - 1 >> 1) {
+                                if (num[0] - num[1] > 10 - i >> 1
+                                    || num[1] - num[0] > 10 - i - 1 >> 1) {
                                         cout << i + 1 << endl;
                                         f = false;
                                         break;

@@ -29,8 +29,8 @@ void solve() {
         double len1 = fabs(((x[0] + x[1]) - (x[2] + x[3])) / 2);
         double len2 = fabs(((y[0] + y[1]) - (y[2] + y[3])) / 2);
         double len3 = sqrt(len1 * len1 + len2 * len2);
-        double len4 =
-            len3 - sqrt((x[3] - x[2]) * (x[3] - x[2]) / 4 + (y[3] - y[2]) * (y[3] - y[2]) / 4);
+        double len4
+            = len3 - sqrt((x[3] - x[2]) * (x[3] - x[2]) / 4 + (y[3] - y[2]) * (y[3] - y[2]) / 4);
         /* cout << len1 << ' ' << len2 << ' ' << len3 << ' ' << len4 << endl; */
         printf("%.10lf\n", len4 * (len1 + len2) / len3);
 }
