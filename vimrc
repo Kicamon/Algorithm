@@ -2,24 +2,21 @@
 set number
 set relativenumber
 syntax on
-set cursorlini % (int)b.size()0
+set cursorline
 let mapleader = "\<space>"
 set laststatus=3
 colorscheme desert
-hi Normal guibg=#282828
-hi EndOfBuffer guibg=#282828
-hi CursorLine guibg=#3c3836
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=8
+set shiftwidth=8
+set softtabstop=8
 set autoindent
 set smartindent
 set list
 set listchars=tab:\│∙,trail:∙ "vv Sb
 set wildmenu
-let &t_SI.="\e[5 q"
-let &t_SR.="\e[3 q"
-let &t_EI.="\e[1 q"
+let &t_SI = "\e[5 q"
+let &t_SR = "\e[3 q"
+let &t_EI = "\e[1 q"
 let leadermap=" "
 map H 0
 map L $
@@ -31,7 +28,7 @@ inoremap ( ()<ESC>i
 inoremap { {<CR>}<ESC>O
 inoremap ' ''<ESC>i
 inoremap " ""<ESC>i
-inoremap <A-l> <Right>
+inoremap <c-l> <Right>
 nnoremap tu :tabe<CR>:edit<space>
 nnoremap tn :+tabnext<CR>
 nnoremap tp :-tabnext<CR>
@@ -49,3 +46,6 @@ function! Run()
 	redraw!
 	echohl WarningMsg | echo " Running finish! :-)"
 endfunction
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
+set undodir=~/.vim/undo/

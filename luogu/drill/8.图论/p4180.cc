@@ -24,7 +24,6 @@
 using namespace std;
 #define endl '\n'
 #define ll long long
-#define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
 class TR {
@@ -38,17 +37,21 @@ class TR {
         int max_dep;
         vector<array<int, 3>> edge;
         int n, m;
-        ll sum;
+        ll sum = 0;
 
     public:
         TR(int _n, int _m) {
                 n = _n, m = _m;
                 max_dep = __lg(n) + 1;
-                g.resize(n + 1), dep.resize(n + 1), vis.resize(n + 1), f.resize(n + 1);
-                fa.assign(n + 1, vector<int>(max_dep, 0));
-                mmax.assign(n + 1, vector<int>(max_dep, -inf));
-                smax.assign(n + 1, vector<int>(max_dep, -inf));
+                g.resize(n + 1), dep.resize(n + 1), f.resize(n + 1), vis.resize(m);
+                fa.assign(n + 1, vector<int>(max_dep + 1, 0));
+                mmax.assign(n + 1, vector<int>(max_dep + 1, -inf));
+                smax.assign(n + 1, vector<int>(max_dep + 1, -inf));
                 iota(all(f), 0);
+        }
+
+        void add_edge(int u, int v, int w) {
+                edge.push_back({ u, v, w });
         }
 
         int find(int x) {
@@ -69,7 +72,7 @@ class TR {
         }
 
         void kruskal() {
-                sort(all(edge));
+                sort(all(edge), [](const auto &a, const auto &b) { return a[2] < b[2]; });
                 for (int i = 0; i < m; ++i) {
                         const auto &[u, v, w] = edge[i];
                         if (merge(u, v)) {
@@ -79,10 +82,6 @@ class TR {
                                 vis[i] = true;
                         }
                 }
-        }
-
-        void add_edge(int u, int v, int w) {
-                edge.push_back({ u, v, w });
         }
 
         void dfs(int u, int p) {
@@ -137,10 +136,13 @@ class TR {
         int query(int x, int y, int w) {
                 int res = -inf;
                 for (int i = max_dep; ~i; --i) {
-                        if (w != mmax[x][i]) {
-                                res = max(res, mmax[x][i]);
-                        } else {
-                                res = max(res, smax[x][i]);
+                        if (dep[fa[x][i]] >= dep[y]) {
+                                if (w != mmax[x][i]) {
+                                        res = max(res, mmax[x][i]);
+                                } else {
+                                        res = max(res, smax[x][i]);
+                                }
+                                x = fa[x][i];
                         }
                 }
                 return res;
@@ -157,10 +159,9 @@ class TR {
                         }
                         const auto &[u, v, w] = edge[i];
                         int _lca = lca(u, v);
-                        ll tmpa = query(u, _lca, w);
-                        ll tmpb = query(v, _lca, w);
-                        if (max(tmpa, tmpb) > -inf) {
-                                ans = min(ans, sum - max(tmpa, tmpb) + w);
+                        ll temp = max(query(u, _lca, w), query(v, _lca, w));
+                        if (temp > -inf) {
+                                ans = min(ans, sum - temp + w);
                         }
                 }
                 return ans == INF ? -1 : ans;
