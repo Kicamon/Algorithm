@@ -15,9 +15,7 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
-#include <functional>
 #include <iostream>
-#include <vector>
 using namespace std;
 #define endl '\n'
 #define ll long long
@@ -28,50 +26,8 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int l, r;
-        cin >> l >> r;
-        int n = __lg(r + 1);
-        vector<vector<ll>> c(n + 1, vector<ll>(n + 1));
-        c[0][0] = 1;
-        for (int i = 1; i <= n; ++i) {
-                c[i][0] = c[i][i] = 1;
-                for (int j = 1; j < i; ++j) {
-                        c[i][j] = c[i - 1][j - 1] + c[i - 1][j];
-                }
-        }
-
-        function<ll(int)> num = [&](int x) {
-                int t = x;
-                ll ans = 0, v = 0;
-                int idx = 0;
-                while (x > 1) {
-                        ll tmp = 0;
-                        int n = __lg(x + 1);
-                        for (int i = idx; i < n; i += 2) {
-                                tmp += c[n - 1][i];
-                        }
-                        for (int i = 0; i < n; ++i) {
-                                ans += tmp * (1 << i);
-                        }
-                        tmp = 0;
-                        for (int i = idx + 1; i <= n; i += 2) {
-                                tmp += c[n][i];
-                        }
-                        ans += tmp * v;
-                        v += 1 << n;
-                        x -= 1 << n;
-                        if (!idx && t >= v) {
-                                ans += v;
-                        }
-                        idx ^= 1;
-                }
-                if (!idx && t > v) {
-                        ans += v + 1;
-                }
-                return ans;
-        };
-
-        cout << num(r) - num(l - 1) << endl;
+        int n;
+        cin >> n;
 
         return 0;
 }
