@@ -18,6 +18,7 @@
 #include <iostream>
 #include <map>
 #include <numeric>
+#include <set>
 #include <vector>
 using namespace std;
 #define endl '\n'
@@ -25,6 +26,7 @@ using namespace std;
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
+vector<vector<int>> g;
 ll num(int x) {
         ll res = 0;
         res = 1ll * x * (x - 1) >> 1;
@@ -34,11 +36,9 @@ ll num(int x) {
 class DSU {
     private:
         vector<int> f, siz;
-        ll ans;
 
     public:
         DSU(int n) {
-                ans = 0;
                 f.resize(n);
                 iota(all(f), 0);
                 siz.assign(n, 1);
@@ -57,30 +57,19 @@ class DSU {
                 if (x == y) {
                         return false;
                 }
-                ans -= num(siz[x]) + num(siz[y]);
                 f[y] = x;
                 siz[x] += siz[y];
-                ans += num(siz[x]);
                 return true;
         }
 
-        ll get_ans() {
-                return ans;
+        bool same(int x, int y) {
+                return find(x) == find(y);
+        }
+
+        int size(int x) {
+                return siz[find(x)];
         }
 };
-
-vector<vector<int>> g;
-vector<int> fa;
-
-void init(int u, int p) {
-        fa[u] = p;
-        for (int v : g[u]) {
-                if (v == p) {
-                        continue;
-                }
-                init(v, u);
-        }
-}
 
 signed main() {
         ios::sync_with_stdio(false);
@@ -88,13 +77,12 @@ signed main() {
 
         int n;
         cin >> n;
-        g.resize(n + 1), fa.resize(n + 1);
+        g.resize(n + 1);
         for (int i = 1, u, v; i < n; ++i) {
                 cin >> u >> v;
                 g[u].push_back(v);
                 g[v].push_back(u);
         }
-        init(1, 0);
         int q;
         cin >> q;
         while (q--) {
@@ -108,11 +96,23 @@ signed main() {
                         mp[s[i]] = i;
                 }
                 for (int i = 0; i < k; ++i) {
-                        if (mp.count(fa[s[i]])) {
-                                dsu.merge(i, mp[fa[s[i]]]);
+                        int u = s[i];
+                        for (int v : g[u]) {
+                                if (mp.count(v)) {
+                                        dsu.merge(i, mp[v]);
+                                }
                         }
                 }
-                cout << dsu.get_ans() << endl;
+                set<int> st;
+                ll ans = 0;
+                for (int i = 0; i < k; ++i) {
+                        int p = dsu.find(i);
+                        if (!st.count(p)) {
+                                ans += num(dsu.size(p));
+                                st.insert(p);
+                        }
+                }
+                cout << ans << endl;
         }
 
         return 0;

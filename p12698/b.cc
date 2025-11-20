@@ -57,7 +57,8 @@ class DSU {
                 if (x == y) {
                         return false;
                 }
-                ans -= num(siz[x]) + num(siz[y]);
+                ans -= num(siz[x]);
+                ans -= num(siz[y]);
                 f[y] = x;
                 siz[x] += siz[y];
                 ans += num(siz[x]);
@@ -67,20 +68,11 @@ class DSU {
         ll get_ans() {
                 return ans;
         }
-};
 
-vector<vector<int>> g;
-vector<int> fa;
-
-void init(int u, int p) {
-        fa[u] = p;
-        for (int v : g[u]) {
-                if (v == p) {
-                        continue;
-                }
-                init(v, u);
+        int size(int x) {
+                return siz[find(x)];
         }
-}
+};
 
 signed main() {
         ios::sync_with_stdio(false);
@@ -88,13 +80,11 @@ signed main() {
 
         int n;
         cin >> n;
-        g.resize(n + 1), fa.resize(n + 1);
+        vector<vector<int>> g(n + 1);
         for (int i = 1, u, v; i < n; ++i) {
                 cin >> u >> v;
                 g[u].push_back(v);
-                g[v].push_back(u);
         }
-        init(1, 0);
         int q;
         cin >> q;
         while (q--) {
@@ -108,8 +98,11 @@ signed main() {
                         mp[s[i]] = i;
                 }
                 for (int i = 0; i < k; ++i) {
-                        if (mp.count(fa[s[i]])) {
-                                dsu.merge(i, mp[fa[s[i]]]);
+                        int u = s[i];
+                        for (int v : g[u]) {
+                                if (mp.count(v)) {
+                                        dsu.merge(i, mp[v]);
+                                }
                         }
                 }
                 cout << dsu.get_ans() << endl;

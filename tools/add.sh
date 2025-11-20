@@ -1,6 +1,6 @@
 #!/bin/bash
 
-prev="$HOME/Documents/Algorithm"
+prev="$HOME/Documents/Algorithm/docs"
 dir=$(pwd)
 file="."${dir:${#prev}}"/$1"
 time=$(date +'%Y.%m.%d')
