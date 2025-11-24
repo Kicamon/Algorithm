@@ -28,21 +28,27 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n, m;
-        cin >> n >> m;
-        vector<vector<array<int, 2>>> g(n + 1);
-        vector<int> du(n + 1);
-        int root = 0;
-        for (int i = 0, u, v, w; i < n; ++i) {
-                cin >> u >> v >> w;
-                g[u].push_back({ v, w });
-                g[v].push_back({ u, w });
-                du[u]++, du[v]++;
-                if (du[u] == 3) {
-                        root = u;
-                } else if (du[v] == 3) {
-                        root = v;
+        int n;
+        cin >> n;
+        char opt;
+        int idx = 0;
+        vector<array<int, 2>> a(n + 1);
+        a[0] = { -1, 0 };
+        for (int i = 1, x; i <= n; ++i) {
+                cin >> opt;
+                if (opt == 'a') {
+                        cin >> x;
+                        a[i] = { x, idx };
+                        idx = i;
+                } else if (opt == 's') {
+                        idx = a[i - 1][1];
+                        a[i] = a[idx];
+                } else {
+                        cin >> x;
+                        idx = x - 1;
+                        a[i] = a[idx];
                 }
+                cout << a[idx][0] << '\n';
         }
 
         return 0;
