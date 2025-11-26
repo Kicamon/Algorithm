@@ -16,9 +16,9 @@
 */
 /* #pragma GCC optimize(2) */
 #include <algorithm>
+#include <cmath>
 #include <iostream>
-#include <map>
-#include <set>
+#include <numeric>
 #include <vector>
 using namespace std;
 #define endl '\n'
@@ -48,13 +48,12 @@ void init() {
 
 class DSU {
     private:
-        map<ll, int> f;
+        vector<int> f;
 
     public:
-        DSU(int p, ll a, ll b) {
-                for (int i = min((ll)p, a); i <= b; ++i) {
-                        f[i] = i;
-                }
+        DSU(int n) {
+                f.resize(n);
+                iota(all(f), 0);
         }
 
         int find(int x) {
@@ -78,31 +77,19 @@ class DSU {
 void solve(int Case) {
         ll a, b, p;
         cin >> a >> b >> p;
-        if (p >= N) {
-                bool num[] = { 0, 0 };
-                for (int i = a; i <= b; ++i) {
-                        num[i % p == 0] = true;
-                }
-                cout << "Case #" << Case << ": " << num[0] + num[1] << '\n';
-                return;
-        }
+        DSU dsu(b - a + 1);
         int idx = lower_bound(all(primes), p) - primes.begin();
-        DSU dsu(p, a, b);
-        for (int i = a; i <= b; ++i) {
-                for (int j = idx; j < (int)primes.size() && primes[j] <= i; ++j) {
-                        if (i % primes[j] == 0) {
-                                dsu.merge(i, primes[j]);
-                        }
+        for (int i = idx; i < (int)primes.size() && primes[i] <= b; ++i) {
+                ll t = ceil((double)a / primes[i]);
+                for (ll j = primes[i] * t; j <= b; j += primes[i]) {
+                        dsu.merge(primes[i] * t - a, j - a);
                 }
         }
-        set<int> num;
-        for (int i = a; i <= b; ++i) {
-                int f = dsu.find(i);
-                if (!num.count(f)) {
-                        num.insert(f);
-                }
+        int ans = 0;
+        for (int i = 0; i <= b - a; ++i) {
+                ans += (dsu.find(i) == i);
         }
-        cout << "Case #" << Case << ": " << num.size() << '\n';
+        cout << "Case #" << Case << ": " << ans << '\n';
 }
 
 signed main() {
