@@ -15,84 +15,18 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 /* #pragma GCC optimize(2) */
-#include <algorithm>
 #include <iostream>
-#include <vector>
 using namespace std;
 #define endl '\n'
 #define ll long long
 #define Debug(x) cout << #x << ':' << x << endl
 #define all(x) (x).begin(), (x).end()
 
-vector<ll> a, b;
-vector<ll> node;
-
-int MAX(int l, int r) {
-        if (a[l] - b[l - 1] > a[r] - b[r - 1]) {
-                return l;
-        } else {
-                return r;
-        }
-}
-
-void push(int u) {
-        node[u] = MAX(node[u << 1], node[u << 1 | 1]);
-}
-
-void build(int u, int l, int r) {
-        if (l == r) {
-                node[u] = l;
-                return;
-        }
-        int mid = (l + r) >> 1;
-        build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
-        push(u);
-}
-
-int query(int u, int l, int r, int L, int R) {
-        if (L <= l && r <= R) {
-                return node[u];
-        }
-        int mid = (l + r) >> 1;
-        if (R <= mid) {
-                return query(u << 1, l, mid, L, R);
-        }
-        if (mid < L) {
-                return query(u << 1 | 1, mid + 1, r, L, R);
-        }
-        return MAX(query(u << 1, l, mid, L, R), query(u << 1 | 1, mid + 1, r, L, R));
-}
-
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n;
-        cin >> n;
-        int m = n << 1;
-        a.resize(m + 1), b.resize(m + 1);
-        node.resize(m << 2);
-
-        for (int i = 1; i <= n; ++i) {
-                cin >> a[i];
-                a[i + n] = a[i];
-        }
-        for (int i = 1; i <= n; ++i) {
-                cin >> b[i];
-                b[i + n] = b[i];
-        }
-        for (int i = 1; i <= m; ++i) {
-                b[i] += b[i - 1];
-        }
-
-        build(1, 1, m);
-
-        ll ans = *max_element(all(a));
-        for (int i = 1; i <= n; ++i) {
-                int tmp = query(1, 1, m, i + 1, i + n - 1);
-                ans = min(ans, max(a[i], a[tmp] - (b[tmp - 1] - b[i - 1])));
-        }
-        cout << ans << '\n';
+        
 
         return 0;
 }
