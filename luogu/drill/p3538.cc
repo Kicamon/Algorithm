@@ -30,22 +30,21 @@ int n;
 string s;
 vector<ull> a, mod;
 vector<int> primes;
-vector<set<int>> primes_s;
+vector<int> primes_s;
 
 void prime(int n) {
         vector<bool> vis(n + 1);
         for (int i = 2; i <= n; ++i) {
                 if (!vis[i]) {
                         primes.push_back(i);
-                        primes_s[i].insert(i);
+                        primes_s[i] = i;
                 }
                 for (int j : primes) {
                         if (i * j > n) {
                                 break;
                         }
                         vis[i * j] = true;
-                        primes_s[i * j] = primes_s[i];
-                        primes_s[j].insert(j);
+                        primes_s[i * j] = primes_s[j];
                         if (i % j == 0) {
                                 break;
                         }

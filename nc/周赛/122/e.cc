@@ -16,6 +16,7 @@
 */
 /* #pragma GCC optimize(2) */
 #include <iostream>
+#include <numeric>
 #include <vector>
 using namespace std;
 #define endl '\n'
@@ -26,24 +27,20 @@ using namespace std;
 void solve() {
         int n;
         cin >> n;
-        int m = __lg(n);
-        vector<int> dp(n + 2, (1 << (m + 2)) - 1);
-        for (int i = 0, x; i < n; ++i) {
-                cin >> x;
-                dp[x] = x;
-        }
-        for (int i = n; ~i; --i) {
-                for (int j = 0, t = i | (1 << j); j <= m && t <= n; ++j, t = i | (1 << j)) {
-                        dp[i] &= dp[t];
-                }
-        }
-        n++;
+        vector<int> a(n + 1), b(n + 1, 1), dp(n + 1);
+        b[0] = 1;
         for (int i = 1; i <= n; ++i) {
-                if (dp[i] > i) {
-                        cout << i << '\n';
-                        break;
+                cin >> a[i];
+                if (a[i] == a[i - 1]) {
+                        b[i] += b[i - 1];
                 }
         }
+        for (int i = 1; i <= n; ++i) {
+                if (a[i] <= b[i]) {
+                        dp[i] = dp[i - a[i]] + 1;
+                }
+        }
+        cout << accumulate(all(dp), 0) << '\n';
 }
 
 signed main() {

@@ -24,25 +24,11 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 
 void solve() {
-        int n;
-        cin >> n;
-        int m = __lg(n);
-        vector<int> dp(n + 2, (1 << (m + 2)) - 1);
-        for (int i = 0, x; i < n; ++i) {
-                cin >> x;
-                dp[x] = x;
-        }
-        for (int i = n; ~i; --i) {
-                for (int j = 0, t = i | (1 << j); j <= m && t <= n; ++j, t = i | (1 << j)) {
-                        dp[i] &= dp[t];
-                }
-        }
-        n++;
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n + 1);
         for (int i = 1; i <= n; ++i) {
-                if (dp[i] > i) {
-                        cout << i << '\n';
-                        break;
-                }
+                cin >> a[i];
         }
 }
 
