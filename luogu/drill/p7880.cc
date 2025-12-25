@@ -14,15 +14,11 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-/* #pragma GCC optimize(2) */
 #include <iostream>
 #include <vector>
 #include <array>
 using namespace std;
-#define endl '\n'
-#define ll long long
-#define Debug(x) cout << #x << ':' << x << endl
-#define all(x) (x).begin(), (x).end()
+using ll = long long;
 
 vector<vector<array<int, 2>>> g;
 vector<vector<int>> fa;

@@ -34,10 +34,9 @@ int find(int x) {
 
 void merge(int x, int y) {
         x = find(x), y = find(y);
-        if (x == y) {
-                return;
+        if (x != y) {
+                f[x] = y;
         }
-        f[x] = y;
 }
 
 signed main() {
@@ -49,10 +48,10 @@ signed main() {
         vector<array<int, 3>> a(m);
         vector<int> b;
         for (int i = 0, x, y; i < m; ++i) {
-                char opt;
+                string opt;
                 cin >> x >> y >> opt;
                 x--;
-                a[i] = { x, y, opt == 'o' };
+                a[i] = { x, y, opt[0] == 'o' };
                 b.push_back(x);
                 b.push_back(y);
         }
