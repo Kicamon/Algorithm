@@ -14,60 +14,16 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
+#include <algorithm>
 #include <iostream>
-#include <numeric>
+#include <queue>
 #include <vector>
+#include <array>
 using namespace std;
 
-class DSU {
-    private:
-        vector<int> f;
-        vector<vector<int>> node;
-        int siz, idx;
-
-    public:
-        DSU(int n) {
-                f.resize(n);
-                iota(f.begin(), f.end(), 0);
-                node.resize(n);
-                siz = 0, idx = 1;
-        }
-
-        int add_node(int x) {
-                node[x].push_back(idx++);
-                siz++;
-                return node[x].size();
-        }
-
-        int find_node(int x, int u) {
-                if ((int)node[x].size() >= u) {
-                        return node[x][u - 1];
-                }
-                return 0;
-        }
-
-        int find(int x) {
-                while (x != f[x]) {
-                        x = f[x] = f[f[x]];
-                }
-                return x;
-        }
-
-        bool merge(int a, int b) {
-                a = find(a);
-                b = find(b);
-                if (a == b) {
-                        return false;
-                }
-                siz--;
-                f[a] = b;
-                return true;
-        }
-
-        int size() {
-                return siz;
-        }
-};
+bool ump(array<int, 2> a, array<int, 2> b) {
+        return a[0] == b[0];
+}
 
 signed main() {
         ios::sync_with_stdio(false);
@@ -75,19 +31,28 @@ signed main() {
 
         int n;
         cin >> n;
-        DSU dsu(n + 2);
-        for (int i = 0, x, u, y; i < n; ++i) {
-                cin >> x;
-                u = dsu.add_node(x);
-                y = dsu.find_node(x - 1, u);
-                if (y) {
-                        dsu.merge(dsu.find_node(x, u), y);
+        vector<array<int, 2>> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i][0];
+                a[i][1] = i + 1;
+        }
+        sort(a.begin(), a.end());
+        auto it = unique(a.begin(), a.end(), ump);
+        queue<array<int, 2>> q, t;
+        while (a.end() != it) {
+                q.push(a.back());
+                a.pop_back();
+        }
+        for (int i = 1; i < (int)a.size(); ++i) {
+                if (a[i][0] != a[i - 1][0] + 1) {
+                        t.push({ a[i - 1][0] + 1, a[i][0] - 1 });
                 }
-                y = dsu.find_node(x + 1, u);
-                if (y) {
-                        dsu.merge(dsu.find_node(x, u), y);
+        }
+        while (!t.empty()) {
+                auto [l, r] = t.front();
+                t.pop();
+                if (r - l + 1 > q.size()) {
                 }
-                cout << dsu.size() << " \n"[i == n - 1];
         }
 
         return 0;
