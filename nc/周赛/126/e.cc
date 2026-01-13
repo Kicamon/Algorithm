@@ -14,72 +14,27 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
+#include <cmath>
 #include <iostream>
-#include <map>
-#include <numeric>
-#include <vector>
 using namespace std;
+using ll = long long;
+const ll inf = 1e9;
 
-class DSU {
-    private:
-        vector<int> f;
-        int siz;
-
-    public:
-        DSU(int n) {
-                siz = 0;
-                f.resize(n);
-                iota(f.begin(), f.end(), 0);
-        }
-
-        void add_node() {
-                siz++;
-        }
-
-        int find(int x) {
-                while (x != f[x]) {
-                        x = f[x] = f[f[x]];
-                }
-                return x;
-        }
-
-        void merger(int a, int b) {
-                a = find(a);
-                b = find(b);
-                if (a == b) {
-                        return;
-                }
-                f[a] = b;
-                siz--;
-        }
-
-        int size() {
-                return siz;
-        }
-};
+void solve() {
+        ll n;
+        cin >> n;
+        n = sqrt(n * inf) + 1;
+        cout << n * n << '\n';
+}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n, idx = 0;
-        cin >> n;
-        DSU dsu(n + 1);
-        map<int, vector<int>> node;
-        for (int i = 0, x; i < n; ++i) {
-                cin >> x;
-                node[x].push_back(++idx);
-                dsu.add_node();
-                int t = 0;
-                if (node[x - 1].size() >= node[x].size()) {
-                        t = node[x - 1][node[x].size() - 1];
-                        dsu.merger(idx, t);
-                }
-                if (node[x + 1].size() >= node[x].size()) {
-                        t = node[x + 1][node[x].size() - 1];
-                        dsu.merger(idx, t);
-                }
-                cout << dsu.size() << " \n"[i == n - 1];
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
         }
 
         return 0;
