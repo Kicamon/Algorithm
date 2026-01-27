@@ -15,47 +15,54 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
+#include <queue>
 #include <vector>
-#include <array>
 using namespace std;
-using ll = long long;
-const int mod = 998244353;
-
-void solve() {
-        string s;
-        cin >> s;
-        int n = s.size();
-        vector<array<array<ll, 2>, 2>> dp(n);
-        if (s[0] == '?') {
-                dp[0][0][0] = dp[0][1][0] = 1;
-        } else {
-                int t = s[0] - '0';
-                dp[0][t][0] = 1;
-        }
-        for (int i = 1; i < n; ++i) {
-                if (s[i] == '?') {
-                        dp[i][0][0] = (dp[i - 1][1][0] + dp[i - 1][0][1]) % mod;
-                        dp[i][0][1] = (dp[i - 1][0][0] + dp[i - 1][1][1]) % mod;
-                        dp[i][1][0] = (dp[i - 1][0][0] + dp[i - 1][1][1]) % mod;
-                        dp[i][1][1] = (dp[i - 1][1][0] + dp[i - 1][0][1]) % mod;
-                } else {
-                        int t = s[i] - '0';
-                        dp[i][t][0] = (dp[i - 1][1 - t][0] + dp[i - 1][t][1]) % mod;
-                        dp[i][t][1] = (dp[i - 1][t][0] + dp[i - 1][1 - t][1]) % mod;
-                }
-        }
-        cout << (dp[n - 1][0][0] + dp[n - 1][1][0]) % mod << '\n';
-}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int t;
-        cin >> t;
-        while (t--) {
-                solve();
+        string s;
+        cin >> s;
+        int n = s.size();
+        vector<bool> vis(n);
+        queue<int> rno, numo;
+        for (int i = n - 1; ~i; --i) {
+                if (s[i] == '1') {
+                        rno.push(i);
+                }
         }
+        for (int i = 1; i < n; ++i) {
+                if (s[i] == '0' && s[i - 1] == '1') {
+                        int j = i - 1;
+                        while (~j && s[j] == '1') {
+                                numo.push(j--);
+                        }
+                }
+        }
+        while (!rno.empty() && !numo.empty()) {
+                int t1 = numo.front();
+                numo.pop();
+                int t2 = rno.front();
+                rno.pop();
+                while (vis[t2]) {
+                        t2 = rno.front();
+                        rno.pop();
+                }
+                if (t1 >= t2) {
+                        break;
+                }
+                vis[t1] = true;
+                s[t2] = '2';
+        }
+        for (int i = 0; i < n; ++i) {
+                if (vis[i]) {
+                        continue;
+                }
+                cout << s[i];
+        }
+        cout << '\n';
 
         return 0;
 }
