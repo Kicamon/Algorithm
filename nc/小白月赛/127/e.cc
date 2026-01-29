@@ -39,17 +39,15 @@ void solve() {
                                 continue;
                         }
                         array<int, 3> temp = dfs(v, u);
-                        res[0] = (res[0]
-                                  + ((ll)res[2] * temp[1] % mod + (ll)res[1] * temp[2] % mod
-                                     + temp[2] + temp[0])
-                                        % mod)
-                                 % mod;
-                        res[1] += temp[1];
-                        res[2] += temp[2];
+                        res[0] = ((ll)res[0] + temp[0] + temp[2]) % mod;
+                        res[0] = ((ll)res[0] + (ll)res[2] * temp[1] % mod) % mod;
+                        res[0] = ((ll)res[0] + (ll)res[1] * temp[2] % mod) % mod;
+                        res[1] = ((ll)res[1] + temp[1]) % mod;
+                        res[2] = ((ll)res[2] + temp[2]) % mod;
                 }
 
                 res[2]++;
-                res[1] += res[2];
+                res[1] = ((ll)res[1] + res[2]) % mod;
 
                 return res;
         };
