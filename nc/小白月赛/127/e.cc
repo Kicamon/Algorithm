@@ -32,25 +32,29 @@ void solve() {
                 g[v].push_back(u);
         }
 
-        function<array<int, 2>(int, int)> dfs = [&](int u, int p) {
-                array<int, 2> res = { 1, 0 };
-
+        function<array<int, 3>(int, int)> dfs = [&](int u, int p) {
+                array<int, 3> res = { 0, 0, 0 };
                 for (int v : g[u]) {
                         if (v == p) {
                                 continue;
                         }
-                        array<int, 2> temp = dfs(v, u);
-                        res[0] = ((ll)res[0] * temp[0]) % mod;
+                        array<int, 3> temp = dfs(v, u);
+                        res[0] = (res[0]
+                                  + ((ll)res[2] * temp[1] % mod + (ll)res[1] * temp[2] % mod
+                                     + temp[2] + temp[0])
+                                        % mod)
+                                 % mod;
                         res[1] += temp[1];
+                        res[2] += temp[2];
                 }
 
-                res[0] = (res[0] + res[1]) % mod;
-                res[1]++;
+                res[2]++;
+                res[1] += res[2];
 
                 return res;
         };
 
-        array<int, 2> ans = dfs(1, 0);
+        array<int, 3> ans = dfs(1, 0);
         cout << ans[0] << '\n';
 }
 
