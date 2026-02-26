@@ -15,22 +15,51 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <map>
-#include <vector>
 using namespace std;
-using ll = long long;
+
+int reverse(int a) {
+        int res = 0;
+        while (a) {
+                res = res * 10 + a % 10;
+                a /= 10;
+        }
+        return res;
+}
 
 void solve() {
-        int n;
-        cin >> n;
-        map<int, int> index;
-        map<int, vector<int>> tree;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                index[x] = i;
-                tree[index[x - 1]].push_back(i);
+        int a, b, k;
+        cin >> a >> b >> k;
+
+        if (a % 10 == 0) {
+                if (a > b || (b - a) % k) {
+                        cout << -1 << '\n';
+                        return;
+                }
+                cout << (b - a) / k << '\n';
+                return;
         }
 
+        if (a > b) {
+                a = reverse(a);
+                if (a > b || (b - a) % k) {
+                        cout << -1 << '\n';
+                        return;
+                }
+                cout << (b - a) / k + 1 << '\n';
+                return;
+        }
+
+        int t = 1e6;
+        if ((b - a) % k == 0) {
+                t = (b - a) / k;
+        }
+        a = reverse(a);
+        if (a <= b && (b - a) % k == 0) {
+                t = min(t, (b - a) / k + 1);
+        }
+        cout << t << '\n';
+
+        return;
 }
 
 signed main() {

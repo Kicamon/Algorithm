@@ -15,22 +15,18 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <map>
-#include <vector>
 using namespace std;
-using ll = long long;
 
 void solve() {
-        int n;
-        cin >> n;
-        map<int, int> index;
-        map<int, vector<int>> tree;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                index[x] = i;
-                tree[index[x - 1]].push_back(i);
+        string s;
+        cin >> s;
+        for (char c : s) {
+                if (c == '0' || c == '5') {
+                        cout << "YES\n";
+                        return;
+                }
         }
-
+        cout << "NO\n";
 }
 
 signed main() {

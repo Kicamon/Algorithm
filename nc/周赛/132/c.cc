@@ -15,7 +15,7 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <map>
+#include <numeric>
 #include <vector>
 using namespace std;
 using ll = long long;
@@ -23,14 +23,24 @@ using ll = long long;
 void solve() {
         int n;
         cin >> n;
-        map<int, int> index;
-        map<int, vector<int>> tree;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                index[x] = i;
-                tree[index[x - 1]].push_back(i);
+        vector<ll> a(n);
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
         }
-
+        int num = 0;
+        if (a[0] == 1) {
+                a[0] = 2;
+                num++;
+        }
+        for (int i = 1; i + 1 < n; ++i) {
+                if (gcd(a[i], a[i - 1]) != 1) {
+                        continue;
+                }
+                a[i] = a[i - 1] * a[i + 1];
+                num++;
+        }
+        num += (gcd(a[n - 1], a[n - 2]) == 1);
+        cout << num << '\n';
 }
 
 signed main() {

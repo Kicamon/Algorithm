@@ -15,33 +15,15 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <map>
-#include <vector>
 using namespace std;
-using ll = long long;
-
-void solve() {
-        int n;
-        cin >> n;
-        map<int, int> index;
-        map<int, vector<int>> tree;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                index[x] = i;
-                tree[index[x - 1]].push_back(i);
-        }
-
-}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int t;
-        cin >> t;
-        while (t--) {
-                solve();
-        }
+        int n;
+        cin >> n;
+        cout << (n + 5) % 24;
 
         return 0;
 }

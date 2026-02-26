@@ -11,4 +11,5 @@
 - p3538.cc
 - p1431.cc
 - 84/e.cc
+- 02/c.cc
 https://ac.nowcoder.com/acm/contest/127264/F

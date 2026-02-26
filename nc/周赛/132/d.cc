@@ -15,22 +15,28 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <map>
 #include <vector>
+#include <array>
 using namespace std;
 using ll = long long;
 
 void solve() {
         int n;
         cin >> n;
-        map<int, int> index;
-        map<int, vector<int>> tree;
-        for (int i = 1, x; i <= n; ++i) {
-                cin >> x;
-                index[x] = i;
-                tree[index[x - 1]].push_back(i);
+        vector<ll> a(n);
+        array<int, 2> b = { 0, 0 };
+        for (int i = 0; i < n; ++i) {
+                cin >> a[i];
         }
-
+        ll pre = a[0], ans = 0;
+        b[a[0] % 2]++;
+        for (int i = 1; i < n; ++i) {
+                b[a[i] % 2]++;
+                ans += (pre + a[i] * i) >> 1;
+                ans -= b[1 - a[i] % 2] >> 1;
+                pre += a[i];
+        }
+        cout << ans << '\n';
 }
 
 signed main() {
