@@ -14,105 +14,95 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-/* #pragma GCC optimize(2) */
+#include <functional>
 #include <iostream>
 #include <map>
 #include <numeric>
 #include <vector>
 using namespace std;
-#define endl '\n'
-#define ll long long
-#define Debug(x) cout << #x << ':' << x << endl
-#define all(x) (x).begin(), (x).end()
+using ll = long long;
 
 ll num(int x) {
-        ll res = 0;
-        res = 1ll * x * (x - 1) >> 1;
-        return res;
+        return 1ll * x * (x - 1) / 2;
 }
 
 class DSU {
     private:
-        vector<int> f, siz;
-        ll ans;
+        vector<int> fa, siz;
+        ll size;
 
     public:
         DSU(int n) {
-                ans = 0;
-                f.resize(n);
-                iota(all(f), 0);
+                size = 0;
+                fa.resize(n);
+                iota(fa.begin(), fa.end(), 0);
                 siz.assign(n, 1);
         }
 
         int find(int x) {
-                while (x != f[x]) {
-                        x = f[x] = f[f[x]];
+                while (x != fa[x]) {
+                        x = fa[x] = fa[fa[x]];
                 }
                 return x;
         }
 
-        bool merge(int x, int y) {
-                x = find(x);
-                y = find(y);
-                if (x == y) {
+        bool merge(int a, int b) {
+                a = find(a);
+                b = find(b);
+                if (a == b) {
                         return false;
                 }
-                ans -= num(siz[x]) + num(siz[y]);
-                f[y] = x;
-                siz[x] += siz[y];
-                ans += num(siz[x]);
+                size += 1ll * siz[a] * siz[b];
+                fa[b] = a;
+                siz[a] += siz[b];
                 return true;
         }
 
-        ll get_ans() {
-                return ans;
+        ll get_size() {
+                return size;
         }
 };
-
-vector<vector<int>> g;
-vector<int> fa;
-
-void init(int u, int p) {
-        fa[u] = p;
-        for (int v : g[u]) {
-                if (v == p) {
-                        continue;
-                }
-                init(v, u);
-        }
-}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n;
+        int n, q, k;
         cin >> n;
-        g.resize(n + 1), fa.resize(n + 1);
+        vector<vector<int>> g(n + 1);
+        vector<int> fa(n + 1);
         for (int i = 1, u, v; i < n; ++i) {
                 cin >> u >> v;
                 g[u].push_back(v);
                 g[v].push_back(u);
         }
+
+        function<void(int, int)> init = [&](int u, int p) {
+                fa[u] = p;
+                for (int v : g[u]) {
+                        if (v == p) {
+                                continue;
+                        }
+                        init(v, u);
+                }
+        };
         init(1, 0);
-        int q;
+
         cin >> q;
         while (q--) {
-                int k;
                 cin >> k;
                 DSU dsu(k);
-                vector<int> s(k);
-                map<int, int> mp;
-                for (int i = 0; i < k; ++i) {
-                        cin >> s[i];
-                        mp[s[i]] = i;
+                map<int, int> p;
+                for (int i = 0, x; i < k; ++i) {
+                        cin >> x;
+                        p[x] = i;
                 }
-                for (int i = 0; i < k; ++i) {
-                        if (mp.count(fa[s[i]])) {
-                                dsu.merge(i, mp[fa[s[i]]]);
+                for (auto [u, i] : p) {
+                        if (p.count(fa[u])) {
+                                dsu.merge(i, p[fa[u]]);
                         }
                 }
-                cout << dsu.get_ans() << endl;
+                cout << dsu.get_size() << '\n';
         }
 
         return 0;
