@@ -14,60 +14,58 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-/* #pragma GCC optimize(2) */
-#include <algorithm>
 #include <iostream>
-#include <numeric>
 #include <vector>
 using namespace std;
-#define endl '\n'
-#define ll long long
-#define Debug(x) cout << #x << ':' << x << endl
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
-const int N = 230, M = 2e4 + 10;
+const int N = 105, M = 2e4 + 5;
 
-vector<int> is;
 bool dp[M][N];
-bool vis[N];
+bool vis[M];
+vector<int> is;
 
 void solve() {
-        int n;
+        int n, sum = 0;
         cin >> n;
-        vector<int> a(n);
-        for (int &x : a) {
+        for (int i = 0, x; i < n; ++i) {
                 cin >> x;
+                sum += x;
         }
-        sort(rall(a));
-        int num = accumulate(all(a), 0);
-        cout << n - !dp[num][n] << endl;
+        cout << n - !dp[sum][n] << '\n';
 }
+
 signed main() {
         ios::sync_with_stdio(false);
-        cin.tie(0);
+        cin.tie(nullptr);
 
-        for (int i = 1; i * i < N; ++i) {
+        for (int i = 1; i * i < M; ++i) {
                 vis[i * i] = true;
         }
-        for (int i = 0; i < N; ++i) {
-                int x = i, t = 0;
+
+        for (int i = 1; i < M; ++i) {
+                if (!vis[i]) {
+                        continue;
+                }
+                int t = 0, x = i;
                 while (x) {
                         t += x % 10;
                         x /= 10;
                 }
-                if (vis[i] && vis[t]) {
+                if (vis[t]) {
                         is.push_back(i);
                 }
         }
 
         dp[0][0] = true;
         for (int i = 0; i < M; ++i) {
-                for (int j : is) {
-                        if (i + j >= M) {
+                for (int j = 0; j < N - 1; ++j) {
+                        if (!dp[i][j]) {
                                 continue;
                         }
-                        for (int k = 0; k < N - 1; ++k) {
-                                dp[i + j][k + 1] |= dp[i][k];
+                        for (int x : is) {
+                                if (i + x >= M) {
+                                        break;
+                                }
+                                dp[i + x][j + 1] = true;
                         }
                 }
         }

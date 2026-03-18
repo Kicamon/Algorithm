@@ -14,38 +14,32 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-/* #pragma GCC optimize(2) */
 #include <algorithm>
 #include <array>
 #include <iostream>
 #include <vector>
 using namespace std;
-#define endl '\n'
-#define ll long long
-#define Debug(x) cout << #x << ':' << x << endl
-#define all(x) (x).begin(), (x).end()
 
 void solve() {
-        int n;
+        int n, m;
         cin >> n;
+        m = n / 2;
         vector<array<int, 3>> a(n);
         for (int i = 0; i < n; ++i) {
                 cin >> a[i][0] >> a[i][1];
                 a[i][2] = i + 1;
         }
-        sort(all(a));
-        sort(a.begin(), a.begin() + n / 2,
-             [&](array<int, 3> a, array<int, 3> b) { return a[1] < b[1]; });
-        sort(a.begin() + n / 2, a.end(),
-             [&](array<int, 3> a, array<int, 3> b) { return a[1] < b[1]; });
-        for (int i = 0, j = n - 1; i < j; ++i, --j) {
-                cout << a[i][2] << ' ' << a[j][2] << endl;
+        sort(a.begin(), a.end());
+        sort(a.begin(), a.begin() + m, [&](auto x, auto y) { return x[1] < y[1]; });
+        sort(a.begin() + m, a.end(), [&](auto x, auto y) { return x[1] > y[1]; });
+        for (int i = 0; i < m; ++i) {
+                cout << a[i][2] << ' ' << a[i + m][2] << '\n';
         }
 }
 
 signed main() {
         ios::sync_with_stdio(false);
-        cin.tie(0);
+        cin.tie(nullptr);
 
         int t;
         cin >> t;
