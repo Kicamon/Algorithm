@@ -15,44 +15,32 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
+#include <numeric>
 #include <vector>
 using namespace std;
 using ll = long long;
-const int mod = 998244353;
+
+void solve() {
+        ll a, b, c, m;
+        cin >> a >> b >> c >> m;
+        vector<ll> ans(3);
+        ll t = a * b / gcd(a, b);
+        t = t * c / gcd(t, c);
+        ans[0] = m / a * 6 - m / lcm(a, b) * 3 - m / lcm(a, c) * 3 + m / t * 2;
+        ans[1] = m / b * 6 - m / lcm(a, b) * 3 - m / lcm(b, c) * 3 + m / t * 2;
+        ans[2] = m / c * 6 - m / lcm(a, c) * 3 - m / lcm(b, c) * 3 + m / t * 2;
+        cout << ans[0] << ' ' << ans[1] << ' ' << ans[2] << '\n';
+}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n, m;
-        cin >> n >> m;
-        vector<int> a(n + 1);
-        vector<vector<int>> g(n + 1);
-        for (int i = 1; i <= n; ++i) {
-                cin >> a[i];
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
         }
-        for (int i = 0, u, v; i < m; ++i) {
-                cin >> u >> v;
-                g[u].push_back(v);
-                g[v].push_back(u);
-        }
-        ll ans = 0;
-        for (int i = 1; i <= n; ++i) {
-                vector<int> num(32);
-                int x = 0;
-                for (int j : g[i]) {
-                        for (int k = 0; k < 32; ++k) {
-                                if (((a[i] >> k) & 1) ^ ((a[j] >> k) & 1)) {
-                                        ans = (ans + (1ll << k) * (x - num[k])) % mod;
-                                } else {
-                                        ans = (ans + (1ll << k) * num[k]) % mod;
-                                }
-                                num[k] += (a[j] >> k) & 1;
-                        }
-                        x++;
-                }
-        }
-        cout << ans << '\n';
 
         return 0;
 }

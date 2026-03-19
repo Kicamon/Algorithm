@@ -15,44 +15,21 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <vector>
 using namespace std;
-using ll = long long;
-const int mod = 998244353;
+
+void solve() {
+        
+}
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n, m;
-        cin >> n >> m;
-        vector<int> a(n + 1);
-        vector<vector<int>> g(n + 1);
-        for (int i = 1; i <= n; ++i) {
-                cin >> a[i];
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
         }
-        for (int i = 0, u, v; i < m; ++i) {
-                cin >> u >> v;
-                g[u].push_back(v);
-                g[v].push_back(u);
-        }
-        ll ans = 0;
-        for (int i = 1; i <= n; ++i) {
-                vector<int> num(32);
-                int x = 0;
-                for (int j : g[i]) {
-                        for (int k = 0; k < 32; ++k) {
-                                if (((a[i] >> k) & 1) ^ ((a[j] >> k) & 1)) {
-                                        ans = (ans + (1ll << k) * (x - num[k])) % mod;
-                                } else {
-                                        ans = (ans + (1ll << k) * num[k]) % mod;
-                                }
-                                num[k] += (a[j] >> k) & 1;
-                        }
-                        x++;
-                }
-        }
-        cout << ans << '\n';
 
         return 0;
 }
