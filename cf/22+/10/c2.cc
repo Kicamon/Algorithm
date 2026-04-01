@@ -15,10 +15,13 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
+#include <numeric>
 #include <vector>
 using namespace std;
-const int N = 1e5 + 10;
-vector<int> prime;
+const int N = 22;
+using ain = array<int, N>;
+vector<int> prime
+    = { 1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73 };
 
 void solve() {
         int n;
@@ -30,27 +33,24 @@ void solve() {
         for (int i = 0; i < n; ++i) {
                 cin >> b[i];
         }
+        if (n == 1) {
+                cout << (b[0] > 1) << '\n';
+                return;
+        } else if (n == 2) {
+                vector<ain> dp(2);
+                int t = gcd(a[0], a[1]);
+                for (int i = 0; i < 2; ++i) {
+                        for (int j : prime) {
+                                if (j * a[i] <= b[i]) {
+                                }
+                        }
+                }
+        }
 }
 
 signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
-
-        vector<bool> vis(N);
-        for (int i = 2; i < N; ++i) {
-                if (!vis[i]) {
-                        prime.push_back(i);
-                }
-                for (int j : prime) {
-                        if (i * j >= N) {
-                                break;
-                        }
-                        vis[i * j] = true;
-                        if (i % j == 0) {
-                                break;
-                        }
-                }
-        }
 
         int t;
         cin >> t;
