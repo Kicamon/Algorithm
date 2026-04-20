@@ -15,7 +15,6 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <algorithm>
-#include <functional>
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -33,18 +32,18 @@ class DINIC {
         };
 
         int n;
-        vector<vector<node>> e;
         vector<int> dep, iter;
+        vector<vector<node>> g;
 
     public:
         DINIC(int _n) {
                 n = _n;
-                e.resize(n), dep.resize(n), iter.resize(n);
+                g.resize(n), dep.resize(n), iter.resize(n);
         }
 
         void add_edge(int u, int v, int w) {
-                e[u].push_back(node(e[v].size(), v, w, 0));
-                e[v].push_back(node(e[u].size() - 1, u, w, 0));
+                g[u].push_back(node(g[v].size(), v, w, 0));
+                g[v].push_back(node(g[u].size() - 1, u, 0, 0));
         }
 
         bool bfs(const int &s, const int &t) {
@@ -55,35 +54,33 @@ class DINIC {
                 while (!q.empty()) {
                         int u = q.front();
                         q.pop();
-                        for (auto [_, v, cap, flow] : e[u]) {
-                                if (dep[v] || cap <= flow) {
-                                        continue;
+                        for (auto [_, v, cap, flow] : g[u]) {
+                                if (!dep[v] && cap > flow) {
+                                        dep[v] = dep[u] + 1;
+                                        q.push(v);
                                 }
-                                dep[v] = dep[u] + 1;
-                                q.push(v);
                         }
                 }
                 return dep[t];
         }
 
-        int dfs(int u, int val, const int &t) {
+        int dfs(int u, int value, const int &t) {
                 if (u == t) {
-                        return val;
+                        return value;
                 }
 
-                for (int &i = iter[u]; i < (int)e[u].size(); ++i) {
-                        auto &[rev, v, cap, flow] = e[u][i];
+                for (int &i = iter[u]; i < (int)g[u].size(); ++i) {
+                        auto &[rev, v, cap, flow] = g[u][i];
                         if (dep[v] != dep[u] + 1 || cap <= flow) {
                                 continue;
                         }
-                        int d;
-                        if ((d = dfs(v, min(val, cap - flow), t)) > 0) {
+                        int d = dfs(v, min(value, cap - flow), t);
+                        if (d > 0) {
                                 flow += d;
-                                e[v][rev].flow -= d;
+                                g[v][rev].flow -= d;
                                 return d;
                         }
                 }
-
                 return 0;
         }
 
@@ -104,33 +101,14 @@ signed main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n, m;
-        cin >> n >> m;
-
-        function<int(int, int)> get = [&](int x, int y) { return x * m + y; };
-
-        DINIC di(n * m);
-        int t;
-        for (int i = 0; i < n; ++i) {
-                for (int j = 0; j < m - 1; ++j) {
-                        cin >> t;
-                        di.add_edge(get(i, j), get(i, j + 1), t);
-                }
+        int n, m, s, t;
+        cin >> n >> m >> s >> t;
+        DINIC di(n + 1);
+        for (int i = 0, u, v, w; i < m; ++i) {
+                cin >> u >> v >> w;
+                di.add_edge(u, v, w);
         }
-        for (int i = 0; i < n - 1; ++i) {
-                for (int j = 0; j < m; ++j) {
-                        cin >> t;
-                        di.add_edge(get(i, j), get(i + 1, j), t);
-                }
-        }
-        for (int i = 0; i < n - 1; ++i) {
-                for (int j = 0; j < m - 1; ++j) {
-                        cin >> t;
-                        di.add_edge(get(i, j), get(i + 1, j + 1), t);
-                }
-        }
-
-        cout << di.max_flow(0, get(n - 1, m - 1)) << '\n';
+        cout << di.max_flow(s, t) << '\n';
 
         return 0;
 }
