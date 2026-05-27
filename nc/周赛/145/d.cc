@@ -14,20 +14,56 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-#include <cmath>
+#include <algorithm>
 #include <iostream>
+#include <vector>
 using namespace std;
-using ll = long long;
 
 int main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int l, r, k;
-        cin >> l >> r >> k;
-        k = log(k);
-        for (int i = k;; ++i) {
-                ll t = 1 << i;
+        int n;
+        cin >> n;
+        vector<int> a(n), b(n), c(n);
+        vector<int> vis(n + 1);
+        vector<bool> visb(n + 1), visc(n + 1);
+        int idxb = 1, idxc = 1;
+        for (int i = 0, t = n / 2; i < n; ++i) {
+                cin >> a[i];
+                vis[a[i]]++;
+
+                if (t && visb[a[i]] == false) {
+                        b[i] = a[i];
+                        visb[a[i]] = true;
+                        t--;
+                } else {
+                        c[i] = a[i];
+                        visc[a[i]] = true;
+                }
+        }
+        if (*max_element(vis.begin(), vis.end()) > 2) {
+                cout << -1;
+                return 0;
+        }
+
+        for (int i = 0; i < n; ++i) {
+                if (!b[i]) {
+                        while (visb[idxb]) {
+                                idxb++;
+                        }
+                        b[i] = idxb++;
+                }
+                cout << b[i] << " \n"[i == n - 1];
+        }
+        for (int i = 0; i < n; ++i) {
+                if (!c[i]) {
+                        while (visc[idxc]) {
+                                idxc++;
+                        }
+                        c[i] = idxc++;
+                }
+                cout << c[i] << " \n"[i == n - 1];
         }
 
         return 0;

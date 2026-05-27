@@ -14,20 +14,24 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-#include <cmath>
 #include <iostream>
+#include <set>
 using namespace std;
-using ll = long long;
 
 int main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int l, r, k;
-        cin >> l >> r >> k;
-        k = log(k);
-        for (int i = k;; ++i) {
-                ll t = 1 << i;
+        set<char> st;
+        string s;
+        cin >> s;
+        for (char c : s) {
+                st.insert(c);
+        }
+        if (st.size() == 2) {
+                cout << "Yes\n";
+        } else {
+                cout << "No\n";
         }
 
         return 0;

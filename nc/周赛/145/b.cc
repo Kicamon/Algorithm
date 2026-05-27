@@ -14,7 +14,7 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
-#include <cmath>
+#include <array>
 #include <iostream>
 using namespace std;
 using ll = long long;
@@ -23,12 +23,19 @@ int main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int l, r, k;
-        cin >> l >> r >> k;
-        k = log(k);
-        for (int i = k;; ++i) {
-                ll t = 1 << i;
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        s = ' ' + s;
+        array<int, 2> pre = { 0, 0 };
+        ll ans = 0;
+        for (int i = 1; i <= n; ++i) {
+                int c = s[i] - '0';
+                pre[c] = i;
+                ans += pre[1 - c];
         }
+        cout << ans;
 
         return 0;
 }
