@@ -29,7 +29,8 @@ int main() {
         vector<int> vis(n + 1);
         vector<bool> visb(n + 1), visc(n + 1);
         int idxb = 1, idxc = 1;
-        for (int i = 0, t = n / 2; i < n; ++i) {
+        int t = n / 2;
+        for (int i = 0; i < n; ++i) {
                 cin >> a[i];
                 vis[a[i]]++;
 
@@ -42,7 +43,7 @@ int main() {
                         visc[a[i]] = true;
                 }
         }
-        if (*max_element(vis.begin(), vis.end()) > 2) {
+        if (t || *max_element(vis.begin(), vis.end()) > 2) {
                 cout << -1;
                 return 0;
         }
