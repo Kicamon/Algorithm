@@ -14,34 +14,35 @@
 [[ ⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙ ]],
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
+#include <algorithm>
 #include <iostream>
 #include <vector>
 using namespace std;
 using ll = long long;
-const int mod = 998244353;
 
 int main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n;
-        string s;
-        cin >> n >> s;
-        vector<vector<ll>> num(2, vector<ll>(3));
-
-        ll ans = 0;
-        for (char c : s) {
-                int t = c - '0';
-                num[1][t % 3]++;
-                if (t % 2 == 0) {
-                        ans = (ans + num[1][(3 - (t % 3)) % 3]) % mod;
-                }
-                for (int i = 0; i < 3; ++i) {
-                        num[1][(i + t) % 3] = (num[1][(i + t) % 3] + num[0][i]) % mod;
-                }
-                num[0] = num[1];
+        int n, a, b;
+        cin >> n >> a >> b;
+        vector<ll> num(14);
+        for (int i = 0, t; i < n; ++i) {
+                cin >> t;
+                num[t]++;
         }
-        cout << ans;
+        n = *max_element(num.begin(), num.end());
+        vector<vector<ll>> dp(14, vector<ll>(n + 1));
+        for (int i = 1; i <= 13; ++i) {
+                for (int j = 0; j <= num[i]; ++j) {
+                        dp[i][j] = (num[i] - j) / 3 * b;
+                }
+        }
+        for (int i = 3; i <= 13; ++i) {
+                for (int j = 0; j <= num[i]; ++j) {
+                        dp[i][j] = dp[i - 3][j];
+                }
+        }
 
         return 0;
 }

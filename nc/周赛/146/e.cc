@@ -15,33 +15,35 @@
 [[ ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ ]],
 */
 #include <iostream>
-#include <vector>
+#include <map>
 using namespace std;
-using ll = long long;
-const int mod = 998244353;
+
+void solve() {
+        int n;
+        cin >> n;
+        map<int, int> num;
+        for (int i = 0, t; i < n; ++i) {
+                cin >> t;
+                num[t]++;
+        }
+        for (auto [_, t] : num) {
+                if (t % 2) {
+                        cout << "red\n";
+                        return;
+                }
+        }
+        cout << "fang\n";
+}
 
 int main() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
 
-        int n;
-        string s;
-        cin >> n >> s;
-        vector<vector<ll>> num(2, vector<ll>(3));
-
-        ll ans = 0;
-        for (char c : s) {
-                int t = c - '0';
-                num[1][t % 3]++;
-                if (t % 2 == 0) {
-                        ans = (ans + num[1][(3 - (t % 3)) % 3]) % mod;
-                }
-                for (int i = 0; i < 3; ++i) {
-                        num[1][(i + t) % 3] = (num[1][(i + t) % 3] + num[0][i]) % mod;
-                }
-                num[0] = num[1];
+        int t;
+        cin >> t;
+        while (t--) {
+                solve();
         }
-        cout << ans;
 
         return 0;
 }
